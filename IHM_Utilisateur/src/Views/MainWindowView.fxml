@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainWindowController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu mnemonicParsing="false" text="Fichier">
+                <MenuItem mnemonicParsing="false" onAction="#logOutAction" text="Deconnexion" />
+                <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Quitter" />
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER">
+                <VBox.margin>
+                    <Insets left="5.0" right="5.0" top="5.0" />
+                </VBox.margin>
+                <Button fx:id="weekBeforeButton" mnemonicParsing="false" onAction="#weekBeforeAction" text="&lt;&lt;" />
+                <Label fx:id="weekSpanLabel" prefHeight="25.0">
+                    <HBox.margin>
+                        <Insets left="5.0" />
+                    </HBox.margin>
+                </Label>
+                <Button mnemonicParsing="false" onAction="#weekAfterAction" text="&gt;&gt;">
+                    <HBox.margin>
+                        <Insets left="5.0" />
+                    </HBox.margin>
+                </Button>
+            </HBox>
+            <GridPane>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints vgrow="SOMETIMES" />
+                </rowConstraints>
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </VBox.margin>
+                <VBox alignment="CENTER" GridPane.rowIndex="5" />
+                <HBox GridPane.columnIndex="1">
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="08:00 - 09:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="09:00 - 10:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="10:00 - 11:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="11:00 - 12:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="12:00 - 13:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="13:00 - 14:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="14:00 - 15:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="15:00 - 16:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="16:00 - 17:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="17:00 - 18:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="18:00 - 19:00" />
+                </HBox>
+                <Label fx:id="mondayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="1" />
+                <Label fx:id="tuesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="2" />
+                <Label fx:id="wednesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="3" />
+                <Label fx:id="thursdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="4" />
+                <Label fx:id="fridayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="5" />
+                <HBox fx:id="mondayHBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <HBox fx:id="tuesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox fx:id="wednesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <HBox fx:id="thursdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <HBox fx:id="fridayHBox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </GridPane>
+        </VBox>
+    </center>
+    <left>
+        <VBox BorderPane.alignment="CENTER">
+            <TitledPane text="Profile">
+                <content>
+                    <VBox>
+                        <children>
+                            <Label fx:id="appUserNameLabel" prefHeight="25.0">
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </Label>
+                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="190.0">
+                        <VBox.margin>
+                           <Insets top="5.0" />
+                        </VBox.margin>
+                        <children>
+                                  <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+                        </children>
+                     </Pane>
+                            <Button mnemonicParsing="false" onAction="#editProfileAction" text="Editer">
+                                <VBox.margin>
+                                    <Insets top="5.0" />
+                                </VBox.margin>
+                            </Button>
+                        </children>
+                    </VBox>
+                </content>
+            </TitledPane>
+            <TitledPane fx:id="addAppointmentTitledPane" animated="false" text="Ajout de cours">
+                <VBox>
+                    <DatePicker fx:id="datePicker" onAction="#datePickerAction" />
+                    <HBox>
+                        <opaqueInsets>
+                            <Insets />
+                        </opaqueInsets>
+                        <VBox.margin>
+                            <Insets left="5.0" right="5.0" top="5.0" />
+                        </VBox.margin>
+                        <Label alignment="CENTER" prefHeight="25.0" text="Heure de début :" />
+                        <ChoiceBox fx:id="startHourChoiceBox">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <Integer fx:value="08" />
+                                    <Integer fx:value="09" />
+                                    <Integer fx:value="10" />
+                                    <Integer fx:value="11" />
+                                    <Integer fx:value="12" />
+                                    <Integer fx:value="13" />
+                                    <Integer fx:value="14" />
+                                    <Integer fx:value="15" />
+                                    <Integer fx:value="16" />
+                                    <Integer fx:value="17" />
+                                    <Integer fx:value="18" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label prefHeight="25.0" text=" h " />
+                        <ChoiceBox fx:id="startMinutesChoiceBox">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <Integer fx:value="00" />
+                                    <Integer fx:value="15" />
+                                    <Integer fx:value="30" />
+                                    <Integer fx:value="45" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </HBox>
+                    <HBox>
+                        <VBox.margin>
+                            <Insets left="5.0" right="5.0" top="5.0" />
+                        </VBox.margin>
+                        <Label prefHeight="25.0" text="Heure de fin :" />
+                        <ChoiceBox fx:id="endHourChoiceBox">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <Integer fx:value="08" />
+                                    <Integer fx:value="09" />
+                                    <Integer fx:value="10" />
+                                    <Integer fx:value="11" />
+                                    <Integer fx:value="12" />
+                                    <Integer fx:value="13" />
+                                    <Integer fx:value="14" />
+                                    <Integer fx:value="15" />
+                                    <Integer fx:value="16" />
+                                    <Integer fx:value="17" />
+                                    <Integer fx:value="18" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                        <Label prefHeight="25.0" text=" h " />
+                        <ChoiceBox fx:id="endMinutesChoiceBox">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <Integer fx:value="00" />
+                                    <Integer fx:value="15" />
+                                    <Integer fx:value="30" />
+                                    <Integer fx:value="45" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </HBox>
+                    <HBox>
+                        <VBox.margin>
+                            <Insets top="5.0" />
+                        </VBox.margin>
+                        <children>
+                            <Label prefHeight="25.0" text="Professeur : " />
+                            <ChoiceBox fx:id="professorsChoiceBox" />
+                        </children>
+                    </HBox>
+                    <Button fx:id="addAppointmentButton" mnemonicParsing="false" onAction="#addCourseAction" text="Ajouter">
+                        <VBox.margin>
+                            <Insets top="5.0" />
+                        </VBox.margin>
+                    </Button>
+                </VBox>
+            </TitledPane>
+        </VBox>
+    </left>
+</BorderPane>
