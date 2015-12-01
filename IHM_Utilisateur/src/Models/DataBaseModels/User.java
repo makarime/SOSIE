@@ -3,6 +3,7 @@ package Models.DataBaseModels;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -71,7 +72,7 @@ public abstract class User {
             byte[] byteArrayImage = null;
 
             try {
-                byteArrayImage = Files.readAllBytes(Paths.get("C:\\Users\\daroc\\OneDrive\\SOSIE\\trunk\\IHM_Utilisateur\\src\\Nicolas Cage.jpg"));
+                byteArrayImage = Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
