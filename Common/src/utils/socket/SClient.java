@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.Base64;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -76,42 +77,42 @@ public class SClient {
         }
     }
 
-    public void send(String data) {
+    public void send(IMessage msg) {
         if(!isConnected())
             return;
-        internalSend("s-1", new StringMessage(data));
+        internalSend("s-1", msg);
     }
 
-    public void beginSend(String data, SClientCallback callback) {
+    public void beginSend(IMessage msg, SClientCallback callback) {
         if(!isConnected())
             return;
         long id = requestId.getAndIncrement();
         requestCallback.put(id, callback);
-        internalSend("s" + id, new StringMessage(data));
+        internalSend("s" + id, msg);
     }
 
-    public String sendResponse(String data) {
-        StringBuilder sb = new StringBuilder();
+    public IMessage sendResponse(IMessage msg) {
+        AtomicReference<IMessage> result = new AtomicReference<>(); //TODO: Autre classe pour faire des references?
         ReentrantLock l = new ReentrantLock();
         Condition c = l.newCondition();
-        this.beginSend(data, new SClientCallback() {
+        this.beginSend(msg, new SClientCallback() {
             public Lock lock;
             public Condition condition;
-            public StringBuilder response;
+            public AtomicReference<IMessage> response;
             @Override
-            public void onResult(SClient sender, String result) {
-                response.append(result);
+            public void onResult(SClient sender, IMessage result) {
+                response.set(result);
                 lock.lock();
                 condition.signal();
                 lock.unlock();
             }
-            private SClientCallback init(Lock l, Condition c, StringBuilder sb) {
+            private SClientCallback init(Lock l, Condition c, AtomicReference<IMessage> r) {
                 lock = l;
-                response = sb;
+                response = r;
                 condition = c;
                 return this;
             }
-        }.init(l, c, sb));
+        }.init(l, c, result));
         l.lock();
         try {
             c.await();
@@ -119,8 +120,24 @@ public class SClient {
             e.printStackTrace();
         }
         l.unlock();
-        return sb.toString();
+        return result.get();
     }
+
+    @Deprecated
+    public void send(String data) {
+        send(new StringMessage(data));
+    }
+
+    @Deprecated
+    public void beginSend(String data, SClientCallback callback) {
+        beginSend(new StringMessage(data), callback);
+    }
+
+    @Deprecated
+    public String sendResponse(String data) {
+        IMessage msg = sendResponse(new StringMessage(data));
+        return (msg instanceof StringMessage ? ((StringMessage)msg).get() : null);
+    };
 
     public Socket getSocket() {
         return socket;
@@ -140,20 +157,24 @@ public class SClient {
                     data = data.substring(data.indexOf("#") + 1);
                     try {
                         IMessage msg = ((IMessage) deserialize(Base64.getDecoder().decode(data)));
-                        if(msg != null && msg instanceof StringMessage)
-                            data = ((StringMessage)msg).get();
+                        if(msg == null)
+                            throw new Exception("Deserialization error");
+
                         if(!request && rid != -1) {
                             if(requestCallback.containsKey(rid)) {
-                                requestCallback.get(rid).onResult(SClient.this, data);
+                                requestCallback.get(rid).onResult(SClient.this, msg);
                                 requestCallback.remove(rid);
                             } else
                                 System.err.println("Callback " + rid + " introuvable !");
                         } else {
                             // Flux standard //
-                            StringWriter response = (rid != -1) ? new StringWriter() : null;
-                            fireOnDataArrival(data, response);
-                            if(response != null)
-                                internalSend("r" + rid, new StringMessage(response.toString()));
+                            ByteArrayOutputStream response = (rid != -1) ? new ByteArrayOutputStream() : null;
+                            fireOnDataArrival(msg, response);
+                            //TODO: Impossible de passer par reference en JAVA ...
+                            if(response != null) {
+                                if(response.size() == 0) response.write(serialize(new StringMessage(null)));
+                                out.writeBytes("r" + rid + "#" + Base64.getEncoder().encodeToString(response.toByteArray()) + "\r\n"); //Solution temporaire
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -182,9 +203,9 @@ public class SClient {
         }
     }
 
-    private void fireOnDataArrival(String data, StringWriter response) {
+    private void fireOnDataArrival(IMessage msg, ByteArrayOutputStream response) {
         for(SClientListener listener : listeners.getListeners(SClientListener.class)) {
-            listener.onDataArrival(this, data, response);
+            listener.onDataArrival(this, msg, response);
         }
     }
 

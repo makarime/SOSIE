@@ -1,5 +1,5 @@
 package utils.socket;
 
 public interface SClientCallback {
-    void onResult(SClient sender, String result);
+    void onResult(SClient sender, IMessage result);
 }
