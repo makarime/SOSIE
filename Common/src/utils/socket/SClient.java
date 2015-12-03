@@ -3,6 +3,8 @@ package utils.socket;
 import javax.swing.event.EventListenerList;
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Condition;
@@ -15,6 +17,8 @@ public class SClient {
     private Socket socket;
     private BufferedReader in = null;
     private DataOutputStream out = null;
+
+    private final Charset UTF8_CHARSET = Charset.forName("UTF-8");
 
     private AtomicLong requestId = new AtomicLong();
     private ConcurrentHashMap<Long, SClientCallback> requestCallback = new ConcurrentHashMap<>();
@@ -74,7 +78,7 @@ public class SClient {
     public void send(String data) {
         if(!isConnected())
             return;
-        internalSend("s-1#" + data);
+        internalSend("s-1#" + Base64.getEncoder().encodeToString(data.getBytes(UTF8_CHARSET)));
     }
 
     public void beginSend(String data, SClientCallback callback) {
@@ -82,7 +86,7 @@ public class SClient {
             return;
         long id = requestId.getAndIncrement();
         requestCallback.put(id, callback);
-        internalSend("s" + id + "#" + data);
+        internalSend("s" + id + "#" + Base64.getEncoder().encodeToString(data.getBytes(UTF8_CHARSET)));
     }
 
     public String sendResponse(String data) {
@@ -133,6 +137,7 @@ public class SClient {
                     boolean request = data.substring(0,1).equals("s");
                     long rid = Long.parseLong(data.substring(1, data.indexOf("#")));
                     data = data.substring(data.indexOf("#") + 1);
+                    data = new String(Base64.getDecoder().decode(data), UTF8_CHARSET);
                     try {
                         if(!request && rid != -1) {
                             if(requestCallback.containsKey(rid)) {
@@ -145,7 +150,7 @@ public class SClient {
                             StringWriter response = (rid != -1) ? new StringWriter() : null;
                             fireOnDataArrival(data, response);
                             if(response != null)
-                                internalSend("r" + rid + "#" + response.toString());
+                                internalSend("r" + rid + "#" + Base64.getEncoder().encodeToString(response.toString().getBytes(UTF8_CHARSET)));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
