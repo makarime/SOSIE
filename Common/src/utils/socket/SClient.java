@@ -1,5 +1,6 @@
 package utils.socket;
 
+import utils.socket.message.NullResponse;
 import utils.socket.message.StringMessage;
 
 import javax.swing.event.EventListenerList;
@@ -168,13 +169,12 @@ public class SClient {
                                 System.err.println("Callback " + rid + " introuvable !");
                         } else {
                             // Flux standard //
-                            ByteArrayOutputStream response = (rid != -1) ? new ByteArrayOutputStream() : null;
-                            fireOnDataArrival(msg, response);
-                            //TODO: Impossible de passer par reference en JAVA ...
-                            if(response != null) {
-                                if(response.size() == 0) response.write(serialize(new StringMessage(null)));
-                                out.writeBytes("r" + rid + "#" + Base64.getEncoder().encodeToString(response.toByteArray()) + "\r\n"); //Solution temporaire
-                            }
+                            DataArrivalEvent e = new DataArrivalEvent(msg, rid != -1);
+                            fireOnDataArrival(e);
+                            if(e.isRequest() && e.getResponse() == null)
+                                e.setResponse(new NullResponse());
+                            if(e.getResponse() != null)
+                                internalSend("r" + rid, e.getResponse());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -203,9 +203,9 @@ public class SClient {
         }
     }
 
-    private void fireOnDataArrival(IMessage msg, ByteArrayOutputStream response) {
+    private void fireOnDataArrival(DataArrivalEvent event) {
         for(SClientListener listener : listeners.getListeners(SClientListener.class)) {
-            listener.onDataArrival(this, msg, response);
+            listener.onDataArrival(this, event);
         }
     }
 
