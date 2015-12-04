@@ -11,7 +11,7 @@ public class DataBase {
         User user = DataBase.users.get(id);
 
         if (user == null) {
-            //TODO database request
+            //AppUser.sClient.sendRequest(new )
         }
 
         return user;
