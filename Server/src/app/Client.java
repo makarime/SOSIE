@@ -52,6 +52,7 @@ public class Client {
     private void registerCallback() {
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
+        messagesCallback.put(UserRequest.class, onUserRequest);
     }
 
     public IMessageCallback onPingRequest = data -> {
@@ -64,4 +65,8 @@ public class Client {
         data.setResponse(new LoginResponse(true, new Student(1, "Nicolas", "Cage")));
     };
 
+    public IMessageCallback onUserRequest = data -> {
+        UserRequest msg = (UserRequest)data.getMessage();
+        data.setResponse(new UserResponse(new Student(1, "Jack", "pot")));
+    };
 }
