@@ -92,7 +92,7 @@ public class SClient {
         internalSend("s" + id, msg);
     }
 
-    public IMessage sendResponse(IMessage msg) { //TODO: A Voir si on fait un throw si ErrorMessage ?
+    public IMessage sendRequest(IMessage msg) { //TODO: A Voir si on fait un throw si ErrorMessage ?
         AtomicReference<IMessage> result = new AtomicReference<>(); //TODO: Autre classe pour faire des references?
         ReentrantLock l = new ReentrantLock();
         Condition c = l.newCondition();
@@ -135,8 +135,8 @@ public class SClient {
     }
 
     @Deprecated
-    public String sendResponse(String data) {
-        IMessage msg = sendResponse(new StringMessage(data));
+    public String sendRequest(String data) {
+        IMessage msg = sendRequest(new StringMessage(data));
         return (msg instanceof StringMessage ? ((StringMessage)msg).get() : null);
     }
 

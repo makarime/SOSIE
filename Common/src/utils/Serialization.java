@@ -1,5 +1,3 @@
-//Coucou, ca va? il est mignon
-
 package utils;
 
 import java.io.*;
