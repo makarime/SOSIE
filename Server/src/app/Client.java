@@ -62,11 +62,11 @@ public class Client {
     public IMessageCallback onLoginRequest = data -> {
         LoginRequest msg = (LoginRequest)data.getMessage();
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
-        data.setResponse(new LoginResponse(true, new Student(1, "Nicolas", "Cage")));
+        data.setResponse(new LoginResponse(true, new Student(1, "nico", "Nicolas", "Cage", 2)));
     };
 
     public IMessageCallback onUserRequest = data -> {
         UserRequest msg = (UserRequest)data.getMessage();
-        data.setResponse(new UserResponse(new Student(1, "Jack", "pot")));
+        data.setResponse(new UserResponse(new Student(1, "yoo", "Jack", "pot", 1)));
     };
 }
