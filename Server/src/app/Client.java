@@ -1,5 +1,6 @@
 package app;
 
+import Models.Student;
 import utils.socket.DataArrivalEvent;
 import utils.socket.SClient;
 import utils.socket.SClientAdapter;
@@ -60,7 +61,7 @@ public class Client {
     public IMessageCallback onLoginRequest = data -> {
         LoginRequest msg = (LoginRequest)data.getMessage();
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
-        data.setResponse(new LoginResponse(true));
+        data.setResponse(new LoginResponse(true, new Student(1, "Nicolas", "Cage")));
     };
 
 }
