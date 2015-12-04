@@ -28,8 +28,10 @@ public class AppUser {
     }
 
     public static boolean loginRequest(String userName, String password) {
-        if (((LoginResponse) AppUser.sClient.sendRequest(new LoginRequest(userName, password))).getSuccess()) {
-            AppUser.user = new Student(1, "Nicolas", "Cage");
+        LoginResponse loginResponse = ((LoginResponse) AppUser.sClient.sendRequest(new LoginRequest(userName, password)));
+
+        if (loginResponse.getSuccess()) {
+            AppUser.user = loginResponse.getUser();
             return true;
         } else
             return false;

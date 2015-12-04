@@ -2,9 +2,7 @@ package Models;
 
 import javafx.scene.image.Image;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public abstract class User implements Serializable {
@@ -17,20 +15,17 @@ public abstract class User implements Serializable {
 
     public boolean isStudent() {
         return this.status == Status.student;
-
     }
 
-    public boolean isProfessor(){
+    public boolean isProfessor() {
         return this.status == Status.professor;
-
     }
 
     public String toString() {
         return this.firstName + " " + this.name;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 
@@ -39,8 +34,7 @@ public abstract class User implements Serializable {
         return this.email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -49,24 +43,15 @@ public abstract class User implements Serializable {
         return this.profileImage;
     }
 
-    public void setProfileImage(Image image)
-    {
+    public void setProfileImage(Image image) {
         this.profileImage = image;
     }
 
-    private void loadAdditionalInformation(){
-        if (this.profileImage == null) {
-            //Exemple with byte array (what will probably be received from the database)
-            byte[] byteArrayImage = null;
+    private void loadAdditionalInformation() {
+        //TODO server request
 
-            try {
-                byteArrayImage = Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            this.profileImage = new Image(new ByteArrayInputStream(byteArrayImage));
-        }
+        if (this.profileImage == null)
+            this.profileImage = new Image(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg").toUri().toString());
 
         if (this.email == null)
             this.email = "test@gmail.com";
