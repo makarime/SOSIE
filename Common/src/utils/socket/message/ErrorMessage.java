@@ -3,9 +3,8 @@ package utils.socket.message;
 import utils.socket.IMessage;
 
 public class ErrorMessage implements IMessage {
-
-    private int id;
-    private String description;
+    private final int id;
+    private final String description;
 
     public ErrorMessage(int id, String description) {
         this.id = id;

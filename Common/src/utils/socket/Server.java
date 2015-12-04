@@ -6,9 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    private EventListenerList listeners = new EventListenerList();
+    private final EventListenerList listeners = new EventListenerList();
     private ListenThread thread = null;
-    public ServerSocket socket = null;
+    private ServerSocket socket = null;
 
     public Server(ServerListener listener) {this.addListener(listener);}
     public Server(ServerListener listener, int port) throws IOException {this.addListener(listener); this.listen(port);}
@@ -28,6 +28,10 @@ public class Server {
         thread.interrupt();
         socket.close();
         System.out.println("[Server] Arret de l'ecoute");
+    }
+
+    public ServerSocket getServerSocket() {
+        return socket;
     }
 
     private class ListenThread extends Thread {

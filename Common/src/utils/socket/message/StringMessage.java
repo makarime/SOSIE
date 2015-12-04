@@ -21,6 +21,6 @@ public class StringMessage implements IMessage {
 
     @Override
     public String toString() {
-        return super.toString();
+        return value;
     }
 }

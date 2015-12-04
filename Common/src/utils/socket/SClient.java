@@ -17,14 +17,14 @@ import java.util.concurrent.locks.ReentrantLock;
 import static utils.Serialization.*;
 
 public class SClient {
-    private EventListenerList listeners = new EventListenerList();
+    private final EventListenerList listeners = new EventListenerList();
     private DataArrivalThread thread = null;
     private Socket socket;
     private BufferedReader in = null;
     private DataOutputStream out = null;
 
-    private AtomicLong requestId = new AtomicLong();
-    private ConcurrentHashMap<Long, SClientCallback> requestCallback = new ConcurrentHashMap<>();
+    private final AtomicLong requestId = new AtomicLong();
+    private final ConcurrentHashMap<Long, SClientCallback> requestCallback = new ConcurrentHashMap<>();
 
     public SClient(String host, int port) throws IOException {this.connect(host, port);}
     public SClient(String host, int port, SClientListener listener) throws IOException {this.addListener(listener); this.connect(host, port);}
@@ -92,7 +92,7 @@ public class SClient {
         internalSend("s" + id, msg);
     }
 
-    public IMessage sendResponse(IMessage msg) {
+    public IMessage sendResponse(IMessage msg) { //TODO: A Voir si on fait un throw si ErrorMessage ?
         AtomicReference<IMessage> result = new AtomicReference<>(); //TODO: Autre classe pour faire des references?
         ReentrantLock l = new ReentrantLock();
         Condition c = l.newCondition();
@@ -138,7 +138,7 @@ public class SClient {
     public String sendResponse(String data) {
         IMessage msg = sendResponse(new StringMessage(data));
         return (msg instanceof StringMessage ? ((StringMessage)msg).get() : null);
-    };
+    }
 
     public Socket getSocket() {
         return socket;

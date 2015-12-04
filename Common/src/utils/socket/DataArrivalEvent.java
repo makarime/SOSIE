@@ -1,9 +1,9 @@
 package utils.socket;
 
 public class DataArrivalEvent {
-    private IMessage message;
-    public IMessage response;
-    private boolean request;
+    private final boolean request;
+    private final IMessage message;
+    private IMessage response;
 
     public DataArrivalEvent(IMessage msg, boolean request) {
         this.message = msg;
