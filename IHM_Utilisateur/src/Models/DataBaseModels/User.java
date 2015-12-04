@@ -3,38 +3,27 @@ package Models.DataBaseModels;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public abstract class User {
-    protected enum Status {
-        professor,
-        student
-    }
     protected Status status = null;
-
     protected int id;
     protected String pseudo = null;
     protected String firstName = null;
     protected String name = null;
     protected String email = null;
-
     protected byte[] password = null;
     protected Image profileImage = null;
 
     public boolean isStudent() {
-        if (this.status == Status.student)
-            return true;
+        return this.status == Status.student;
 
-        return false;
     }
 
     public boolean isProfessor(){
-        if (this.status == Status.professor)
-            return true;
+        return this.status == Status.professor;
 
-        return false;
     }
 
     public String toString() {
@@ -46,24 +35,24 @@ public abstract class User {
         return this.id;
     }
 
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
     public String getEmail() {
         this.loadAdditionalInformation();
         return this.email;
     }
 
-    public void setProfileImage(Image image)
+    public void setEmail(String email)
     {
-        this.profileImage = image;
+        this.email = email;
     }
 
     public Image getProfileImage() {
         this.loadAdditionalInformation();
         return this.profileImage;
+    }
+
+    public void setProfileImage(Image image)
+    {
+        this.profileImage = image;
     }
 
     private void loadAdditionalInformation(){
@@ -82,5 +71,10 @@ public abstract class User {
 
         if (this.email == null)
             this.email = "test@gmail.com";
+    }
+
+    protected enum Status {
+        professor,
+        student
     }
 }

@@ -1,11 +1,9 @@
 package Controllers;
 
-import Models.*;
+import Models.AppCalendar;
+import Models.AppUser;
 import Models.DataBaseModels.Appointment;
-import Models.DataBaseModels.DataBase;
-import Models.DataBaseModels.Professor;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Models.Week;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,19 +31,9 @@ public class MainWindowController implements Initializable {
     @FXML
     public ImageView profileImageView;
     @FXML
-    public ChoiceBox<Integer> startHourChoiceBox;
-    @FXML
-    public ChoiceBox<Integer> startMinutesChoiceBox;
-    @FXML
-    public ChoiceBox<Integer> endHourChoiceBox;
-    @FXML
-    public ChoiceBox<Integer> endMinutesChoiceBox;
-    @FXML
-    public TitledPane addAppointmentTitledPane;
+    public TitledPane dateSelectorTitledPane;
     @FXML
     public DatePicker datePicker;
-    @FXML
-    public Button addAppointmentButton;
     @FXML
     public Label weekSpanLabel;
     @FXML
@@ -70,8 +58,6 @@ public class MainWindowController implements Initializable {
     public HBox thursdayHBox;
     @FXML
     public HBox fridayHBox;
-    @FXML
-    public ChoiceBox<Professor> professorsChoiceBox;
 
     public Stage stage = null;
     private ArrayList<Week> weeks = null;
@@ -82,7 +68,6 @@ public class MainWindowController implements Initializable {
         this.weeks = new ArrayList<>();
         this.weekOffset = 0;
         this.weeks.add(new Week(0));
-        DataBase.setProfessors();
 
         this.setInitializationUI();
         this.setUI();
@@ -106,34 +91,8 @@ public class MainWindowController implements Initializable {
         this.datePicker.setDayCellFactory(dayCellFactory);
     }
 
-    private void setCourseHourChoiceBoxes() {
-        this.startHourChoiceBox.getSelectionModel().selectFirst();
-        this.startMinutesChoiceBox.getSelectionModel().selectFirst();
-        this.endHourChoiceBox.getSelectionModel().select(1);
-        this.endMinutesChoiceBox.getSelectionModel().selectFirst();
-    }
-
-    private void setProfessorsChoiceBox() {
-        ObservableList<Professor> list = FXCollections.observableArrayList(DataBase.professorsHashtable.values());
-        list.sort((p1, p2) -> p1.toString().compareTo(p2.toString()));
-        this.professorsChoiceBox.setItems(list);
-        this.professorsChoiceBox.getSelectionModel().selectFirst();
-    }
-
-    private void setAddCourseTitledPane() {
-        if (AppUser.user.isStudent()) {
-            this.addAppointmentTitledPane.setDisable(true);
-            this.addAppointmentTitledPane.setExpanded(false);
-        } else {
-            this.addAppointmentTitledPane.setDisable(false);
-            this.setDatePicker();
-            this.setCourseHourChoiceBoxes();
-            this.setProfessorsChoiceBox();
-        }
-    }
-
     private void setInitializationUI() {
-        this.setAddCourseTitledPane();
+        this.setDatePicker();
         this.setProfileTitledPane();
     }
 
@@ -183,7 +142,7 @@ public class MainWindowController implements Initializable {
             userConnectionWindowStage.setTitle("Connexion");
             userConnectionWindowStage.setScene(new Scene(root));
             userConnectionWindowStage.setResizable(false);
-            userConnectionWindowStage.setOnCloseRequest(action -> DataBase.CloseDataBaseConnection());
+            userConnectionWindowStage.setOnCloseRequest(action -> AppUser.sClient.close());
             userConnectionWindowStage.show();
 
             this.stage.close();
@@ -200,7 +159,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void exitAction() {
-        DataBase.CloseDataBaseConnection();
+        AppUser.sClient.close();
         System.exit(0);
     }
 
@@ -230,24 +189,6 @@ public class MainWindowController implements Initializable {
 
         this.weekOffset = weekOffset;
         this.setUI();
-    }
-
-    @FXML
-    public void addCourseAction() {
-        int dayOffset = AppCalendar.daysBetweenFirstOfWeek(this.datePicker.getValue());
-        Day day = this.weeks.get(dayOffset / 7).getDay(dayOffset % 7);
-
-        try {
-
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Impossible d'ajouter un cours avec les horraires entrées.");
-            alert.showAndWait();
-        }
     }
 
     @FXML

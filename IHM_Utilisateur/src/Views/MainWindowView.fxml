@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import java.lang.*?>
-
-<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainWindowController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null"
+            fx:controller="Controllers.MainWindowController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Fichier">
@@ -108,100 +104,9 @@
                     </VBox>
                 </content>
             </TitledPane>
-            <TitledPane fx:id="addAppointmentTitledPane" animated="false" text="Ajout de cours">
+            <TitledPane fx:id="dateSelectorTitledPane" animated="false" text="Selecteur de date">
                 <VBox>
                     <DatePicker fx:id="datePicker" onAction="#datePickerAction" />
-                    <HBox>
-                        <opaqueInsets>
-                            <Insets />
-                        </opaqueInsets>
-                        <VBox.margin>
-                            <Insets left="5.0" right="5.0" top="5.0" />
-                        </VBox.margin>
-                        <Label alignment="CENTER" prefHeight="25.0" text="Heure de début :" />
-                        <ChoiceBox fx:id="startHourChoiceBox">
-                            <HBox.margin>
-                                <Insets left="5.0" />
-                            </HBox.margin>
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <Integer fx:value="08" />
-                                    <Integer fx:value="09" />
-                                    <Integer fx:value="10" />
-                                    <Integer fx:value="11" />
-                                    <Integer fx:value="12" />
-                                    <Integer fx:value="13" />
-                                    <Integer fx:value="14" />
-                                    <Integer fx:value="15" />
-                                    <Integer fx:value="16" />
-                                    <Integer fx:value="17" />
-                                    <Integer fx:value="18" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                        <Label prefHeight="25.0" text=" h " />
-                        <ChoiceBox fx:id="startMinutesChoiceBox">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <Integer fx:value="00" />
-                                    <Integer fx:value="15" />
-                                    <Integer fx:value="30" />
-                                    <Integer fx:value="45" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                    </HBox>
-                    <HBox>
-                        <VBox.margin>
-                            <Insets left="5.0" right="5.0" top="5.0" />
-                        </VBox.margin>
-                        <Label prefHeight="25.0" text="Heure de fin :" />
-                        <ChoiceBox fx:id="endHourChoiceBox">
-                            <HBox.margin>
-                                <Insets left="5.0" />
-                            </HBox.margin>
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <Integer fx:value="08" />
-                                    <Integer fx:value="09" />
-                                    <Integer fx:value="10" />
-                                    <Integer fx:value="11" />
-                                    <Integer fx:value="12" />
-                                    <Integer fx:value="13" />
-                                    <Integer fx:value="14" />
-                                    <Integer fx:value="15" />
-                                    <Integer fx:value="16" />
-                                    <Integer fx:value="17" />
-                                    <Integer fx:value="18" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                        <Label prefHeight="25.0" text=" h " />
-                        <ChoiceBox fx:id="endMinutesChoiceBox">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <Integer fx:value="00" />
-                                    <Integer fx:value="15" />
-                                    <Integer fx:value="30" />
-                                    <Integer fx:value="45" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
-                    </HBox>
-                    <HBox>
-                        <VBox.margin>
-                            <Insets top="5.0" />
-                        </VBox.margin>
-                        <children>
-                            <Label prefHeight="25.0" text="Professeur : " />
-                            <ChoiceBox fx:id="professorsChoiceBox" />
-                        </children>
-                    </HBox>
-                    <Button fx:id="addAppointmentButton" mnemonicParsing="false" onAction="#addCourseAction" text="Ajouter">
-                        <VBox.margin>
-                            <Insets top="5.0" />
-                        </VBox.margin>
-                    </Button>
                 </VBox>
             </TitledPane>
         </VBox>

@@ -1,5 +1,5 @@
 import Controllers.UserConnectionWindowController;
-import Models.DataBaseModels.DataBase;
+import Models.AppUser;
 import Models.Internet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,13 +14,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Internet.TestConnectivity();
-        if (!Internet.isConnected)
+        if ((!Internet.TestConnectivity()) || (!AppUser.testServerAccess()))
             System.exit(1);
-
-        //DataBase.ConnectToDataBase();
-        //if (!DataBase.isConnected)
-        //    System.exit(1);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/UserConnectionWindowView.fxml"));
         Parent root = loader.load();
@@ -29,7 +24,7 @@ public class Main extends Application {
         primaryStage.setTitle("Connexion");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(action -> DataBase.CloseDataBaseConnection());
+        primaryStage.setOnCloseRequest(action -> AppUser.sClient.close());
         primaryStage.show();
     }
 }

@@ -22,7 +22,7 @@ public class UserConnectionWindowController {
 
     @FXML
     public void LoginAction() {
-        if (AppUser.IsInDataBase("", "")) {
+        if (AppUser.loginRequest(userNameTextField.getText(), userPasswordTextField.getText())) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/MainWindowView.fxml"));
                 Parent root = loader.load();
