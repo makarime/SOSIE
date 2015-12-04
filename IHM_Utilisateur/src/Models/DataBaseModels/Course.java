@@ -1,5 +1,7 @@
 package Models.DataBaseModels;
 
+import Models.Professor;
+
 public class Course {
     private String name = null;
     private Professor personInCharge = null;

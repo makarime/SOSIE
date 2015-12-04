@@ -1,4 +1,4 @@
-package Models.DataBaseModels;
+package Models;
 
 import javafx.scene.image.Image;
 

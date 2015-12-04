@@ -1,7 +1,5 @@
 package Models;
 
-import Models.DataBaseModels.Student;
-import Models.DataBaseModels.User;
 import javafx.scene.control.Alert;
 import messages.LoginRequest;
 import messages.LoginResponse;

@@ -1,19 +1,18 @@
-package Models.DataBaseModels;
+package Models;
 
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public abstract class User {
+public abstract class User implements Serializable {
     protected Status status = null;
     protected int id;
-    protected String pseudo = null;
     protected String firstName = null;
     protected String name = null;
     protected String email = null;
-    protected byte[] password = null;
     protected Image profileImage = null;
 
     public boolean isStudent() {
