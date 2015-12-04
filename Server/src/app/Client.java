@@ -5,8 +5,7 @@ import utils.socket.SClient;
 import utils.socket.SClientAdapter;
 import utils.socket.SClientListener;
 import utils.socket.message.ErrorMessage;
-import messages.PingRequest;
-import messages.PingResponse;
+import messages.*;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -51,10 +50,17 @@ public class Client {
 
     private void registerCallback() {
         messagesCallback.put(PingRequest.class, onPingRequest);
+        messagesCallback.put(LoginRequest.class, onLoginRequest);
     }
 
     public IMessageCallback onPingRequest = data -> {
         data.setResponse(new PingResponse());
+    };
+
+    public IMessageCallback onLoginRequest = data -> {
+        LoginRequest msg = (LoginRequest)data.getMessage();
+        System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
+        data.setResponse(new LoginResponse(true));
     };
 
 }

@@ -1,5 +1,7 @@
 package app;
 
+import messages.LoginRequest;
+import messages.LoginResponse;
 import utils.socket.SClient;
 import utils.socket.Server;
 import utils.socket.ServerListener;
@@ -24,6 +26,8 @@ public class Main {
             //TODO>> Debug
             SClient oo = new SClient("127.0.0.1",3698);
             System.out.println(oo.sendResponse(new PingRequest()));
+            System.out.println(String.format("[Serveur] LoginResponse {Success: '%s'}",
+                    ((LoginResponse)oo.sendResponse(new LoginRequest("user", "password"))).getSuccess()));
             //TODO<<
         }
         catch (IOException e) {
