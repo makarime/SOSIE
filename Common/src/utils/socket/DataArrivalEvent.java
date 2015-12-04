@@ -25,4 +25,8 @@ public class DataArrivalEvent {
     public void setResponse(IMessage response) {
         this.response = response;
     }
+
+    public Class getMessageClass() {
+        return message.getClass();
+    }
 }

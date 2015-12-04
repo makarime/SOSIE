@@ -2,6 +2,7 @@ package utils.socket.message;
 
 import utils.socket.IMessage;
 
+@Deprecated
 public class StringMessage implements IMessage {
     private String value;
 
