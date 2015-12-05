@@ -25,7 +25,7 @@ public class Client {
             this.registerCallback();
             this.socket = new SClient(socket, clientEvent);
         } catch (IOException e) {
-            System.err.println("[Serveur] Erreur création du client.");
+            System.err.println("[Serveur] Erreur crÃ©ation du client.");
             e.printStackTrace();
         }
     }
@@ -33,7 +33,7 @@ public class Client {
     public SClientListener clientEvent = new SClientAdapter() {
         @Override
         public void onDataArrival(SClient sender, DataArrivalEvent event) {
-            //TODO: Si non connecté & non LoginRequest, retourne une erreur ?
+            //TODO: Si non connectÃ© & non LoginRequest, retourne une erreur ?
             if(messagesCallback.containsKey(event.getMessageClass()))
                 messagesCallback.get(event.getMessageClass()).run(event);
             else if(event.isRequest())

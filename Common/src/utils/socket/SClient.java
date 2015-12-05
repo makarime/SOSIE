@@ -45,7 +45,7 @@ public class SClient {
         in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         out = new DataOutputStream(this.socket.getOutputStream());
 
-        // Demarrage du thread de reception des données //
+        // Demarrage du thread de reception des donnÃ©es //
         thread = new DataArrivalThread();
         thread.start();
 
