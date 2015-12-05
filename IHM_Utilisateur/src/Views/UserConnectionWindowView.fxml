@@ -14,7 +14,7 @@
         <RowConstraints vgrow="SOMETIMES"/>
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
-    <Label alignment="CENTER" focusTraversable="false" text="Utilisateur :">
+    <Label alignment="CENTER" focusTraversable="false" text="Login :">
         <GridPane.margin>
             <Insets left="5.0" top="5.0"/>
         </GridPane.margin>
@@ -24,7 +24,7 @@
             <Insets left="5.0" top="5.0"/>
         </GridPane.margin>
     </Label>
-    <TextField fx:id="userNameTextField" GridPane.columnIndex="1">
+    <TextField fx:id="loginTextField" GridPane.columnIndex="1">
         <GridPane.margin>
             <Insets left="5.0" right="5.0" top="5.0"/>
         </GridPane.margin>

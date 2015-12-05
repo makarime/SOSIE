@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class UserConnectionWindowController {
     public Stage stage;
     @FXML
-    public TextField userNameTextField;
+    public TextField loginTextField;
     @FXML
     public PasswordField userPasswordTextField;
     @FXML
@@ -22,7 +22,7 @@ public class UserConnectionWindowController {
 
     @FXML
     public void LoginAction() {
-        if (AppUser.loginRequest(userNameTextField.getText(), userPasswordTextField.getText())) {
+        if (AppUser.loginRequest(loginTextField.getText(), userPasswordTextField.getText())) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/MainWindowView.fxml"));
                 Parent root = loader.load();

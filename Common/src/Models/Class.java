@@ -1,20 +1,18 @@
 package Models;
 
 
-import java.util.ArrayList;
-
 public class Class {
     private int id;
-    private String name = null;
-    private Professor profInCharge = null;
-    private ArrayList<Student> students = new ArrayList<>();
+    private int year;
+    private int idProfessorInCharge;
 
-    public Class(int id, String name) {
+    public Class(int id, int year, int idProfessorInCharge) {
         this.id = id;
-        this.name = name;
+        this.year = year;
+        this.idProfessorInCharge = idProfessorInCharge;
     }
 
     public String toString() {
-        return this.name;
+        return String.valueOf(this.year);
     }
 }

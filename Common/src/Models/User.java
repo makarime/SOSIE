@@ -8,27 +8,10 @@ import java.nio.file.Paths;
 public abstract class User implements Serializable {
     protected Status status = null;
     protected int id;
-    protected String pseudo = null;
     protected String firstName = null;
     protected String name = null;
     protected String email = null;
     protected Image profileImage = null;
-
-    public boolean isStudent() {
-        return this.status == Status.student;
-    }
-
-    public boolean isProfessor() {
-        return this.status == Status.professor;
-    }
-
-    public String getPseudo() {
-        return this.pseudo;
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
 
     public String toString() {
         return this.firstName + " " + this.name;
