@@ -49,6 +49,14 @@ public abstract class User implements Serializable {
             this.email = "test@gmail.com";
     }
 
+    public boolean isStudent() {
+        return this.status == Status.student;
+    }
+
+    public boolean isProfessor() {
+        return this.status == Status.professor;
+    }
+
     protected enum Status {
         professor,
         student

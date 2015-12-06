@@ -16,11 +16,20 @@
     </top>
     <center>
         <VBox BorderPane.alignment="CENTER">
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER_LEFT">
                 <VBox.margin>
                     <Insets left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>
-                <Button fx:id="weekBeforeButton" mnemonicParsing="false" onAction="#weekBeforeAction" text="&lt;&lt;" />
+                <DatePicker fx:id="datePicker" onAction="#datePickerAction">
+                    <HBox.margin>
+                        <Insets left="495.0"/>
+                    </HBox.margin>
+                </DatePicker>
+                <Button fx:id="weekBeforeButton" mnemonicParsing="false" onAction="#weekBeforeAction" text="&lt;&lt;">
+                    <HBox.margin>
+                        <Insets left="50.0"/>
+                    </HBox.margin>
+                </Button>
                 <Label fx:id="weekSpanLabel" prefHeight="25.0">
                     <HBox.margin>
                         <Insets left="5.0" />
@@ -104,10 +113,19 @@
                     </VBox>
                 </content>
             </TitledPane>
-            <TitledPane fx:id="dateSelectorTitledPane" animated="false" text="Selecteur de date">
-                <VBox>
-                    <DatePicker fx:id="datePicker" onAction="#datePickerAction" />
-                </VBox>
+            <TitledPane text="Promotion">
+                <content>
+                    <VBox>
+                        <children>
+                            <ChoiceBox fx:id="classesChoiceBox"/>
+                            <Button mnemonicParsing="false" text="Details">
+                                <VBox.margin>
+                                    <Insets top="5.0"/>
+                                </VBox.margin>
+                            </Button>
+                        </children>
+                    </VBox>
+                </content>
             </TitledPane>
         </VBox>
     </left>

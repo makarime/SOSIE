@@ -1,9 +1,10 @@
 package Controllers;
 
-import Models.AppCalendar;
-import Models.AppUser;
+import Models.*;
+import Models.Class;
 import Models.DataBaseModels.Appointment;
-import Models.Week;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +32,7 @@ public class MainWindowController implements Initializable {
     @FXML
     public ImageView profileImageView;
     @FXML
-    public TitledPane dateSelectorTitledPane;
+    public ChoiceBox<Class> classesChoiceBox;
     @FXML
     public DatePicker datePicker;
     @FXML
@@ -91,9 +92,21 @@ public class MainWindowController implements Initializable {
         this.datePicker.setDayCellFactory(dayCellFactory);
     }
 
+    private void setClassesChoiceBox() {
+        ObservableList<Class> classes = null;
+
+        if (AppUser.user.isStudent())
+            classes = FXCollections.observableArrayList(((Student) AppUser.user).getStudentClass());
+        else if (AppUser.user.isProfessor())
+            classes = FXCollections.observableArrayList(((Professor) AppUser.user).getClasses());
+
+        this.classesChoiceBox.setItems(classes);
+    }
+
     private void setInitializationUI() {
         this.setDatePicker();
         this.setProfileTitledPane();
+        this.setClassesChoiceBox();
     }
 
     private void setDisableWeekBeforeButton() {

@@ -1,6 +1,5 @@
 package Models;
 
-import javafx.scene.image.Image;
 
 public class Student extends User {
     private int idClass;
@@ -13,12 +12,13 @@ public class Student extends User {
         this.idClass = idClass;
     }
 
-    public Student(int id, String firstName, String name, Image profileImage, int idClass) {
-        this.status = Status.student;
-        this.id = id;
-        this.firstName = firstName;
-        this.name = name;
-        this.profileImage = profileImage;
-        this.idClass = idClass;
+    public Class getStudentClass() {
+        Class c = DataBase.classes.get(this.idClass);
+
+        if (c == null) {
+            //TODO request
+        }
+
+        return c;
     }
 }
