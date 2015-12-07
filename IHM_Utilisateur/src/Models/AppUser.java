@@ -13,6 +13,7 @@ public class AppUser {
     public static boolean testServerAccess() {
         try {
             AppUser.sClient = new SClient("127.0.0.1", 3698);
+            DataBase.sClient = AppUser.sClient;
             return true;
         } catch (Exception e) {
             e.printStackTrace();

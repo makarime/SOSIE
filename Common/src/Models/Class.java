@@ -20,21 +20,7 @@ public class Class implements Serializable {
         return String.valueOf(this.year);
     }
 
-    public Professor getProfessorInCharge() {
-        Professor professor = (Professor) DataBase.users.get(this.idProfessorInCharge);
-
-        if (professor == null) {
-            //TODO request
-        }
-
-        return professor;
-    }
-
-    public ArrayList<Student> getStudents() {
-        if (this.students == null) {
-            //TODO request
-        }
-
-        return this.students;
+    public int getId() {
+        return this.id;
     }
 }

@@ -1,11 +1,14 @@
 package Models;
 
 
+import messages.ProfessorClassRequest;
+import messages.ProfessorClassResponse;
+
 import java.util.ArrayList;
 
 
 public class Professor extends User {
-    private ArrayList<Integer> classes = null;
+    private ArrayList<Class> classes = null;
 
     public Professor(int id, String firstName, String name) {
         this.status = Status.professor;
@@ -15,12 +18,20 @@ public class Professor extends User {
     }
 
     public ArrayList<Class> getClasses() {
-        ArrayList<Class> classes = new ArrayList<>();
-
         if (this.classes == null) {
-            //TODO request
+            this.classes = new ArrayList<>();
+            ProfessorClassResponse professorClassResponse = ((ProfessorClassResponse) DataBase.sClient.sendRequest(new ProfessorClassRequest(this.id)));
+
+            for (Class c : professorClassResponse.getClasses()) {
+                if (DataBase.classes.containsKey(c.getId()))
+                    this.classes.add(DataBase.classes.get(c.getId()));
+                else {
+                    DataBase.classes.put(c.getId(), c);
+                    this.classes.add(c);
+                }
+            }
         }
 
-        return classes;
+        return this.classes;
     }
 }

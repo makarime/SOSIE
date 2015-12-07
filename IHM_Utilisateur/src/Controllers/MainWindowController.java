@@ -101,6 +101,7 @@ public class MainWindowController implements Initializable {
             classes = FXCollections.observableArrayList(((Professor) AppUser.user).getClasses());
 
         this.classesChoiceBox.setItems(classes);
+        this.classesChoiceBox.setValue(this.classesChoiceBox.getItems().get(0));
     }
 
     private void setInitializationUI() {
