@@ -71,6 +71,7 @@ public class SClient {
 
     private void internalSend(String header, IMessage message) {
         try {
+            //TODO: NonUrgent: Ici pour chiffrer le flux (Encode64 << Chiffrement << Serialisation << IMessage)
             out.writeBytes(header + "#" + Base64.getEncoder().encodeToString(serialize(message)) + "\r\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +85,7 @@ public class SClient {
         internalSend("s-1", msg);
     }
 
-    public void beginSend(IMessage msg, SClientCallback callback) {
+    public void sendRequest(IMessage msg, SClientCallback callback) {
         if(!isConnected())
             return;
         long id = requestId.getAndIncrement();
@@ -96,7 +97,7 @@ public class SClient {
         AtomicReference<IMessage> result = new AtomicReference<>(); //TODO: Autre classe pour faire des references?
         ReentrantLock l = new ReentrantLock();
         Condition c = l.newCondition();
-        this.beginSend(msg, new SClientCallback() {
+        this.sendRequest(msg, new SClientCallback() {
             public Lock lock;
             public Condition condition;
             public AtomicReference<IMessage> response;
@@ -130,8 +131,8 @@ public class SClient {
     }
 
     @Deprecated
-    public void beginSend(String data, SClientCallback callback) {
-        beginSend(new StringMessage(data), callback);
+    public void sendRequest(String data, SClientCallback callback) {
+        sendRequest(new StringMessage(data), callback);
     }
 
     @Deprecated
@@ -157,10 +158,12 @@ public class SClient {
                     long rid = Long.parseLong(data.substring(1, data.indexOf("#")));
                     data = data.substring(data.indexOf("#") + 1);
                     try {
+                        //TODO: NonUrgent: Ici pour dechiffrer le flux (IMessage << Deserialisation << Decode64 << Dechiffrement << Flux)
                         IMessage msg = ((IMessage) deserialize(Base64.getDecoder().decode(data)));
                         if(msg == null)
                             throw new Exception("Deserialization error");
 
+                        //TODO: A Voir si on dédie un nouveau thread a cette tache ?
                         if(!request && rid != -1) {
                             if(requestCallback.containsKey(rid)) {
                                 requestCallback.get(rid).onResult(SClient.this, msg);
