@@ -10,7 +10,7 @@ public class Course {
     private float TDhours;
     private float TPhours;
 
-    public Course(String name, Professor personInCharge){
+    public Course(String name, Professor personInCharge) {
         this.name = name;
         this.personInCharge = personInCharge;
     }

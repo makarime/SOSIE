@@ -42,12 +42,7 @@ public class ProfileEditorController implements Initializable {
         this.setEmailTextFieldsInitialization();
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    private void setProfileImageViewInitialization()
-    {
+    private void setProfileImageViewInitialization() {
         this.profileImageView.setImage(AppUser.user.getProfileImage());
     }
 
@@ -74,20 +69,16 @@ public class ProfileEditorController implements Initializable {
     }
 
     public void validateAction() {
-        if ((!this.emailFirstPart.getText().isEmpty())&&(!this.emailSecondPart.getText().isEmpty())&&(!this.emailThirdPart.getText().isEmpty()))
-        {
+        if ((!this.emailFirstPart.getText().isEmpty()) && (!this.emailSecondPart.getText().isEmpty()) && (!this.emailThirdPart.getText().isEmpty())) {
             AppUser.user.setProfileImage(this.profileImageView.getImage());
             AppUser.user.setEmail(this.emailFirstPart.getText() + "@" + this.emailSecondPart.getText() + "." + this.emailThirdPart.getText());
 
-            if (!this.passwordField1.getText().isEmpty())
-            {
+            if (!this.passwordField1.getText().isEmpty()) {
                 //TODO
             }
 
             this.stage.close();
-        }
-        else
-        {
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);

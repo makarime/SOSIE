@@ -1,6 +1,9 @@
 package Models;
 
 
+import messages.ClassStudentRequest;
+import messages.ClassStudentResponse;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -28,7 +31,16 @@ public class Class implements Serializable {
         if (this.students == null) {
             this.students = new ArrayList<>();
 
-            //TODO request
+            ClassStudentResponse classStudentResponse = ((ClassStudentResponse) DataBase.sClient.sendRequest(new ClassStudentRequest(this.id)));
+
+            for (Student student : classStudentResponse.getStudents()) {
+                if (DataBase.users.containsKey(student.getId()))
+                    this.students.add((Student) DataBase.users.get(student.getId()));
+                else {
+                    DataBase.users.put(student.getId(), student);
+                    this.students.add(student);
+                }
+            }
         }
 
         return this.students;

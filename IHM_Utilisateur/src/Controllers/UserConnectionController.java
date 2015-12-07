@@ -39,7 +39,7 @@ public class UserConnectionController {
             } catch (Exception e) {
                 e.printStackTrace();
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
                 alert.setContentText("Impossible d'ouvrir la fênetre principale.");

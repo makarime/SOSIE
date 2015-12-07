@@ -1,6 +1,5 @@
 import Controllers.UserConnectionController;
 import Models.AppUser;
-import Models.Internet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        if ((!Internet.TestConnectivity()) || (!AppUser.testServerAccess()))
+        if ((!AppUser.TestConnectivity()) || (!AppUser.testServerAccess()))
             System.exit(1);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Views/UserConnectionView.fxml"));

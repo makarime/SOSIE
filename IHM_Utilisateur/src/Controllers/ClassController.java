@@ -6,9 +6,9 @@ import Models.Student;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,12 +18,12 @@ public class ClassController implements Initializable {
     public Label classNameLabel;
     @FXML
     public ListView<Student> studentsListView;
+    @FXML
+    public Button viewInfoStudentButton;
 
-    private Stage stage = null;
     private Class c = null;
 
-    public ClassController(Stage stage, Class c) {
-        this.stage = stage;
+    public ClassController(Class c) {
         this.c = c;
     }
 
@@ -43,5 +43,10 @@ public class ClassController implements Initializable {
 
     private void setStudentsListView() {
         this.studentsListView.setItems(FXCollections.observableArrayList(this.c.getStudents()));
+    }
+
+    @FXML
+    public void viewInfoStudentAction() {
+
     }
 }

@@ -166,7 +166,7 @@ public class MainController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Impossible d'ouvrir la fênetre de connexion.");
@@ -236,7 +236,7 @@ public class MainController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassView.fxml"));
             Stage classWindowStage = new Stage();
-            loader.setController(new ClassController(classWindowStage, this.classesChoiceBox.getValue()));
+            loader.setController(new ClassController(this.classesChoiceBox.getValue()));
             classWindowStage.setTitle("Visionneur de promotion");
             classWindowStage.setScene(new Scene(loader.load()));
             classWindowStage.setResizable(false);

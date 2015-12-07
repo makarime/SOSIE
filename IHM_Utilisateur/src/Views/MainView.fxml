@@ -8,8 +8,8 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Fichier">
-                <MenuItem mnemonicParsing="false" onAction="#logOutAction" text="Deconnexion" />
-                <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Quitter" />
+                <MenuItem mnemonicParsing="false" onAction="#logOutAction" text="Deconnexion"/>
+                <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Quitter"/>
             </Menu>
         </MenuBar>
     </top>
@@ -17,7 +17,7 @@
         <VBox BorderPane.alignment="CENTER">
             <HBox alignment="CENTER_LEFT">
                 <VBox.margin>
-                    <Insets left="5.0" right="5.0" top="5.0" />
+                    <Insets left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
                 <DatePicker fx:id="datePicker" onAction="#datePickerAction">
                     <HBox.margin>
@@ -31,56 +31,72 @@
                 </Button>
                 <Label fx:id="weekSpanLabel" prefHeight="25.0">
                     <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0"/>
                     </HBox.margin>
                 </Label>
                 <Button mnemonicParsing="false" onAction="#weekAfterAction" text="&gt;&gt;">
                     <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="5.0"/>
                     </HBox.margin>
                 </Button>
             </HBox>
             <GridPane>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <VBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
-                <VBox alignment="CENTER" GridPane.rowIndex="5" />
+                <VBox alignment="CENTER" GridPane.rowIndex="5"/>
                 <HBox GridPane.columnIndex="1">
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="08:00 - 09:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="09:00 - 10:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="10:00 - 11:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="11:00 - 12:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="12:00 - 13:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="13:00 - 14:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="14:00 - 15:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="15:00 - 16:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="16:00 - 17:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="17:00 - 18:00" />
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;" text="18:00 - 19:00" />
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="08:00 - 09:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="09:00 - 10:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="10:00 - 11:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="11:00 - 12:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="12:00 - 13:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="13:00 - 14:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="14:00 - 15:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="15:00 - 16:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="16:00 - 17:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="17:00 - 18:00"/>
+                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
+                           text="18:00 - 19:00"/>
                 </HBox>
-                <Label fx:id="mondayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="1" />
-                <Label fx:id="tuesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="2" />
-                <Label fx:id="wednesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="3" />
-                <Label fx:id="thursdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="4" />
-                <Label fx:id="fridayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: gray;" GridPane.rowIndex="5" />
-                <HBox fx:id="mondayHBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <HBox fx:id="tuesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <HBox fx:id="wednesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <HBox fx:id="thursdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <HBox fx:id="fridayHBox" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label fx:id="mondayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                       style="-fx-border-color: gray;" GridPane.rowIndex="1"/>
+                <Label fx:id="tuesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                       style="-fx-border-color: gray;" GridPane.rowIndex="2"/>
+                <Label fx:id="wednesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                       style="-fx-border-color: gray;" GridPane.rowIndex="3"/>
+                <Label fx:id="thursdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                       style="-fx-border-color: gray;" GridPane.rowIndex="4"/>
+                <Label fx:id="fridayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                       style="-fx-border-color: gray;" GridPane.rowIndex="5"/>
+                <HBox fx:id="mondayHBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <HBox fx:id="tuesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <HBox fx:id="wednesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <HBox fx:id="thursdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <HBox fx:id="fridayHBox" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
             </GridPane>
         </VBox>
     </center>
@@ -97,8 +113,8 @@
                         <VBox.margin>
                             <Insets top="5.0"/>
                         </VBox.margin>
-                        <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0"
-                                   pickOnBounds="true" preserveRatio="true"/>
+                        <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0" pickOnBounds="true"
+                                   preserveRatio="true"/>
                     </Pane>
                     <Button mnemonicParsing="false" onAction="#editProfileAction" text="Editer">
                         <VBox.margin>
@@ -111,7 +127,7 @@
                 <VBox>
                     <ChoiceBox fx:id="classesChoiceBox"/>
                     <Button fx:id="detailsClassButton" mnemonicParsing="false" onAction="#detailClassAction"
-                            text="Details">
+                            text="Voir détails">
                         <VBox.margin>
                             <Insets top="5.0"/>
                         </VBox.margin>
