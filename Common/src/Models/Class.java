@@ -23,4 +23,14 @@ public class Class implements Serializable {
     public int getId() {
         return this.id;
     }
+
+    public ArrayList<Student> getStudents() {
+        if (this.students == null) {
+            this.students = new ArrayList<>();
+
+            //TODO request
+        }
+
+        return this.students;
+    }
 }

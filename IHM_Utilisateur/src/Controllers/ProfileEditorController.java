@@ -30,12 +30,20 @@ public class ProfileEditorController implements Initializable {
     @FXML
     public PasswordField passwordField2;
 
-    public Stage stage = null;
+    private Stage stage = null;
+
+    public ProfileEditorController(Stage stage) {
+        this.stage = stage;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.setProfileImageViewInitialization();
         this.setEmailTextFieldsInitialization();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void setProfileImageViewInitialization()

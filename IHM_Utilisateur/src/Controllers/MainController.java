@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -24,7 +23,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainWindowController implements Initializable {
+public class MainController implements Initializable {
     /* Fields */
 
     @FXML
@@ -33,6 +32,8 @@ public class MainWindowController implements Initializable {
     public ImageView profileImageView;
     @FXML
     public ChoiceBox<Class> classesChoiceBox;
+    @FXML
+    public Button detailsClassButton;
     @FXML
     public DatePicker datePicker;
     @FXML
@@ -60,9 +61,13 @@ public class MainWindowController implements Initializable {
     @FXML
     public HBox fridayHBox;
 
-    public Stage stage = null;
+    private Stage stage = null;
     private ArrayList<Week> weeks = null;
     private int weekOffset;
+
+    public MainController(Stage stage) {
+        this.stage = stage;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -148,13 +153,11 @@ public class MainWindowController implements Initializable {
         AppUser.user = null;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionWindowView.fxml"));
-            Parent root = loader.load();
-            UserConnectionWindowController userConnectionWindowController = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionView.fxml"));
             Stage userConnectionWindowStage = new Stage();
-            userConnectionWindowController.stage = userConnectionWindowStage;
+            loader.setController(new UserConnectionController(userConnectionWindowStage));
             userConnectionWindowStage.setTitle("Connexion");
-            userConnectionWindowStage.setScene(new Scene(root));
+            userConnectionWindowStage.setScene(new Scene(loader.load()));
             userConnectionWindowStage.setResizable(false);
             userConnectionWindowStage.setOnCloseRequest(action -> AppUser.sClient.close());
             userConnectionWindowStage.show();
@@ -209,12 +212,10 @@ public class MainWindowController implements Initializable {
     public void editProfileAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ProfileEditorView.fxml"));
-            Parent root = loader.load();
-            ProfileEditorController profileEditorController = loader.getController();
             Stage profileEditorWindowStage = new Stage();
-            profileEditorController.stage = profileEditorWindowStage;
+            loader.setController(new ProfileEditorController(profileEditorWindowStage));
             profileEditorWindowStage.setTitle("Editeur de profile");
-            profileEditorWindowStage.setScene(new Scene(root));
+            profileEditorWindowStage.setScene(new Scene(loader.load()));
             profileEditorWindowStage.setResizable(false);
             profileEditorWindowStage.showAndWait();
 
@@ -226,6 +227,27 @@ public class MainWindowController implements Initializable {
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Impossible d'ouvrir la fênetre d'editeur de profile.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    public void detailClassAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassView.fxml"));
+            Stage classWindowStage = new Stage();
+            loader.setController(new ClassController(classWindowStage, this.classesChoiceBox.getValue()));
+            classWindowStage.setTitle("Visionneur de promotion");
+            classWindowStage.setScene(new Scene(loader.load()));
+            classWindowStage.setResizable(false);
+            classWindowStage.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Impossible d'ouvrir la fênetre de visionneur de promotion.");
             alert.showAndWait();
         }
     }

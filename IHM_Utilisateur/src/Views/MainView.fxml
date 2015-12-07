@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null"
-            fx:controller="Controllers.MainWindowController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Fichier">
@@ -88,44 +87,36 @@
     <left>
         <VBox BorderPane.alignment="CENTER">
             <TitledPane text="Profile">
-                <content>
-                    <VBox>
-                        <children>
-                            <Label fx:id="appUserNameLabel" prefHeight="25.0">
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                            </Label>
-                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="190.0">
+                <VBox>
+                    <Label fx:id="appUserNameLabel" prefHeight="25.0">
                         <VBox.margin>
-                           <Insets top="5.0" />
+                            <Insets/>
                         </VBox.margin>
-                        <children>
-                                  <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
-                        </children>
-                     </Pane>
-                            <Button mnemonicParsing="false" onAction="#editProfileAction" text="Editer">
-                                <VBox.margin>
-                                    <Insets top="5.0" />
-                                </VBox.margin>
-                            </Button>
-                        </children>
-                    </VBox>
-                </content>
+                    </Label>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="190.0">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                        <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0"
+                                   pickOnBounds="true" preserveRatio="true"/>
+                    </Pane>
+                    <Button mnemonicParsing="false" onAction="#editProfileAction" text="Editer">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                    </Button>
+                </VBox>
             </TitledPane>
             <TitledPane text="Promotion">
-                <content>
-                    <VBox>
-                        <children>
-                            <ChoiceBox fx:id="classesChoiceBox"/>
-                            <Button mnemonicParsing="false" text="Details">
-                                <VBox.margin>
-                                    <Insets top="5.0"/>
-                                </VBox.margin>
-                            </Button>
-                        </children>
-                    </VBox>
-                </content>
+                <VBox>
+                    <ChoiceBox fx:id="classesChoiceBox"/>
+                    <Button fx:id="detailsClassButton" mnemonicParsing="false" onAction="#detailClassAction"
+                            text="Details">
+                        <VBox.margin>
+                            <Insets top="5.0"/>
+                        </VBox.margin>
+                    </Button>
+                </VBox>
             </TitledPane>
         </VBox>
     </left>
