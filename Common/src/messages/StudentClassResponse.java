@@ -1,5 +1,6 @@
 package messages;
 
+import Models.Class;
 import utils.socket.IMessage;
 
 public class StudentClassResponse implements IMessage {
