@@ -1,5 +1,6 @@
 package app;
 
+import Models.Class;
 import Models.Student;
 import messages.*;
 import utils.socket.DataArrivalEvent;
@@ -10,10 +11,28 @@ import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Client {
-    private final HashMap<Class, IMessageCallback> messagesCallback = new HashMap<>();
+    private final HashMap<java.lang.Class, IMessageCallback> messagesCallback = new HashMap<>();
+    private SClient socket;
+
+    public interface IMessageCallback {
+        void run(DataArrivalEvent e);
+    }
+
+    public Client(Socket socket) {
+        try {
+            this.registerCallback();
+            this.socket = new SClient(socket, clientEvent);
+        } catch (IOException e) {
+            System.err.println("[Serveur] Erreur création du client.");
+            e.printStackTrace();
+        }
+    }
+
     public SClientListener clientEvent = new SClientAdapter() {
         @Override
         public void onDataArrival(SClient sender, DataArrivalEvent event) {
@@ -29,6 +48,17 @@ public class Client {
             System.out.println("[Serveur] Deconnexion du client");
         }
     };
+
+    ///////////////// Gestion des messages ///////////////
+
+    private void registerCallback() {
+        messagesCallback.put(PingRequest.class, onPingRequest);
+        messagesCallback.put(LoginRequest.class, onLoginRequest);
+        messagesCallback.put(UserRequest.class, onUserRequest);
+        messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
+        messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
+    }
+
     public IMessageCallback onPingRequest = data -> {
         data.setResponse(new PingResponse());
     };
@@ -41,28 +71,15 @@ public class Client {
         UserRequest msg = (UserRequest) data.getMessage();
         data.setResponse(new UserResponse(new Student(1, "Jack", "pot", 1)));
     };
-
-
-    ///////////////// Gestion des messages ///////////////
-    private SClient socket;
-
-    public Client(Socket socket) {
-        try {
-            this.registerCallback();
-            this.socket = new SClient(socket, clientEvent);
-        } catch (IOException e) {
-            System.err.println("[Serveur] Erreur création du client.");
-            e.printStackTrace();
-        }
-    }
-
-    private void registerCallback() {
-        messagesCallback.put(PingRequest.class, onPingRequest);
-        messagesCallback.put(LoginRequest.class, onLoginRequest);
-        messagesCallback.put(UserRequest.class, onUserRequest);
-    }
-
-    public interface IMessageCallback {
-        void run(DataArrivalEvent e);
-    }
+    public IMessageCallback onStudentClassRequest = data -> {
+        StudentClassRequest msg = (StudentClassRequest) data.getMessage();
+        data.setResponse(new StudentClassResponse(new Class(1, 2015, 1)));
+    };
+    public IMessageCallback onProfessorClassRequest = data -> {
+        ProfessorClassRequest msg = (ProfessorClassRequest) data.getMessage();
+        data.setResponse(new ProfessorClassResponse(new ArrayList<>(Arrays.asList(
+                new Class(1, 2015, 1),
+                new Class(2, 2015, 1)
+        ))));
+    };
 }
