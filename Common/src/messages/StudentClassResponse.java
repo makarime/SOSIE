@@ -2,10 +2,10 @@ package messages;
 
 import utils.socket.IMessage;
 
-public class ClassResponse implements IMessage {
+public class StudentClassResponse implements IMessage {
     private final Class c;
 
-    public ClassResponse(Class c) {
+    public StudentClassResponse(Class c) {
         this.c = c;
     }
 
