@@ -13,6 +13,7 @@ LastName varchar(20) NOT NULL,
 FirstName varchar(25) NOT NULL,
 Email varchar(50),
 Photo varchar(255),
+Checkin varchar(11),
 PRIMARY KEY (IdUtilisateur)
 );
 
@@ -32,6 +33,7 @@ CREATE TABLE Salle(
 CREATE TABLE Promotion(
     IdPromotion int NOT NULL AUTO_INCREMENT,
     Annee int,
+	Nom varchar(20),
     PRIMARY KEY(IdPromotion)
     );
 CREATE TABLE ElevePromotion(
@@ -76,7 +78,7 @@ CREATE TABLE Formation
 (
 idFormation int NOT NULL AUTO_INCREMENT,
 nomFormation varchar(50),
-PRIMARY KEY(idMatiere)
+PRIMARY KEY(idFormation)
 );
 
 /* Creation de la table Matiere */
@@ -118,7 +120,7 @@ valeur int,
 PRIMARY KEY(idNote),
 FOREIGN KEY(idMatiere ) REFERENCES Matiere(idMatiere),
 FOREIGN KEY(IdEnseignant) REFERENCES Enseignants(IdEnseignant),
-FOREIGN KEY(idEleve) REFERENCES Utilisateurs(IdUtilisateur),
+FOREIGN KEY(idEleve) REFERENCES Utilisateurs(IdUtilisateur)
 );
 
 /* Creation de la table Absences */
