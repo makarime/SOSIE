@@ -4,53 +4,22 @@ import java.io.*;
 
 public class Serialization {
 
-    public static byte[] serialize(Serializable object) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        try {
-            out = new ObjectOutputStream(bos);
+    public static byte[] serialize(Serializable object) throws Exception {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutput out = new ObjectOutputStream(bos)){
             out.writeObject(object);
             return bos.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            try {
-                bos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(out != null)
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            throw new Exception("Serialization error", e);
         }
     }
 
-    public static Serializable deserialize(byte[] data) {
-        ByteArrayInputStream bis = new ByteArrayInputStream(data);
-        ObjectInput in = null;
-        try {
-            in = new ObjectInputStream(bis);
+    public static Serializable deserialize(byte[] data) throws Exception {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(data);
+             ObjectInput in = new ObjectInputStream(bis)) {
             return (Serializable) in.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            try {
-                bis.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new Exception("Deserialization error", e);
         }
     }
 

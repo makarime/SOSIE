@@ -76,6 +76,8 @@ public class SClient {
         } catch (IOException e) {
             e.printStackTrace();
             close();
+        } catch (Exception e) { //Serialization error
+            e.printStackTrace();
         }
     }
 
@@ -160,9 +162,6 @@ public class SClient {
                     try {
                         //TODO: NonUrgent: Ici pour dechiffrer le flux (IMessage << Deserialisation << Decode64 << Dechiffrement << Flux)
                         IMessage msg = ((IMessage) deserialize(Base64.getDecoder().decode(data)));
-                        if(msg == null)
-                            throw new Exception("Deserialization error");
-
                         //TODO: A Voir si on dédie un nouveau thread a cette tache ?
                         if(!request && rid != -1) {
                             if(requestCallback.containsKey(rid)) {
