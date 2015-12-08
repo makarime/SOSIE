@@ -1,9 +1,11 @@
 package Models;
 
 import javafx.scene.image.Image;
+import messages.UserAdditionalInfoRequest;
+import messages.UserAdditionalInfoResponse;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
 
 public abstract class User implements Serializable {
     protected Status status = null;
@@ -40,13 +42,11 @@ public abstract class User implements Serializable {
     }
 
     private void loadAdditionalInformation() {
-        //TODO server request
-
-        if (this.profileImage == null)
-            this.profileImage = new Image(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg").toUri().toString());
-
-        if (this.email == null)
-            this.email = "test@gmail.com";
+        if ((this.profileImage == null) && (this.email == null)) {
+            UserAdditionalInfoResponse userAdditionalInfoResponse = ((UserAdditionalInfoResponse) DataBase.sClient.sendRequest(new UserAdditionalInfoRequest(this.id)));
+            this.profileImage = new Image(new ByteArrayInputStream(userAdditionalInfoResponse.getProfileImage()));
+            this.email = userAdditionalInfoResponse.getEmail();
+        }
     }
 
     public boolean isStudent() {

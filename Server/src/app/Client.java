@@ -12,6 +12,8 @@ import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,6 +61,7 @@ public class Client {
         messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
         messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
         messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
+        messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
     }
 
     public IMessageCallback onPingRequest = data -> {
@@ -96,4 +99,13 @@ public class Client {
         )));
     };
 
+    public IMessageCallback onUserAdditionalInfoRequest = data -> {
+        UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data.getMessage();
+        try {
+            data.setResponse(new UserAdditionalInfoResponse("test@gmail.com", Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg"))));
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO handle image fail
+        }
+    };
 }
