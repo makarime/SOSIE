@@ -11,13 +11,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import messages.ChangeUserEmailRequest;
-import messages.ChangeUserEmailResponse;
-import messages.ChangeUserPasswordRequest;
-import messages.ChangeUserPasswordResponse;
+import messages.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 
 public class ProfileEditorController implements Initializable {
@@ -35,6 +34,9 @@ public class ProfileEditorController implements Initializable {
     public PasswordField passwordField2;
 
     private Stage stage = null;
+    private boolean profileImageChanged = false;
+    private Image oldProlfileImage = null;
+    private File newProfileImageFile = null;
 
     public ProfileEditorController(Stage stage) {
         this.stage = stage;
@@ -69,12 +71,16 @@ public class ProfileEditorController implements Initializable {
         if (file == null)
             return;
 
+        this.profileImageChanged = true;
+        this.oldProlfileImage = this.profileImageView.getImage();
+        this.newProfileImageFile = file;
         this.profileImageView.setImage(new Image("file:" + file.getPath()));
     }
 
     public void validateAction() {
         this.changeEmail();
         this.changePassword();
+        this.changeProfileImage();
     }
 
     private void changeEmail() {
@@ -121,6 +127,26 @@ public class ProfileEditorController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Les mots de passe rentrés ne corresponde pas.");
                 alert.showAndWait();
+            }
+        }
+    }
+
+    private void changeProfileImage() {
+        if (this.profileImageChanged) {
+            try {
+                byte[] bytes = Files.readAllBytes(this.newProfileImageFile.toPath());
+                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(AppUser.user.getId(), bytes)));
+
+                if (!changeUserProfileImageResponse.getResult()) {
+                    this.profileImageView.setImage(this.oldProlfileImage);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Une erreur est survenue lors du changement de l'image sur le serveur.");
+                    alert.showAndWait();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
