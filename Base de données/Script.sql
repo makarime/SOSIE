@@ -35,9 +35,9 @@ CREATE TABLE Enseignants
 CREATE TABLE Promotions
 (
 	IdPromotion int NOT NULL AUTO_INCREMENT,
-	Annee int,
-	Nom varchar(20),
-	EnseignantEnCharge int,
+	Annee int NOT NULL,
+	Nom varchar(20) NOT NULL,
+	EnseignantEnCharge int NOT NULL,
 	PRIMARY KEY(IdPromotion)
 	FOREIGN KEY(EnseignantEnCharge) REFERENCES Enseignants(IdEnseignant)
 );
