@@ -4,13 +4,13 @@ package messages;
 import utils.socket.IMessage;
 
 public class StudentClassRequest implements IMessage {
-    private final int idClass;
+    private final int userId;
 
-    public StudentClassRequest(int idClass) {
-        this.idClass = idClass;
+    public StudentClassRequest(int userId) {
+        this.userId = userId;
     }
 
-    public int getIdClass() {
-        return this.idClass;
+    public int getUserId() {
+        return this.userId;
     }
 }
