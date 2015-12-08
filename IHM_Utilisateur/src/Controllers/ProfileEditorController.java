@@ -11,6 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import messages.ChangeUserEmailRequest;
+import messages.ChangeUserEmailResponse;
+import messages.ChangeUserPasswordRequest;
+import messages.ChangeUserPasswordResponse;
 
 import java.io.File;
 import java.net.URL;
@@ -69,21 +73,55 @@ public class ProfileEditorController implements Initializable {
     }
 
     public void validateAction() {
+        this.changeEmail();
+        this.changePassword();
+    }
+
+    private void changeEmail() {
         if ((!this.emailFirstPart.getText().isEmpty()) && (!this.emailSecondPart.getText().isEmpty()) && (!this.emailThirdPart.getText().isEmpty())) {
-            AppUser.user.setProfileImage(this.profileImageView.getImage());
-            AppUser.user.setEmail(this.emailFirstPart.getText() + "@" + this.emailSecondPart.getText() + "." + this.emailThirdPart.getText());
+            String email = this.emailFirstPart.getText() + "@" + this.emailSecondPart.getText() + "." + this.emailThirdPart.getText();
 
-            if (!this.passwordField1.getText().isEmpty()) {
-                //TODO
+            if (!email.equals(AppUser.user.getEmail())) {
+                ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(AppUser.user.getId(), email)));
+
+                if (changeUserEmailResponse.getResult())
+                    AppUser.user.setEmail(email);
+                else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Une erreur est survenue lors du changement d'adresse mail dans la base de données.");
+                    alert.showAndWait();
+                }
             }
-
-            this.stage.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Un des champs de l'addresse mail est vide.");
             alert.showAndWait();
+        }
+    }
+
+    private void changePassword() {
+        if (!this.passwordField1.getText().isEmpty()) {
+            if (this.passwordField2.getText().equals(this.passwordField1.getText())) {
+                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(AppUser.user.getId(), this.passwordField1.getText())));
+
+                if (!changeUserPasswordResponse.getResult()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Une erreur est survenue lors du changement du mot de passe dans la base de données.");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Les mots de passe rentrés ne corresponde pas.");
+                alert.showAndWait();
+            }
         }
     }
 }

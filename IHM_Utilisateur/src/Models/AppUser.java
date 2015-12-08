@@ -54,6 +54,7 @@ public class AppUser {
 
         if (loginResponse.getSuccess()) {
             AppUser.user = loginResponse.getUser();
+            DataBase.users.put(AppUser.user.getId(), AppUser.user);
             return true;
         } else
             return false;

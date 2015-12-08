@@ -62,6 +62,8 @@ public class Client {
         messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
         messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
+        messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
+        messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
     }
 
     public IMessageCallback onPingRequest = data -> {
@@ -107,5 +109,15 @@ public class Client {
             e.printStackTrace();
             //TODO handle image fail
         }
+    };
+
+    public IMessageCallback onChangeUserEmailRequest = data -> {
+        ChangeUserEmailRequest msg = (ChangeUserEmailRequest) data.getMessage();
+        data.setResponse(new ChangeUserEmailResponse(false));
+    };
+
+    public IMessageCallback onChangeUserPasswordRequest = date -> {
+        ChangeUserPasswordRequest msg = (ChangeUserPasswordRequest) date.getMessage();
+        date.setResponse(new ChangeUserPasswordResponse(false));
     };
 }
