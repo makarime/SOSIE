@@ -90,8 +90,14 @@ public class ProfileEditorController implements Initializable {
             if (!email.equals(AppUser.user.getEmail())) {
                 ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(AppUser.user.getId(), email)));
 
-                if (changeUserEmailResponse.getResult())
+                if (changeUserEmailResponse.getResult()) {
                     AppUser.user.setEmail(email);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Votre adresse mail a bien  été changé.");
+                    alert.showAndWait();
+                }
                 else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
@@ -114,7 +120,13 @@ public class ProfileEditorController implements Initializable {
             if (this.passwordField2.getText().equals(this.passwordField1.getText())) {
                 ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(AppUser.user.getId(), this.passwordField1.getText())));
 
-                if (!changeUserPasswordResponse.getResult()) {
+                if (changeUserPasswordResponse.getResult()) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Votre mot de passe a bien  été changé.");
+                    alert.showAndWait();
+                } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
                     alert.setHeaderText(null);
@@ -137,7 +149,13 @@ public class ProfileEditorController implements Initializable {
                 byte[] bytes = Files.readAllBytes(this.newProfileImageFile.toPath());
                 ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(AppUser.user.getId(), bytes)));
 
-                if (!changeUserProfileImageResponse.getResult()) {
+                if (changeUserProfileImageResponse.getResult()) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Votre image de profile a bien  été changé.");
+                    alert.showAndWait();
+                } else {
                     this.profileImageView.setImage(this.oldProlfileImage);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
