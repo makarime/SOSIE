@@ -3,19 +3,43 @@ CREATE DATABASE Arlo CHARACTER SET utf8 COLLATE utf8_general_ci ;
 GRANT ALL ON arlo.* TO 'arlo_admin_db'@'localhost';
 USE Arlo;
 
+/* --------------- Tables utiles actuellement -------------------- */
+
 /* Creation de la table utilisateurs */
 CREATE TABLE Utilisateurs
 (
-IdUtilisateur int NOT NULL AUTO_INCREMENT,
-Login varchar(50) NOT NULL,
-MdP varchar(50) NOT NULL,
-LastName varchar(20) NOT NULL,
-FirstName varchar(25) NOT NULL,
-Email varchar(50),
-Photo varchar(255),
-Checkin varchar(11),
-PRIMARY KEY (IdUtilisateur)
+	IdUtilisateur int NOT NULL AUTO_INCREMENT,
+	Login varchar(50) NOT NULL,
+	MdP varchar(50) NOT NULL,
+	LastName varchar(20) NOT NULL,
+	FirstName varchar(25) NOT NULL,
+	Email varchar(50),
+	Photo varchar(255),
+	Checkin varchar(11) NOT NULL,
+	PRIMARY KEY (IdUtilisateur)
 );
+
+/* Creation de la table promotion */
+CREATE TABLE Promotion
+(
+	IdPromotion int NOT NULL AUTO_INCREMENT,
+	Annee int,
+	Nom varchar(20),
+	ProfesseurEnCharge int,
+	PRIMARY KEY(IdPromotion)
+	FOREIGN KEY(ProfesseurEnCharge) REFERENCES Utilisateurs(IdUtilisateur)
+);
+    
+CREATE TABLE ElevePromotion
+(
+	IdPromotion int,
+    	IdUtilisateur int,
+    	PRIMARY KEY(IdPromotion, IdUtilisateur),
+    	FOREIGN KEY(IdPromotion) REFERENCES Promotion(IdPromotion),
+    	FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
+);
+    
+/* ------------------------------------------------------------------------*/
 
 /* Creation de la table salle */
 CREATE TABLE Salle(
@@ -29,20 +53,7 @@ CREATE TABLE Salle(
     PRIMARY KEY(IdSalle)
     );
 	
-/* Creation de la table promotion */
-CREATE TABLE Promotion(
-    IdPromotion int NOT NULL AUTO_INCREMENT,
-    Annee int,
-	Nom varchar(20),
-    PRIMARY KEY(IdPromotion)
-    );
-CREATE TABLE ElevePromotion(
-    IdPromotion int,
-    IdUtilisateur int,
-    PRIMARY KEY(IdPromotion, IdUtilisateur),
-    FOREIGN KEY(IdPromotion) REFERENCES Promotion(IdPromotion),
-    FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
-    );
+
 
 /* Creation de la table enseignants */
 CREATE TABLE Enseignants(
