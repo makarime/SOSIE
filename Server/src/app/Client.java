@@ -81,7 +81,7 @@ public class Client {
     };
     public IMessageCallback onUserRequest = data -> {
         UserRequest msg = (UserRequest) data.getMessage();
-        data.setResponse(new UserResponse(new Student(1, "Jack", "pot", 1)));
+        data.setResponse(new UserResponse(new Student(1, "Jack", "pot")));
     };
     public IMessageCallback onStudentClassRequest = data -> {
         StudentClassRequest msg = (StudentClassRequest) data.getMessage();
@@ -97,8 +97,8 @@ public class Client {
     public IMessageCallback onClassStudentRequest = data -> {
         ClassStudentRequest msg = (ClassStudentRequest) data.getMessage();
         data.setResponse(new ClassStudentResponse(new ArrayList<>(Arrays.asList(
-                new Student(1, "Nicolas", "Cage", 1),
-                new Student(2, "Jack", "pot", 1))
+                new Student(1, "Nicolas", "Cage"),
+                new Student(2, "Jack", "pot"))
         )));
     };
 
