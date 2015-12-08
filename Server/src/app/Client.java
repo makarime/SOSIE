@@ -3,6 +3,8 @@ package app;
 import Models.Class;
 import Models.Professor;
 import Models.Student;
+import Models.User;
+import dao.UserRepository;
 import messages.*;
 import utils.socket.DataArrivalEvent;
 import utils.socket.SClient;
@@ -72,11 +74,8 @@ public class Client {
     public IMessageCallback onLoginRequest = data -> {
         LoginRequest msg = (LoginRequest) data.getMessage();
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
-
-        //Student version
-        //data.setResponse(new LoginResponse(true, new Student(1, "Nicolas", "Cage", 2)));
-        //Professor version
-        data.setResponse(new LoginResponse(true, new Professor(1, "Nicolas", "Cage")));
+        User user = UserRepository.getByCredential(msg.getLogin(), msg.getPassword());
+        data.setResponse(new LoginResponse(user == null, user));
     };
 
     public IMessageCallback onStudentClassRequest = data -> {
