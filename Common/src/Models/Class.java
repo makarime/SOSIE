@@ -10,17 +10,19 @@ import java.util.ArrayList;
 public class Class implements Serializable {
     private int id;
     private int year;
+    private String name = null;
     private int idProfessorInCharge;
     private ArrayList<Student> students = null;
 
-    public Class(int id, int year, int idProfessorInCharge) {
+    public Class(int id, int year, String name, int idProfessorInCharge) {
         this.id = id;
         this.year = year;
+        this.name = name;
         this.idProfessorInCharge = idProfessorInCharge;
     }
 
     public String toString() {
-        return String.valueOf(this.year);
+        return this.name + " - " + String.valueOf(this.year);
     }
 
     public int getId() {

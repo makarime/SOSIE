@@ -81,24 +81,24 @@ public class Client {
     };
     public IMessageCallback onUserRequest = data -> {
         UserRequest msg = (UserRequest) data.getMessage();
-        data.setResponse(new UserResponse(new Student(1, "Jack", "pot")));
+        data.setResponse(new UserResponse(new Student(2, "Jack", "pot")));
     };
     public IMessageCallback onStudentClassRequest = data -> {
         StudentClassRequest msg = (StudentClassRequest) data.getMessage();
-        data.setResponse(new StudentClassResponse(new Class(1, 2015, 1)));
+        data.setResponse(new StudentClassResponse(new Class(1, 2015, "IATIC3", 1)));
     };
     public IMessageCallback onProfessorClassRequest = data -> {
         ProfessorClassRequest msg = (ProfessorClassRequest) data.getMessage();
         data.setResponse(new ProfessorClassResponse(new ArrayList<>(Arrays.asList(
-                new Class(1, 2015, 1),
-                new Class(2, 2016, 1)
+                new Class(2, 2015, "IATIC4", 1),
+                new Class(3, 2016, "IATIC5", 1)
         ))));
     };
     public IMessageCallback onClassStudentRequest = data -> {
         ClassStudentRequest msg = (ClassStudentRequest) data.getMessage();
         data.setResponse(new ClassStudentResponse(new ArrayList<>(Arrays.asList(
-                new Student(1, "Nicolas", "Cage"),
-                new Student(2, "Jack", "pot"))
+                new Student(3, "Nicolas", "Cage"),
+                new Student(4, "Jack", "pot"))
         )));
     };
 
