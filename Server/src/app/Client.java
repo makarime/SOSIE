@@ -57,7 +57,6 @@ public class Client {
     private void registerCallback() {
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
-        messagesCallback.put(UserRequest.class, onUserRequest);
         messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
         messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
         messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
@@ -79,10 +78,7 @@ public class Client {
         //Professor version
         data.setResponse(new LoginResponse(true, new Professor(1, "Nicolas", "Cage")));
     };
-    public IMessageCallback onUserRequest = data -> {
-        UserRequest msg = (UserRequest) data.getMessage();
-        data.setResponse(new UserResponse(new Student(2, "Jack", "pot")));
-    };
+
     public IMessageCallback onStudentClassRequest = data -> {
         StudentClassRequest msg = (StudentClassRequest) data.getMessage();
         data.setResponse(new StudentClassResponse(new Class(1, 2015, "IATIC3", 1)));
