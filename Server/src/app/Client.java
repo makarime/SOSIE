@@ -1,7 +1,6 @@
 package app;
 
 import Models.Class;
-import Models.Professor;
 import Models.Student;
 import Models.User;
 import dao.UserRepository;
@@ -92,8 +91,8 @@ public class Client {
     public IMessageCallback onClassStudentRequest = data -> {
         ClassStudentRequest msg = (ClassStudentRequest) data.getMessage();
         data.setResponse(new ClassStudentResponse(new ArrayList<>(Arrays.asList(
-                new Student(3, "Nicolas", "Cage"),
-                new Student(4, "Jack", "pot"))
+                new Student(3, "Nicolas", "Cage", 1),
+                new Student(4, "Jack", "pot", 2))
         )));
     };
 
