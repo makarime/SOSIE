@@ -18,12 +18,10 @@ public class Student extends User {
 
     public Class getStudentClass() {
         if (this.c == null) {
-            StudentClassResponse studentClassResponse = ((StudentClassResponse) DataBase.sClient.sendRequest(new StudentClassRequest(this.idClass)));
-
-            if (DataBase.classes.containsKey(studentClassResponse.getStudentClass().getId()))
-                this.c = DataBase.classes.get(studentClassResponse.getStudentClass().getId());
+            if (DataBase.classes.containsKey(this.idClass))
+                this.c = DataBase.classes.get(this.idClass);
             else {
-                this.c = studentClassResponse.getStudentClass();
+                this.c = ((StudentClassResponse) DataBase.sClient.sendRequest(new StudentClassRequest(this.idClass))).getStudentClass();
                 DataBase.classes.put(this.c.getId(), this.c);
             }
         }
