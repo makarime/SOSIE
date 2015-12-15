@@ -8,7 +8,7 @@ USE Arlo;
 CREATE TABLE Enseignants
 (
 	IdEnseignant int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL,
+	Login varchar(50) NOT NULL UNIQUE,
 	MdP varchar(50) NOT NULL,
 	LastName varchar(20) NOT NULL,
 	FirstName varchar(25) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE Promotions
 CREATE TABLE Eleves
 (
 	IdEleve int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL,
+	Login varchar(50) NOT NULL UNIQUE,
 	MdP varchar(50) NOT NULL,
 	LastName varchar(20) NOT NULL,
 	FirstName varchar(25) NOT NULL,
