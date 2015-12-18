@@ -1,8 +1,8 @@
 package Models;
 
 
-import messages.ClassStudentRequest;
-import messages.ClassStudentResponse;
+import messages.models.ClassStudentRequest;
+import messages.models.ClassStudentResponse;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Class implements Serializable {
         if (this.students == null) {
             this.students = new ArrayList<>();
 
-            ClassStudentResponse classStudentResponse = ((ClassStudentResponse) DataBase.sClient.sendRequest(new ClassStudentRequest(this.id)));
+            ClassStudentResponse classStudentResponse = ((ClassStudentResponse) DataBase.currentProxy.load(new ClassStudentRequest(this.id)));
 
             for (Student student : classStudentResponse.getStudents()) {
                 if (DataBase.users.containsKey(student.getId()))

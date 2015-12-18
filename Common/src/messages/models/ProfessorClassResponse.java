@@ -1,11 +1,10 @@
-package messages;
+package messages.models;
 
 import Models.Class;
 import utils.socket.IMessage;
 
 import java.util.ArrayList;
 
-@Deprecated
 public class ProfessorClassResponse implements IMessage{
     public final ArrayList<Class> classes;
 

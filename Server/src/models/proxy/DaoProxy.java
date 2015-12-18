@@ -1,19 +1,54 @@
 package models.proxy;
 
 import Models.Class;
+import Models.Student;
 import Models.proxy.IProxy;
-import Models.proxy.ProxyOpcode;
+import messages.models.*;
+import utils.socket.IMessage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class DaoProxy implements IProxy {
+    private final HashMap<java.lang.Class, IMessageCallback> messagesCallback = new HashMap<>();
+    public interface IMessageCallback {
+        IMessage run(IMessage e);
+    }
+
+    public DaoProxy() {
+        messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
+        messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
+        messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
+    }
 
     @Override
-    public Object load(ProxyOpcode requestType, Object... params) {
-        switch (requestType) {
-            case Student_GetClass:
-                return new Class(1, 2015, "IATIC3", 1);
-            default:
-                return null;
-        }
+    public IMessage load(IMessage msg) {
+        if (messagesCallback.containsKey(msg.getClass()))
+            return messagesCallback.get(msg.getClass()).run(msg);
+        System.err.println("[DaoProxy] Message not found: " + msg.getClass().getName());
+        return null;
     }
+
+    public IMessageCallback onStudentClassRequest = data -> {
+        StudentClassRequest msg = (StudentClassRequest) data;
+        return new StudentClassResponse(new Class(1, 2015, "IATIC3", 1));
+    };
+
+    public IMessageCallback onProfessorClassRequest = data -> {
+        ProfessorClassRequest msg = (ProfessorClassRequest) data;
+        return new ProfessorClassResponse(new ArrayList<>(Arrays.asList(
+                new Class(2, 2015, "IATIC4", 1),
+                new Class(3, 2016, "IATIC5", 1)
+        )));
+    };
+
+    public IMessageCallback onClassStudentRequest = data -> {
+        ClassStudentRequest msg = (ClassStudentRequest) data;
+        return new ClassStudentResponse(new ArrayList<>(Arrays.asList(
+                new Student(3, "Nicolas", "Cage", 1),
+                new Student(4, "Jack", "pot", 2))
+        ));
+    };
 
 }

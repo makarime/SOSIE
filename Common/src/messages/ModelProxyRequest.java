@@ -1,23 +1,15 @@
 package messages;
 
-import Models.proxy.ProxyOpcode;
 import utils.socket.IMessage;
 
 public class ModelProxyRequest implements IMessage {
-    private final ProxyOpcode requestType;
-    private final Object[] params;
+    private final IMessage msg;
 
-    public ModelProxyRequest(ProxyOpcode requestType, Object[] params) {
-        this.requestType = requestType;
-        this.params = params;
+    public ModelProxyRequest(IMessage msg) {
+        this.msg = msg;
     }
 
-    public ProxyOpcode getRequestType() {
-        return requestType;
+    public IMessage getMsg() {
+        return msg;
     }
-
-    public Object[] getParams() {
-        return params;
-    }
-
 }

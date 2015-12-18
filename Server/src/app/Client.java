@@ -59,9 +59,6 @@ public class Client {
     private void registerCallback() {
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
-        messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
-        messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
-        messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
         messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
         messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
@@ -79,24 +76,6 @@ public class Client {
         data.setResponse(new LoginResponse(user != null, user));
     };
 
-    public IMessageCallback onStudentClassRequest = data -> {
-        StudentClassRequest msg = (StudentClassRequest) data.getMessage();
-        data.setResponse(new StudentClassResponse(new Class(1, 2015, "IATIC3", 1)));
-    };
-    public IMessageCallback onProfessorClassRequest = data -> {
-        ProfessorClassRequest msg = (ProfessorClassRequest) data.getMessage();
-        data.setResponse(new ProfessorClassResponse(new ArrayList<>(Arrays.asList(
-                new Class(2, 2015, "IATIC4", 1),
-                new Class(3, 2016, "IATIC5", 1)
-        ))));
-    };
-    public IMessageCallback onClassStudentRequest = data -> {
-        ClassStudentRequest msg = (ClassStudentRequest) data.getMessage();
-        data.setResponse(new ClassStudentResponse(new ArrayList<>(Arrays.asList(
-                new Student(3, "Nicolas", "Cage", 1),
-                new Student(4, "Jack", "pot", 2))
-        )));
-    };
 
     public IMessageCallback onUserAdditionalInfoRequest = data -> {
         UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data.getMessage();
@@ -124,7 +103,6 @@ public class Client {
     };
 
     public IMessageCallback onModelProxyRequest = data -> {
-        ModelProxyRequest msg = (ModelProxyRequest) data.getMessage();
-        data.setResponse(new ModelProxyResponse(DataBase.currentProxy.load(msg.getRequestType(), msg.getParams())));
+        data.setResponse(new ModelProxyResponse(DataBase.currentProxy.load(((ModelProxyRequest)data.getMessage()).getMsg())));
     };
 }

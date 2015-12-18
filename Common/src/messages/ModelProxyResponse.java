@@ -3,13 +3,13 @@ package messages;
 import utils.socket.IMessage;
 
 public class ModelProxyResponse implements IMessage {
-    private final Object value;
+    private final IMessage value;
 
-    public ModelProxyResponse(Object value) {
+    public ModelProxyResponse(IMessage value) {
         this.value = value;
     }
 
-    public Object getValue() {
+    public IMessage getValue() {
         return value;
     }
 }

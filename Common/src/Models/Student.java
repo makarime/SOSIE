@@ -1,8 +1,8 @@
 package Models;
 
 
-import messages.StudentClassRequest;
-import messages.StudentClassResponse;
+import messages.models.StudentClassRequest;
+import messages.models.StudentClassResponse;
 
 public class Student extends User {
     private int idClass;
@@ -21,7 +21,7 @@ public class Student extends User {
             if (DataBase.classes.containsKey(this.idClass))
                 this.c = DataBase.classes.get(this.idClass);
             else {
-                this.c = ((StudentClassResponse) DataBase.sClient.sendRequest(new StudentClassRequest(this.idClass))).getStudentClass();
+                this.c = ((StudentClassResponse) DataBase.currentProxy.load(new StudentClassRequest(this.idClass))).getStudentClass();
                 DataBase.classes.put(this.c.getId(), this.c);
             }
         }

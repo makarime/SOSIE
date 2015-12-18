@@ -1,8 +1,8 @@
 package Models;
 
 
-import messages.ProfessorClassRequest;
-import messages.ProfessorClassResponse;
+import messages.models.ProfessorClassRequest;
+import messages.models.ProfessorClassResponse;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class Professor extends User {
     public ArrayList<Class> getClasses() {
         if (this.classes == null) {
             this.classes = new ArrayList<>();
-            ProfessorClassResponse professorClassResponse = ((ProfessorClassResponse) DataBase.sClient.sendRequest(new ProfessorClassRequest(this.id)));
+            ProfessorClassResponse professorClassResponse = ((ProfessorClassResponse) DataBase.currentProxy.load(new ProfessorClassRequest(this.id)));
 
             for (Class c : professorClassResponse.getClasses()) {
                 if (DataBase.classes.containsKey(c.getId()))

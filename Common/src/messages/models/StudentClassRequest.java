@@ -1,9 +1,8 @@
-package messages;
+package messages.models;
 
 
 import utils.socket.IMessage;
 
-@Deprecated
 public class StudentClassRequest implements IMessage {
     private final int classId;
 
