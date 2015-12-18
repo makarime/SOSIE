@@ -18,13 +18,17 @@ public class UserRepository extends DaoBase<User>{
         return instance;
     }
 
+    private static final String SElECTREQUEST = "SELECT * FROM Utilisateurs " +
+                                                "  LEFT JOIN Eleves ON Eleves.EleveId = Utilisateurs.IdUtilisateur " +
+                                                "  LEFT JOIN Enseignants ON Enseignants.EnseignantId = Utilisateurs.IdUtilisateur ";
+
     public static User getById(int id) {
-        ArrayList<User> ar = getInstance().select("SELECT * FROM Utilisateurs WHERE IdUtilisateur = " + id);
+        ArrayList<User> ar = getInstance().select(SElECTREQUEST + "WHERE IdUtilisateur = " + id);
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
     public static User getByCredential(String login, String password) {
-        ArrayList<User> ar = getInstance().select("SELECT * FROM Utilisateurs WHERE Login = ? AND Mdp = ?", login, password);
+        ArrayList<User> ar = getInstance().select(SElECTREQUEST + "WHERE Login = ? AND Mdp = ?", login, password);
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
@@ -35,21 +39,24 @@ public class UserRepository extends DaoBase<User>{
             builder.append(Integer.toString(ids[i]));
             if(i + 1 != ids.length) builder.append(", ");
         }
-        return getInstance().select("SELECT * FROM Utilisateurs WHERE IdUtilisateur IN (" + builder.toString() + ")");
+        return getInstance().select(SElECTREQUEST + "WHERE IdUtilisateur IN (" + builder.toString() + ")");
     }
 
     @Override
     public User dataToClass(ResultSet data) throws SQLException {
-        if(data.getString("Checkin").equals("Eleve")) {
+        if(data.getObject("EleveId") != null) {
             return new Student(
                     data.getInt("IdUtilisateur"),
                     data.getString("FirstName"),
-                    data.getString("LastName"));
-        } else {
+                    data.getString("LastName"), 0);
+        } else if(data.getObject("EnseignantId") != null)  {
             return new Professor(
                     data.getInt("IdUtilisateur"),
                     data.getString("FirstName"),
                     data.getString("LastName"));
+        } else {
+            System.err.println(String.format("Unknown user (Id: %d, Login: %s)", data.getInt("IdUtilisateur"), data.getString("Login")));
+            return null;
         }
     }
 
