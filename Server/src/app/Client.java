@@ -1,8 +1,6 @@
 package app;
 
-import Models.Class;
 import Models.DataBase;
-import Models.Student;
 import Models.User;
 import dao.UserRepository;
 import messages.*;
@@ -14,10 +12,6 @@ import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Client {
@@ -59,7 +53,6 @@ public class Client {
     private void registerCallback() {
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
-        messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
         messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
         messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
         messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
@@ -74,17 +67,6 @@ public class Client {
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
         User user = UserRepository.getByCredential(msg.getLogin(), msg.getPassword());
         data.setResponse(new LoginResponse(user != null, user));
-    };
-
-
-    public IMessageCallback onUserAdditionalInfoRequest = data -> {
-        UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data.getMessage();
-        try {
-            data.setResponse(new UserAdditionalInfoResponse("test@gmail.com", Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg"))));
-        } catch (Exception e) {
-            e.printStackTrace();
-            //TODO handle image fail
-        }
     };
 
     public IMessageCallback onChangeUserEmailRequest = data -> {

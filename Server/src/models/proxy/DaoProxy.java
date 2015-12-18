@@ -6,6 +6,8 @@ import Models.proxy.IProxy;
 import messages.models.*;
 import utils.socket.IMessage;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class DaoProxy implements IProxy {
         messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
         messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
         messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
+        messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
     }
 
     @Override
@@ -49,6 +52,17 @@ public class DaoProxy implements IProxy {
                 new Student(3, "Nicolas", "Cage", 1),
                 new Student(4, "Jack", "pot", 2))
         ));
+    };
+
+    public IMessageCallback onUserAdditionalInfoRequest = data -> {
+        UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data;
+        try {
+            return new UserAdditionalInfoResponse("test@gmail.com", Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg")));
+        } catch (Exception e) {
+            e.printStackTrace();
+            //TODO handle image fail
+            return null;
+        }
     };
 
 }

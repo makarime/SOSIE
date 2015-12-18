@@ -1,8 +1,8 @@
 package Models;
 
 import javafx.scene.image.Image;
-import messages.UserAdditionalInfoRequest;
-import messages.UserAdditionalInfoResponse;
+import messages.models.UserAdditionalInfoRequest;
+import messages.models.UserAdditionalInfoResponse;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
@@ -43,7 +43,7 @@ public abstract class User implements Serializable {
 
     private void loadAdditionalInformation() {
         if ((this.profileImage == null) && (this.email == null)) {
-            UserAdditionalInfoResponse userAdditionalInfoResponse = ((UserAdditionalInfoResponse) DataBase.sClient.sendRequest(new UserAdditionalInfoRequest(this.id)));
+            UserAdditionalInfoResponse userAdditionalInfoResponse = ((UserAdditionalInfoResponse) DataBase.currentProxy.load(new UserAdditionalInfoRequest(this.id)));
             this.profileImage = new Image(new ByteArrayInputStream(userAdditionalInfoResponse.getProfileImage()));
             this.email = userAdditionalInfoResponse.getEmail();
         }
