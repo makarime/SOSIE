@@ -1,0 +1,8 @@
+Utilisateur - User
+Eleve - Student
+Professeur - Professor
+Classe - Class
+Promotion - Batch
+UE (unité d'enseignement) - EU (educational unit)
+Matière - Subject
+Cours - Course
