@@ -1,6 +1,7 @@
 package app;
 
 import Models.Class;
+import Models.DataBase;
 import Models.Student;
 import Models.User;
 import dao.UserRepository;
@@ -65,6 +66,7 @@ public class Client {
         messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
         messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
         messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        messagesCallback.put(ModelProxyRequest.class, onModelProxyRequest);
     }
 
     public IMessageCallback onPingRequest = data -> {
@@ -119,5 +121,10 @@ public class Client {
     public IMessageCallback onChangeUserProfileImageRequest = data -> {
         ChangeUserProfileImageRequest msg = (ChangeUserProfileImageRequest) data.getMessage();
         data.setResponse(new ChangeUserProfileImageResponse(true));
+    };
+
+    public IMessageCallback onModelProxyRequest = data -> {
+        ModelProxyRequest msg = (ModelProxyRequest) data.getMessage();
+        data.setResponse(new ModelProxyResponse(DataBase.currentProxy.load(msg.getRequestType(), msg.getParams())));
     };
 }

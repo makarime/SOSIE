@@ -1,6 +1,8 @@
 package app;
 
+import Models.DataBase;
 import dao.DaoConnection;
+import models.proxy.DaoProxy;
 import utils.socket.Server;
 import utils.socket.ServerListener;
 
@@ -14,6 +16,9 @@ public class Main {
 
             // Connexion JDBC //
             DaoConnection.getInstance().connect(null,0,null,null,null);
+
+            // Change le proxy par defaut definie par les models //
+            DataBase.currentProxy = new DaoProxy();
 
             // Configuration du serveur //
             server.addListener(onNewConnection);

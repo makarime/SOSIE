@@ -2,6 +2,7 @@ package messages;
 
 import utils.socket.IMessage;
 
+@Deprecated
 public class ClassStudentRequest implements IMessage{
     public final int classId;
 
