@@ -1,5 +1,6 @@
 package Models;
 
+import Models.proxy.SocketProxy;
 import javafx.scene.control.Alert;
 import messages.LoginRequest;
 import messages.LoginResponse;
@@ -34,7 +35,7 @@ public class AppUser {
     public static boolean testServerAccess() {
         try {
             AppUser.sClient = new SClient("127.0.0.1", 3698);
-            DataBase.sClient = AppUser.sClient;
+            DataBase.currentProxy = new SocketProxy(AppUser.sClient);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
