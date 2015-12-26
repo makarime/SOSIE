@@ -1,9 +1,3 @@
-/* Insertion table utilisateurs */
-INSERT INTO Utilisateurs VALUES ("","JGanne", "JGanne","Ganne","Jonathan","jonathan.ganne@isty.uvsq.fr","#");
-INSERT INTO Utilisateurs VALUES ("","AKoscianski","AKoscianski","Koscianski","Arnaud","arnaud.koscianski@isty.uvsq.fr","#");
-INSERT INTO Utilisateurs VALUES ("","EGalet","EGalet","Galet","Emmanuel","emmanuel.galet@isty.uvsq.fr","#");
-INSERT INTO Utilisateurs VALUES ("","MPetit","MPetit","Petit","Marc","marc.petit@uvsq.fr","#");
-INSERT INTO Utilisateurs VALUES ("","GBruneau","GBruneau","Bruneau","Guillaume","guillaume.bruneau@isty.uvsq.fr","#");
 
 /* Insertion table salle */
 INSERT INTO Salle VALUES("",11,35,false,true,false,false);
@@ -11,9 +5,6 @@ INSERT INTO Salle VALUES("",111,35,false,true,true,true);
 INSERT INTO Salle VALUES("",116,19,true,true,false,true);
 INSERT INTO Salle VALUES("",216,35,true,true,false,false);
 INSERT INTO Salle VALUES("",16,5,false,false,false,false);
-
-/* Insertion table enseignants */
-INSERT INTO Enseignants VALUES("",true,true,4);
 
 /* Insertion table cours */
 INSERT INTO Cours VALUES("",3,"2015-12-04 08:00:00",1);

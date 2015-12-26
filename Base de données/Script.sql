@@ -55,29 +55,41 @@ FROM Eleves
 
 /* --------------- Tables utiles actuellement -------------------- */
 
-/* Creation de la table utilisateurs */
-CREATE TABLE Utilisateurs
+CREATE TABLE Enseignants
 (
-	IdUtilisateur int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL,
+	IdEnseignant int NOT NULL AUTO_INCREMENT,
+	Login varchar(50) NOT NULL UNIQUE,
 	MdP varchar(50) NOT NULL,
 	LastName varchar(20) NOT NULL,
 	FirstName varchar(25) NOT NULL,
 	Email varchar(50),
 	Photo varchar(255),
-	Checkin varchar(11) NOT NULL,
-	PRIMARY KEY (IdUtilisateur)
+	PRIMARY KEY (IdEnseignant)
+);
+
+CREATE TABLE Eleves
+(
+	IdEleve int NOT NULL AUTO_INCREMENT,
+	Login varchar(50) NOT NULL UNIQUE,
+	MdP varchar(50) NOT NULL,
+	LastName varchar(20) NOT NULL,
+	FirstName varchar(25) NOT NULL,
+	Email varchar(50),
+	Photo varchar(255),
+	IdPromotion int NOT NULL,
+	PRIMARY KEY (IdEleve)
+	FOREIGN KEY (IdPromotion) REFERENCES Promotions(IdPromotion)
 );
 
 /* Creation de la table promotion */
-CREATE TABLE Promotion
+CREATE TABLE Promotions
 (
 	IdPromotion int NOT NULL AUTO_INCREMENT,
-	Annee int,
-	Nom varchar(20),
-	ProfesseurEnCharge int,
+	Annee int NOT NULL,
+	Nom varchar(20) NOT NULL,
+	EnseignantEnCharge int NOT NULL,
 	PRIMARY KEY(IdPromotion)
-	FOREIGN KEY(ProfesseurEnCharge) REFERENCES Utilisateurs(IdUtilisateur)
+	FOREIGN KEY(EnseignantEnCharge) REFERENCES Enseignants(IdEnseignant)
 );
     
 CREATE TABLE ElevePromotion
@@ -198,4 +210,10 @@ PRIMARY KEY(idAbsence),
 FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
 );
 
-
+/* Vue des utilisateurs connectée (élèves ou étudiants) */
+CREATE VIEW UserLoginView AS
+SELECT Login, MdP
+FROM Enseignants
+UNION
+SELECT Login, MdP
+FROM Eleves
