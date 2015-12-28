@@ -9,18 +9,18 @@ import java.io.Serializable;
 
 public abstract class User implements Serializable {
     protected Status status = null;
-    protected int id;
+    protected int userId;
+    protected String lastName = null;
     protected String firstName = null;
-    protected String name = null;
     protected String email = null;
     protected Image profileImage = null;
 
     public String toString() {
-        return this.firstName + " " + this.name;
+        return this.firstName + " " + this.lastName;
     }
 
-    public int getId() {
-        return this.id;
+    public int getUserId() {
+        return this.userId;
     }
 
     public String getEmail() {
@@ -43,9 +43,9 @@ public abstract class User implements Serializable {
 
     private void loadAdditionalInformation() {
         if ((this.profileImage == null) && (this.email == null)) {
-            UserAdditionalInfoResponse userAdditionalInfoResponse = ((UserAdditionalInfoResponse) DataBase.currentProxy.load(new UserAdditionalInfoRequest(this.id)));
-            this.profileImage = new Image(new ByteArrayInputStream(userAdditionalInfoResponse.getProfileImage()));
-            this.email = userAdditionalInfoResponse.getEmail();
+            UserAdditionalInfoResponse response = ((UserAdditionalInfoResponse) DataBase.currentProxy.load(new UserAdditionalInfoRequest(this.userId)));
+            this.profileImage = new Image(new ByteArrayInputStream(response.getProfileImage()));
+            this.email = response.getEmail();
         }
     }
 

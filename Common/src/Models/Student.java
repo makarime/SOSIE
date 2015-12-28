@@ -1,31 +1,18 @@
 package Models;
 
 
-import messages.models.StudentClassRequest;
-import messages.models.StudentClassResponse;
-
 public class Student extends User {
-    private int idClass;
-    private Class c = null;
+    private int studentId;
 
-    public Student(int id, String firstName, String name, int idClass) {
+    public Student(int userId, int studentId, String lastName, String firstName) {
         this.status = Status.student;
-        this.id = id;
+        this.userId = userId;
+        this.studentId = studentId;
+        this.lastName = lastName;
         this.firstName = firstName;
-        this.name = name;
-        this.idClass = idClass;
     }
 
-    public Class getStudentClass() {
-        if (this.c == null) {
-            if (DataBase.classes.containsKey(this.idClass))
-                this.c = DataBase.classes.get(this.idClass);
-            else {
-                this.c = ((StudentClassResponse) DataBase.currentProxy.load(new StudentClassRequest(this.idClass))).getStudentClass();
-                DataBase.classes.put(this.c.getId(), this.c);
-            }
-        }
-
-        return this.c;
+    public int getStudentId() {
+        return this.studentId;
     }
 }

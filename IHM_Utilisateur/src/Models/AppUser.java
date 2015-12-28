@@ -55,7 +55,12 @@ public class AppUser {
 
         if (loginResponse.getSuccess()) {
             AppUser.user = loginResponse.getUser();
-            DataBase.users.put(AppUser.user.getId(), AppUser.user);
+            DataBase.users.put(AppUser.user.getUserId(), AppUser.user);
+            if (AppUser.user.isStudent())
+                DataBase.students.put(((Student) AppUser.user).getStudentId(), (Student) AppUser.user);
+            else if (AppUser.user.isProfessor())
+                DataBase.professors.put(((Professor) AppUser.user).getProfessorId(), (Professor) AppUser.user);
+
             return true;
         } else
             return false;

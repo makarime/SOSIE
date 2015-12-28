@@ -1,50 +1,21 @@
 package Models;
 
-
-import messages.models.ClassStudentRequest;
-import messages.models.ClassStudentResponse;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Class implements Serializable {
-    private int id;
-    private int year;
+    private int classId;
     private String name = null;
-    private int idProfessorInCharge;
-    private ArrayList<Student> students = null;
 
-    public Class(int id, int year, String name, int idProfessorInCharge) {
-        this.id = id;
-        this.year = year;
+    public Class(String name, int classId) {
         this.name = name;
-        this.idProfessorInCharge = idProfessorInCharge;
+        this.classId = classId;
     }
 
-    public String toString() {
-        return this.name + " - " + String.valueOf(this.year);
+    public int getClassId() {
+        return this.classId;
     }
 
-    public int getId() {
-        return this.id;
-    }
-
-    public ArrayList<Student> getStudents() {
-        if (this.students == null) {
-            this.students = new ArrayList<>();
-
-            ClassStudentResponse classStudentResponse = ((ClassStudentResponse) DataBase.currentProxy.load(new ClassStudentRequest(this.id)));
-
-            for (Student student : classStudentResponse.getStudents()) {
-                if (DataBase.users.containsKey(student.getId()))
-                    this.students.add((Student) DataBase.users.get(student.getId()));
-                else {
-                    DataBase.users.put(student.getId(), student);
-                    this.students.add(student);
-                }
-            }
-        }
-
-        return this.students;
+    public String getName() {
+        return this.name;
     }
 }

@@ -1,6 +1,6 @@
 package models.proxy;
 
-import Models.Class;
+import Models.Professor;
 import Models.Student;
 import Models.proxy.IProxy;
 import messages.models.*;
@@ -19,10 +19,12 @@ public class DaoProxy implements IProxy {
     }
 
     public DaoProxy() {
-        messagesCallback.put(StudentClassRequest.class, onStudentClassRequest);
-        messagesCallback.put(ProfessorClassRequest.class, onProfessorClassRequest);
-        messagesCallback.put(ClassStudentRequest.class, onClassStudentRequest);
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
+        messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
+        messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
+        messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        messagesCallback.put(ClassBatchProfessorInChargeRequest.class, onClassBatchProfessorInChargeRequest);
+        messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
     }
 
     @Override
@@ -32,27 +34,6 @@ public class DaoProxy implements IProxy {
         System.err.println("[DaoProxy] Message not found: " + msg.getClass().getName());
         return null;
     }
-
-    public IMessageCallback onStudentClassRequest = data -> {
-        StudentClassRequest msg = (StudentClassRequest) data;
-        return new StudentClassResponse(new Class(1, 2015, "IATIC3", 1));
-    };
-
-    public IMessageCallback onProfessorClassRequest = data -> {
-        ProfessorClassRequest msg = (ProfessorClassRequest) data;
-        return new ProfessorClassResponse(new ArrayList<>(Arrays.asList(
-                new Class(2, 2015, "IATIC4", 1),
-                new Class(3, 2016, "IATIC5", 1)
-        )));
-    };
-
-    public IMessageCallback onClassStudentRequest = data -> {
-        ClassStudentRequest msg = (ClassStudentRequest) data;
-        return new ClassStudentResponse(new ArrayList<>(Arrays.asList(
-                new Student(3, "Nicolas", "Cage", 1),
-                new Student(4, "Jack", "pot", 2))
-        ));
-    };
 
     public IMessageCallback onUserAdditionalInfoRequest = data -> {
         UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data;
@@ -65,4 +46,29 @@ public class DaoProxy implements IProxy {
         }
     };
 
+
+    public IMessageCallback onChangeUserEmailRequest = data -> {
+        ChangeUserEmailRequest msg = (ChangeUserEmailRequest) data;
+        return new ChangeUserEmailResponse(true);
+    };
+
+    public IMessageCallback onChangeUserPasswordRequest = data -> {
+        ChangeUserPasswordRequest msg = (ChangeUserPasswordRequest) data;
+        return new ChangeUserPasswordResponse(true);
+    };
+
+    public IMessageCallback onChangeUserProfileImageRequest = data -> {
+        ChangeUserProfileImageRequest msg = (ChangeUserProfileImageRequest) data;
+        return new ChangeUserProfileImageResponse(true);
+    };
+
+    public IMessageCallback onClassBatchProfessorInChargeRequest = data -> {
+        ClassBatchProfessorInChargeRequest msg = (ClassBatchProfessorInChargeRequest) data;
+        return new ClassBatchProfessorInChargeResponse(new Professor(0, 0, "Marc", "Landers"));
+    };
+
+    public IMessageCallback onClassBatchStudentsRequest = data -> {
+        ClassBatchStudentsRequest msg = (ClassBatchStudentsRequest) data;
+        return new ClassBatchStudentsResponse(new ArrayList<>(Arrays.asList(new Student(1, 0, "toto", "titi"), new Student(2, 1, "aaaa", "bbbb"))));
+    };
 }

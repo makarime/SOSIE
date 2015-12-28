@@ -1,37 +1,18 @@
 package Models;
 
 
-import messages.models.ProfessorClassRequest;
-import messages.models.ProfessorClassResponse;
-
-import java.util.ArrayList;
-
-
 public class Professor extends User {
-    private ArrayList<Class> classes = null;
+    private int professorId;
 
-    public Professor(int id, String firstName, String name) {
+    public Professor(int userId, int professorId, String lastName, String firstName) {
         this.status = Status.professor;
-        this.id = id;
+        this.userId = userId;
+        this.professorId = professorId;
+        this.lastName = lastName;
         this.firstName = firstName;
-        this.name = name;
     }
 
-    public ArrayList<Class> getClasses() {
-        if (this.classes == null) {
-            this.classes = new ArrayList<>();
-            ProfessorClassResponse professorClassResponse = ((ProfessorClassResponse) DataBase.currentProxy.load(new ProfessorClassRequest(this.id)));
-
-            for (Class c : professorClassResponse.getClasses()) {
-                if (DataBase.classes.containsKey(c.getId()))
-                    this.classes.add(DataBase.classes.get(c.getId()));
-                else {
-                    DataBase.classes.put(c.getId(), c);
-                    this.classes.add(c);
-                }
-            }
-        }
-
-        return this.classes;
+    public int getProfessorId() {
+        return this.professorId;
     }
 }

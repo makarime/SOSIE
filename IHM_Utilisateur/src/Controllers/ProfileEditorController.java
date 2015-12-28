@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import messages.*;
+import messages.models.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +88,7 @@ public class ProfileEditorController implements Initializable {
             String email = this.emailFirstPart.getText() + "@" + this.emailSecondPart.getText() + "." + this.emailThirdPart.getText();
 
             if (!email.equals(AppUser.user.getEmail())) {
-                ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(AppUser.user.getId(), email)));
+                ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(AppUser.user.getUserId(), email)));
 
                 if (changeUserEmailResponse.getResult()) {
                     AppUser.user.setEmail(email);
@@ -118,7 +118,7 @@ public class ProfileEditorController implements Initializable {
     private void changePassword() {
         if (!this.passwordField1.getText().isEmpty()) {
             if (this.passwordField2.getText().equals(this.passwordField1.getText())) {
-                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(AppUser.user.getId(), this.passwordField1.getText())));
+                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(AppUser.user.getUserId(), this.passwordField1.getText())));
 
                 if (changeUserPasswordResponse.getResult()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -147,7 +147,7 @@ public class ProfileEditorController implements Initializable {
         if (this.profileImageChanged) {
             try {
                 byte[] bytes = Files.readAllBytes(this.newProfileImageFile.toPath());
-                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(AppUser.user.getId(), bytes)));
+                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(AppUser.user.getUserId(), bytes)));
 
                 if (changeUserProfileImageResponse.getResult()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
