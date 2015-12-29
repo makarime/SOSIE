@@ -20,9 +20,6 @@ public class DaoProxy implements IProxy {
 
     public DaoProxy() {
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
-        messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
-        messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
-        messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
         messagesCallback.put(ClassBatchProfessorInChargeRequest.class, onClassBatchProfessorInChargeRequest);
         messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
     }
@@ -44,22 +41,6 @@ public class DaoProxy implements IProxy {
             //TODO handle image fail
             return null;
         }
-    };
-
-
-    public IMessageCallback onChangeUserEmailRequest = data -> {
-        ChangeUserEmailRequest msg = (ChangeUserEmailRequest) data;
-        return new ChangeUserEmailResponse(true);
-    };
-
-    public IMessageCallback onChangeUserPasswordRequest = data -> {
-        ChangeUserPasswordRequest msg = (ChangeUserPasswordRequest) data;
-        return new ChangeUserPasswordResponse(true);
-    };
-
-    public IMessageCallback onChangeUserProfileImageRequest = data -> {
-        ChangeUserProfileImageRequest msg = (ChangeUserProfileImageRequest) data;
-        return new ChangeUserProfileImageResponse(true);
     };
 
     public IMessageCallback onClassBatchProfessorInChargeRequest = data -> {

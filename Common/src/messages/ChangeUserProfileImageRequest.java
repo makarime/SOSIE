@@ -1,4 +1,4 @@
-package messages.models;
+package messages;
 
 
 import utils.socket.IMessage;

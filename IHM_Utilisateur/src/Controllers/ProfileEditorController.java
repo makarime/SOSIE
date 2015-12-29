@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import messages.models.*;
+import messages.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class ProfileEditorController implements Initializable {
 
     private Stage stage = null;
     private boolean profileImageChanged = false;
-    private Image oldProlfileImage = null;
+    private Image oldProfileImage = null;
     private File newProfileImageFile = null;
 
     public ProfileEditorController(Stage stage) {
@@ -72,7 +72,7 @@ public class ProfileEditorController implements Initializable {
             return;
 
         this.profileImageChanged = true;
-        this.oldProlfileImage = this.profileImageView.getImage();
+        this.oldProfileImage = this.profileImageView.getImage();
         this.newProfileImageFile = file;
         this.profileImageView.setImage(new Image("file:" + file.getPath()));
     }
@@ -156,7 +156,7 @@ public class ProfileEditorController implements Initializable {
                     alert.setContentText("Votre image de profile a bien  été changé.");
                     alert.showAndWait();
                 } else {
-                    this.profileImageView.setImage(this.oldProlfileImage);
+                    this.profileImageView.setImage(this.oldProfileImage);
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur");
                     alert.setHeaderText(null);

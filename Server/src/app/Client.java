@@ -54,6 +54,9 @@ public class Client {
         messagesCallback.put(ModelProxyRequest.class, onModelProxyRequest);
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
+        messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
+        messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
+        messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
     }
 
     public IMessageCallback onModelProxyRequest = data -> {
@@ -68,5 +71,20 @@ public class Client {
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
         User user = UserRepository.getByCredential(msg.getLogin(), msg.getPassword());
         data.setResponse(new LoginResponse(user != null, user));
+    };
+
+    public IMessageCallback onChangeUserEmailRequest = data -> {
+        ChangeUserEmailRequest msg = (ChangeUserEmailRequest) data.getMessage();
+        data.setResponse(new ChangeUserEmailResponse(true));
+    };
+
+    public IMessageCallback onChangeUserPasswordRequest = data -> {
+        ChangeUserPasswordRequest msg = (ChangeUserPasswordRequest) data.getMessage();
+        data.setResponse(new ChangeUserPasswordResponse(true));
+    };
+
+    public IMessageCallback onChangeUserProfileImageRequest = data -> {
+        ChangeUserProfileImageRequest msg = (ChangeUserProfileImageRequest) data.getMessage();
+        data.setResponse(new ChangeUserProfileImageResponse(true));
     };
 }
