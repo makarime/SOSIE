@@ -24,6 +24,7 @@ public class DaoProxy implements IProxy {
         messagesCallback.put(ClassBatchProfessorInChargeRequest.class, onClassBatchProfessorInChargeRequest);
         messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
         messagesCallback.put(ProfessorClassBatchesRequest.class, onProfessorClassBatchesRequest);
+        messagesCallback.put(StudentClassBatchRequest.class, onStudentClassBatchRequest);
     }
 
     @Override
@@ -58,5 +59,10 @@ public class DaoProxy implements IProxy {
     public IMessageCallback onProfessorClassBatchesRequest = data -> {
         ProfessorClassBatchesRequest msg = (ProfessorClassBatchesRequest) data;
         return new ProfessorClassBatchesResponse(new ArrayList<>(Arrays.asList(new ClassBatch(0, 0, 0, 0), new ClassBatch(1, 1, 1, 0))));
+    };
+
+    public IMessageCallback onStudentClassBatchRequest = data -> {
+        StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
+        return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
     };
 }

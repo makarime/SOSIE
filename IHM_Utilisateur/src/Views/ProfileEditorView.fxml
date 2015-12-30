@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
+<HBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <VBox>
         <HBox.margin>
             <Insets bottom="5.0" left="5.0" top="5.0"/>
         </HBox.margin>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="160.0">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="182.0" prefWidth="160.0">
             <VBox.margin>
                 <Insets left="5.0" top="5.0"/>
             </VBox.margin>

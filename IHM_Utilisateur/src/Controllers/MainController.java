@@ -95,10 +95,10 @@ public class MainController implements Initializable {
         this.datePicker.setDayCellFactory(dayCellFactory);
     }
 
-    private void setClassesChoiceBox() {
+    private void setClassBatchesChoiceBox() {
         if (AppUser.user.isStudent()) {
-            this.classBatchesChoiceBox.setDisable(true);
-            this.classBatchesChoiceBox.setVisible(false);
+            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) AppUser.user).getClassBatch()));
+            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
         } else if (AppUser.user.isProfessor()) {
             this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) AppUser.user).getClassBatches()));
             this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
@@ -108,7 +108,7 @@ public class MainController implements Initializable {
     private void setInitializationUI() {
         this.setDatePicker();
         this.setProfileTitledPane();
-        this.setClassesChoiceBox();
+        this.setClassBatchesChoiceBox();
     }
 
     private void setDisableWeekBeforeButton() {

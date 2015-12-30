@@ -68,4 +68,8 @@ public class ClassBatch implements Serializable {
 
         return this.students;
     }
+
+    public String toString() {
+        return "No name yet";
+    }
 }
