@@ -17,11 +17,11 @@ public class ClassBatch implements Serializable {
 
     private ArrayList<Student> students = null;
 
-    public ClassBatch(int classBatchId, int classId, int professorInChargeId, int batchId) {
+    public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId) {
         this.classBatchId = classBatchId;
         this.classId = classId;
-        this.professorInChargeId = professorInChargeId;
         this.batchId = batchId;
+        this.professorInChargeId = professorInChargeId;
     }
 
     public int getClassBatchId() {
@@ -41,12 +41,12 @@ public class ClassBatch implements Serializable {
     }
 
     public Professor getProfessorInCharge() {
-        if (DataBase.professors.containsKey(this.professorInChargeId))
-            return DataBase.professors.get(this.professorInChargeId);
+        if (DataBase.professorHashtable.containsKey(this.professorInChargeId))
+            return DataBase.professorHashtable.get(this.professorInChargeId);
         else {
             ClassBatchProfessorInChargeResponse response = ((ClassBatchProfessorInChargeResponse) DataBase.currentProxy.load(new ClassBatchProfessorInChargeRequest(this.professorInChargeId)));
-            DataBase.users.put(response.getProfessor().getUserId(), response.getProfessor());
-            DataBase.professors.put(response.getProfessor().getProfessorId(), response.getProfessor());
+            DataBase.userHashtable.put(response.getProfessor().getUserId(), response.getProfessor());
+            DataBase.professorHashtable.put(response.getProfessor().getProfessorId(), response.getProfessor());
             return response.getProfessor();
         }
     }
@@ -56,11 +56,11 @@ public class ClassBatch implements Serializable {
             this.students = new ArrayList<>();
             ClassBatchStudentsResponse response = ((ClassBatchStudentsResponse) DataBase.currentProxy.load(new ClassBatchStudentsRequest(this.classBatchId)));
             for (Student student : response.getStudents()) {
-                if (DataBase.students.containsKey(student.getStudentId()))
-                    this.students.add(DataBase.students.get(student.getStudentId()));
+                if (DataBase.studentHashtable.containsKey(student.getStudentId()))
+                    this.students.add(DataBase.studentHashtable.get(student.getStudentId()));
                 else {
-                    DataBase.users.put(student.getUserId(), student);
-                    DataBase.students.put(student.getStudentId(), student);
+                    DataBase.userHashtable.put(student.getUserId(), student);
+                    DataBase.studentHashtable.put(student.getStudentId(), student);
                     this.students.add(student);
                 }
             }

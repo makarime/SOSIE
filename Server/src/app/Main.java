@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Démarrage de l'application ...");
 
             // Connexion JDBC //
-            DaoConnection.getInstance().connect("ns325391.ip-37-187-105.eu", 80, "arlo", "IstyArlo", "arlo2");
+            DaoConnection.getInstance().connect("sliverkin.fr", 3306, "arlo", "IstyArlo", "arlo3");
 
             // Change le proxy par defaut definie par les models //
             DataBase.currentProxy = new DaoProxy();

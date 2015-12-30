@@ -1,10 +1,8 @@
 package Controllers;
 
 import Models.*;
-import Models.Class;
 import Models.DataBaseModels.Appointment;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +29,7 @@ public class MainController implements Initializable {
     @FXML
     public ImageView profileImageView;
     @FXML
-    public ChoiceBox<Class> classesChoiceBox;
+    public ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
     public Button detailsClassButton;
     @FXML
@@ -98,15 +96,13 @@ public class MainController implements Initializable {
     }
 
     private void setClassesChoiceBox() {
-        ObservableList<Class> classes = null;
-
-        if (AppUser.user.isStudent())
-            classes = FXCollections.observableArrayList(((Student) AppUser.user).getStudentClass());
-        else if (AppUser.user.isProfessor())
-            classes = FXCollections.observableArrayList(((Professor) AppUser.user).getClasses());
-
-        this.classesChoiceBox.setItems(classes);
-        this.classesChoiceBox.setValue(this.classesChoiceBox.getItems().get(0));
+        if (AppUser.user.isStudent()) {
+            this.classBatchesChoiceBox.setDisable(true);
+            this.classBatchesChoiceBox.setVisible(false);
+        } else if (AppUser.user.isProfessor()) {
+            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) AppUser.user).getClassBatches()));
+            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+        }
     }
 
     private void setInitializationUI() {
@@ -236,7 +232,7 @@ public class MainController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassView.fxml"));
             Stage classWindowStage = new Stage();
-            loader.setController(new ClassController(this.classesChoiceBox.getValue()));
+            loader.setController(new ClassBatchController(this.classBatchesChoiceBox.getValue()));
             classWindowStage.setTitle("Visionneur de promotion");
             classWindowStage.setScene(new Scene(loader.load()));
             classWindowStage.setResizable(false);

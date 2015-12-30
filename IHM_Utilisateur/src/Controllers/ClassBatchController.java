@@ -1,7 +1,7 @@
 package Controllers;
 
 
-import Models.Class;
+import Models.ClassBatch;
 import Models.Student;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClassController implements Initializable {
+public class ClassBatchController implements Initializable {
     @FXML
     public Label classNameLabel;
     @FXML
@@ -21,10 +21,10 @@ public class ClassController implements Initializable {
     @FXML
     public Button viewInfoStudentButton;
 
-    private Class c = null;
+    private ClassBatch classBatch = null;
 
-    public ClassController(Class c) {
-        this.c = c;
+    public ClassBatchController(ClassBatch classBatch) {
+        this.classBatch = classBatch;
     }
 
     @Override
@@ -33,16 +33,12 @@ public class ClassController implements Initializable {
         this.setStudentsListView();
     }
 
-    public void setClass(Class c) {
-        this.c = c;
-    }
-
     private void setClassNameLabel() {
-        this.classNameLabel.setText("Nom de la promotion : " + this.c.toString());
+        this.classNameLabel.setText("Nom de la promotion : " + this.classBatch.toString());
     }
 
     private void setStudentsListView() {
-        this.studentsListView.setItems(FXCollections.observableArrayList(this.c.getStudents()));
+        this.studentsListView.setItems(FXCollections.observableArrayList(this.classBatch.getStudents()));
     }
 
     @FXML

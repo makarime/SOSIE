@@ -125,7 +125,7 @@
             </TitledPane>
             <TitledPane text="Promotion">
                 <VBox>
-                    <ChoiceBox fx:id="classesChoiceBox"/>
+                    <ChoiceBox fx:id="classBatchesChoiceBox"/>
                     <Button fx:id="detailsClassButton" mnemonicParsing="false" onAction="#detailClassAction"
                             text="Voir détails">
                         <VBox.margin>
