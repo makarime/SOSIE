@@ -8,8 +8,6 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
 public abstract class User implements Serializable {
-    @Deprecated
-    protected Status status = null;
     protected int userId;
     private String login;
     protected String lastName = null;
@@ -59,19 +57,11 @@ public abstract class User implements Serializable {
         this.login = login;
     }
 
-    @Deprecated
     public boolean isStudent() {
-        return this.status == Status.student;
+        return this instanceof Student;
     }
 
-    @Deprecated
     public boolean isProfessor() {
-        return this.status == Status.professor;
-    }
-
-    @Deprecated
-    protected enum Status {
-        professor,
-        student
+        return this instanceof Professor;
     }
 }
