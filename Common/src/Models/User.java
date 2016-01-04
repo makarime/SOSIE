@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
 public abstract class User implements Serializable {
+    @Deprecated
     protected Status status = null;
     protected int userId;
     protected String lastName = null;
