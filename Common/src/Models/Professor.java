@@ -10,7 +10,6 @@ public class Professor extends User {
     private ArrayList<ClassBatch> classBatches = null;
 
     public Professor(int userId, String lastName, String firstName) {
-        this.status = Status.professor;
         this.userId = userId;
         this.lastName = lastName;
         this.firstName = firstName;

@@ -8,7 +8,6 @@ public class Student extends User {
     private ClassBatch classBatch = null;
 
     public Student(int userId, String lastName, String firstName) {
-        this.status = Status.student;
         this.userId = userId;
         this.lastName = lastName;
         this.firstName = firstName;
