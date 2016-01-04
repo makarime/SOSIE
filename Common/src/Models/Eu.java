@@ -1,5 +1,8 @@
 package Models;
 
+import messages.models.EuClassRequest;
+import messages.models.EuClassResponse;
+
 public class Eu {
     private int euId;
     private int classId;
@@ -10,6 +13,16 @@ public class Eu {
         this.classId = classId;
         this.name = name;
     }
+
+    public Class getClassObj() {
+        if(DataBase.classeHashtable.containsKey(classId))
+            return DataBase.classeHashtable.get(classId);
+
+        Class clazz = ((EuClassResponse) DataBase.currentProxy.load(new EuClassRequest(classId))).getClazz();
+        DataBase.classeHashtable.put(classId, clazz);
+        return clazz;
+    }
+
 
     ////////////////
 

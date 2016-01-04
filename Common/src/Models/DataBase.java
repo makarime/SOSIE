@@ -12,4 +12,6 @@ public class DataBase {
     public static Hashtable<Integer, Professor> professorHashtable = new Hashtable<>();
     public static Hashtable<Integer, Class> classeHashtable = new Hashtable<>();
     public static Hashtable<Integer, ClassBatch> classBatchHashtable = new Hashtable<>();
+    public static Hashtable<Integer, Eu> euHashtable = new Hashtable<>();
+    public static Hashtable<Integer, Subject> subjectHashtable = new Hashtable<>();
 }

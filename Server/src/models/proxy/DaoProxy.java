@@ -1,8 +1,7 @@
 package models.proxy;
 
-import Models.ClassBatch;
-import Models.Professor;
-import Models.Student;
+import Models.*;
+import Models.Class;
 import Models.proxy.IProxy;
 import messages.models.*;
 import utils.socket.IMessage;
@@ -25,6 +24,8 @@ public class DaoProxy implements IProxy {
         messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
         messagesCallback.put(ProfessorClassBatchesRequest.class, onProfessorClassBatchesRequest);
         messagesCallback.put(StudentClassBatchRequest.class, onStudentClassBatchRequest);
+        messagesCallback.put(SubjectEuRequest.class, onSubjectEuRequest);
+        messagesCallback.put(EuClassRequest.class, onEuClassRequest);
     }
 
     @Override
@@ -64,5 +65,15 @@ public class DaoProxy implements IProxy {
     public IMessageCallback onStudentClassBatchRequest = data -> {
         StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
         return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
+    };
+
+    public IMessageCallback onSubjectEuRequest = data -> {
+        SubjectEuRequest msg = (SubjectEuRequest) data;
+        return new SubjectEuResponse(new Eu(0, 0, "EU"));
+    };
+
+    public IMessageCallback onEuClassRequest = data -> {
+        EuClassRequest msg = (EuClassRequest) data;
+        return new EuClassResponse(new Class("Class", 1));
     };
 }
