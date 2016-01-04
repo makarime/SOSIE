@@ -72,7 +72,7 @@ public class Client {
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
         User user = UserRepository.getByCredential(msg.getLogin(), msg.getPassword());
         //data.setResponse(new LoginResponse(user != null, user));
-        data.setResponse(new LoginResponse(true, new Student(10, 10, "Piere", "Petit")));
+        data.setResponse(new LoginResponse(true, new Student(10, "Piere", "Petit")));
     };
 
     public IMessageCallback onChangeUserEmailRequest = data -> {

@@ -47,13 +47,11 @@ public class UserRepository extends DaoBase<User>{
         if(data.getObject("EleveId") != null) {
             return new Student(
                     data.getInt("IdUtilisateur"),
-                    data.getInt("IdEleve"),
                     data.getString("FirstName"),
                     data.getString("LastName"));
         } else if(data.getObject("EnseignantId") != null)  {
             return new Professor(
                     data.getInt("IdUtilisateur"),
-                    data.getInt("IdEnseignant"),
                     data.getString("FirstName"),
                     data.getString("LastName"));
         } else {

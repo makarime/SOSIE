@@ -11,6 +11,7 @@ public abstract class User implements Serializable {
     @Deprecated
     protected Status status = null;
     protected int userId;
+    private String login;
     protected String lastName = null;
     protected String firstName = null;
     protected String email = null;
@@ -50,14 +51,25 @@ public abstract class User implements Serializable {
         }
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    @Deprecated
     public boolean isStudent() {
         return this.status == Status.student;
     }
 
+    @Deprecated
     public boolean isProfessor() {
         return this.status == Status.professor;
     }
 
+    @Deprecated
     protected enum Status {
         professor,
         student

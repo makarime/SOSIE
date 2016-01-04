@@ -57,9 +57,9 @@ public class AppUser {
             AppUser.user = loginResponse.getUser();
             DataBase.userHashtable.put(AppUser.user.getUserId(), AppUser.user);
             if (AppUser.user.isStudent())
-                DataBase.studentHashtable.put(((Student) AppUser.user).getStudentId(), (Student) AppUser.user);
+                DataBase.studentHashtable.put(AppUser.user.getUserId(), (Student) AppUser.user);
             else if (AppUser.user.isProfessor())
-                DataBase.professorHashtable.put(((Professor) AppUser.user).getProfessorId(), (Professor) AppUser.user);
+                DataBase.professorHashtable.put(AppUser.user.getUserId(), (Professor) AppUser.user);
 
             return true;
         } else

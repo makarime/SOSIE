@@ -46,7 +46,7 @@ public class ClassBatch implements Serializable {
         else {
             ClassBatchProfessorInChargeResponse response = ((ClassBatchProfessorInChargeResponse) DataBase.currentProxy.load(new ClassBatchProfessorInChargeRequest(this.professorInChargeId)));
             DataBase.userHashtable.put(response.getProfessor().getUserId(), response.getProfessor());
-            DataBase.professorHashtable.put(response.getProfessor().getProfessorId(), response.getProfessor());
+            DataBase.professorHashtable.put(response.getProfessor().getUserId(), response.getProfessor());
             return response.getProfessor();
         }
     }
@@ -56,11 +56,11 @@ public class ClassBatch implements Serializable {
             this.students = new ArrayList<>();
             ClassBatchStudentsResponse response = ((ClassBatchStudentsResponse) DataBase.currentProxy.load(new ClassBatchStudentsRequest(this.classBatchId)));
             for (Student student : response.getStudents()) {
-                if (DataBase.studentHashtable.containsKey(student.getStudentId()))
-                    this.students.add(DataBase.studentHashtable.get(student.getStudentId()));
+                if (DataBase.studentHashtable.containsKey(student.getUserId()))
+                    this.students.add(DataBase.studentHashtable.get(student.getUserId()));
                 else {
                     DataBase.userHashtable.put(student.getUserId(), student);
-                    DataBase.studentHashtable.put(student.getStudentId(), student);
+                    DataBase.studentHashtable.put(student.getUserId(), student);
                     this.students.add(student);
                 }
             }

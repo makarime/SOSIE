@@ -7,25 +7,19 @@ import messages.models.ProfessorClassBatchesResponse;
 import java.util.ArrayList;
 
 public class Professor extends User {
-    private int professorId;
     private ArrayList<ClassBatch> classBatches = null;
 
-    public Professor(int userId, int professorId, String lastName, String firstName) {
+    public Professor(int userId, String lastName, String firstName) {
         this.status = Status.professor;
         this.userId = userId;
-        this.professorId = professorId;
         this.lastName = lastName;
         this.firstName = firstName;
-    }
-
-    public int getProfessorId() {
-        return this.professorId;
     }
 
     public ArrayList<ClassBatch> getClassBatches() {
         if (this.classBatches == null) {
             this.classBatches = new ArrayList<>();
-            ProfessorClassBatchesResponse response = ((ProfessorClassBatchesResponse) DataBase.currentProxy.load(new ProfessorClassBatchesRequest(this.professorId)));
+            ProfessorClassBatchesResponse response = ((ProfessorClassBatchesResponse) DataBase.currentProxy.load(new ProfessorClassBatchesRequest(this.getUserId())));
 
             for (ClassBatch classBatch : response.getClassBatches()) {
                 if (DataBase.classBatchHashtable.containsKey(classBatch.getClassBatchId()))

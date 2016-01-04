@@ -48,12 +48,12 @@ public class DaoProxy implements IProxy {
 
     public IMessageCallback onClassBatchProfessorInChargeRequest = data -> {
         ClassBatchProfessorInChargeRequest msg = (ClassBatchProfessorInChargeRequest) data;
-        return new ClassBatchProfessorInChargeResponse(new Professor(0, 0, "Marc", "Landers"));
+        return new ClassBatchProfessorInChargeResponse(new Professor(0, "Marc", "Landers"));
     };
 
     public IMessageCallback onClassBatchStudentsRequest = data -> {
         ClassBatchStudentsRequest msg = (ClassBatchStudentsRequest) data;
-        return new ClassBatchStudentsResponse(new ArrayList<>(Arrays.asList(new Student(1, 0, "toto", "titi"), new Student(2, 1, "aaaa", "bbbb"))));
+        return new ClassBatchStudentsResponse(new ArrayList<>(Arrays.asList(new Student(1, "toto", "titi"), new Student(2, "aaaa", "bbbb"))));
     };
 
     public IMessageCallback onProfessorClassBatchesRequest = data -> {
