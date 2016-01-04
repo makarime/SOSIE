@@ -11,7 +11,6 @@ public class Eu {
     private int euId;
     private int classId;
     private String name;
-    private List<Subject> subjects = null;
 
     public Eu(int euId, int classId, String name) {
         this.euId = euId;
@@ -29,10 +28,7 @@ public class Eu {
     }
 
     public List<Subject> getSubjects() {
-        if(subjects == null)
-            subjects = ((EuSubjectsResponse) DataBase.currentProxy.load(new EuSubjectsRequest(euId))).getSubjects();
-
-        return subjects;
+        return ((EuSubjectsResponse) DataBase.currentProxy.load(new EuSubjectsRequest(euId))).getSubjects();
     }
 
 
