@@ -20,11 +20,11 @@ public class Eu {
     }
 
     public Class getClassObj() {
-        if(DataBase.classeHashtable.containsKey(classId))
-            return DataBase.classeHashtable.get(classId);
+        if(DataBase.classHashtable.containsKey(classId))
+            return DataBase.classHashtable.get(classId);
 
         Class clazz = ((EuClassResponse) DataBase.currentProxy.load(new EuClassRequest(classId))).getClazz();
-        DataBase.classeHashtable.put(classId, clazz);
+        DataBase.classHashtable.put(classId, clazz);
         return clazz;
     }
 
