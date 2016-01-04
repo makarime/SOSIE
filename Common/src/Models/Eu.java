@@ -2,11 +2,16 @@ package Models;
 
 import messages.models.EuClassRequest;
 import messages.models.EuClassResponse;
+import messages.models.EuSubjectsRequest;
+import messages.models.EuSubjectsResponse;
+
+import java.util.List;
 
 public class Eu {
     private int euId;
     private int classId;
     private String name;
+    private List<Subject> subjects = null;
 
     public Eu(int euId, int classId, String name) {
         this.euId = euId;
@@ -21,6 +26,13 @@ public class Eu {
         Class clazz = ((EuClassResponse) DataBase.currentProxy.load(new EuClassRequest(classId))).getClazz();
         DataBase.classeHashtable.put(classId, clazz);
         return clazz;
+    }
+
+    public List<Subject> getSubjects() {
+        if(subjects == null)
+            subjects = ((EuSubjectsResponse) DataBase.currentProxy.load(new EuSubjectsRequest(euId))).getSubjects();
+
+        return subjects;
     }
 
 
