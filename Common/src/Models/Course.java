@@ -22,19 +22,19 @@ public class Course {
     }
 
     public Subject getSubject() {
-        return ((CourseSubjectResponse)DataBase.currentProxy.load(new CourseSubjectRequest(subjectId))).getSubject();
+        return DataBase.currentProxy.loadObjectById(Subject.class, subjectId);
     }
 
     public ClassBatch getClassBatch() {
-        return ((CourseClassBatchResponse)DataBase.currentProxy.load(new CourseClassBatchRequest(classBatchId))).getClassBatch();
+        return DataBase.currentProxy.loadObjectById(ClassBatch.class, classBatchId);
     }
 
     public Professor getProfessor() {
-        return ((CourseProfessorResponse)DataBase.currentProxy.load(new CourseProfessorRequest(professorId))).getProfessor();
+        return DataBase.currentProxy.loadObjectById(Professor.class, professorId);
     }
 
     public Classroom getClassroom() {
-        return ((CourseClassroomResponse)DataBase.currentProxy.load(new CourseClassroomRequest(classroomId))).getClassroom();
+        return DataBase.currentProxy.loadObjectById(Classroom.class, classroomId);
     }
 
     public Date getDate() {

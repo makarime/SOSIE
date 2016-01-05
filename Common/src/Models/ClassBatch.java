@@ -1,8 +1,6 @@
 package Models;
 
 
-import messages.models.ClassBatchProfessorInChargeRequest;
-import messages.models.ClassBatchProfessorInChargeResponse;
 import messages.models.ClassBatchStudentsRequest;
 import messages.models.ClassBatchStudentsResponse;
 
@@ -45,10 +43,10 @@ public class ClassBatch implements Serializable {
         if (DataBase.professorHashtable.containsKey(this.professorInChargeId))
             return DataBase.professorHashtable.get(this.professorInChargeId);
         else {
-            ClassBatchProfessorInChargeResponse response = ((ClassBatchProfessorInChargeResponse) DataBase.currentProxy.load(new ClassBatchProfessorInChargeRequest(this.professorInChargeId)));
-            DataBase.userHashtable.put(response.getProfessor().getUserId(), response.getProfessor());
-            DataBase.professorHashtable.put(response.getProfessor().getUserId(), response.getProfessor());
-            return response.getProfessor();
+            Professor professor = DataBase.currentProxy.loadObjectById(Professor.class, this.professorInChargeId);
+            DataBase.userHashtable.put(professor.getUserId(), professor);
+            DataBase.professorHashtable.put(professor.getUserId(), professor);
+            return professor;
         }
     }
 

@@ -1,8 +1,5 @@
 package Models;
 
-import messages.models.SubjectEuRequest;
-import messages.models.SubjectEuResponse;
-
 public class Subject {
     private int subjectId;
     private int euId;
@@ -18,7 +15,7 @@ public class Subject {
         if(DataBase.euHashtable.containsKey(euId))
             return DataBase.euHashtable.get(euId);
 
-        Eu eu = ((SubjectEuResponse) DataBase.currentProxy.load(new SubjectEuRequest(euId))).getEu();
+        Eu eu = DataBase.currentProxy.loadObjectById(Eu.class, euId);
         DataBase.euHashtable.put(euId, eu);
         return eu;
     }

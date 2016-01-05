@@ -1,7 +1,5 @@
 package Models;
 
-import messages.models.EuClassRequest;
-import messages.models.EuClassResponse;
 import messages.models.EuSubjectsRequest;
 import messages.models.EuSubjectsResponse;
 
@@ -22,7 +20,7 @@ public class Eu {
         if(DataBase.classHashtable.containsKey(classId))
             return DataBase.classHashtable.get(classId);
 
-        Class clazz = ((EuClassResponse) DataBase.currentProxy.load(new EuClassRequest(classId))).getClazz();
+        Class clazz = DataBase.currentProxy.loadObjectById(Class.class, classId);
         DataBase.classHashtable.put(classId, clazz);
         return clazz;
     }

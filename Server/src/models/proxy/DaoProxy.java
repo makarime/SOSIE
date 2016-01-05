@@ -20,20 +20,11 @@ public class DaoProxy implements IProxy {
 
     public DaoProxy() {
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
-        messagesCallback.put(ClassBatchProfessorInChargeRequest.class, onClassBatchProfessorInChargeRequest);
         messagesCallback.put(ClassBatchEusRequest.class, onClassBatchEusRequest);
         messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
         messagesCallback.put(ProfessorClassBatchesRequest.class, onProfessorClassBatchesRequest);
         messagesCallback.put(StudentClassBatchRequest.class, onStudentClassBatchRequest);
-        messagesCallback.put(SubjectEuRequest.class, onSubjectEuRequest);
-        messagesCallback.put(EuClassRequest.class, onEuClassRequest);
         messagesCallback.put(EuSubjectsRequest.class, onEuSubjectsRequest);
-        //BatchClassBatchRequest
-        //ClassroomCourseRequest
-        //CourseSubjectRequest
-        //CourseClassBatchRequest
-        //CourseProfessorRequest
-        //CourseClassroomRequest
     }
 
     @Override
@@ -45,14 +36,12 @@ public class DaoProxy implements IProxy {
     }
 
     @Override
-    public <T> T loadObjectById(java.lang.Class<T> clazz, int i) {
-        //TODO:
-        //Professor
-        //ClassBatch
-        //Classroom
-        //Professor
-        //Subject
-        //Class
+    public <T> T loadObjectById(java.lang.Class<T> clazz, int id) {
+        if(clazz == Professor.class) return clazz.cast(new Professor(0, "Marc", "Landers"));
+        if(clazz == ClassBatch.class) return clazz.cast(new ClassBatch(0, 0, 0, 0));
+        if(clazz == Classroom.class) return clazz.cast(new Classroom(0,0,30,true,true,true,true));
+        if(clazz == Subject.class) return clazz.cast(new Subject(0,0,"EU"));
+        if(clazz == Class.class) return clazz.cast(new Class("Class", 1));
         return null;
     }
 
@@ -65,11 +54,6 @@ public class DaoProxy implements IProxy {
             //TODO handle image fail
             return null;
         }
-    };
-
-    public IMessageCallback onClassBatchProfessorInChargeRequest = data -> {
-        ClassBatchProfessorInChargeRequest msg = (ClassBatchProfessorInChargeRequest) data;
-        return new ClassBatchProfessorInChargeResponse(new Professor(0, "Marc", "Landers"));
     };
 
     public IMessageCallback onClassBatchStudentsRequest = data -> {
@@ -90,16 +74,6 @@ public class DaoProxy implements IProxy {
     public IMessageCallback onStudentClassBatchRequest = data -> {
         StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
         return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
-    };
-
-    public IMessageCallback onSubjectEuRequest = data -> {
-        SubjectEuRequest msg = (SubjectEuRequest) data;
-        return new SubjectEuResponse(new Eu(0, 0, "EU"));
-    };
-
-    public IMessageCallback onEuClassRequest = data -> {
-        EuClassRequest msg = (EuClassRequest) data;
-        return new EuClassResponse(new Class("Class", 1));
     };
 
     public IMessageCallback onEuSubjectsRequest = data -> {
