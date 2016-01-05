@@ -4,6 +4,7 @@ import Models.ClassBatch;
 import Models.Subject;
 import utils.socket.IMessage;
 
+@Deprecated
 public class CourseClassBatchResponse implements IMessage {
     private final ClassBatch classBatch;
 

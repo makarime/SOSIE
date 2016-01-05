@@ -3,6 +3,7 @@ package messages.models;
 import Models.Subject;
 import utils.socket.IMessage;
 
+@Deprecated
 public class CourseSubjectResponse implements IMessage {
     private final Subject subject;
 

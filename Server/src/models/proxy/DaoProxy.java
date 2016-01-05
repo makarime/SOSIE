@@ -44,6 +44,18 @@ public class DaoProxy implements IProxy {
         return null;
     }
 
+    @Override
+    public <T> T loadObjectById(java.lang.Class<T> clazz, int i) {
+        //TODO:
+        //Professor
+        //ClassBatch
+        //Classroom
+        //Professor
+        //Subject
+        //Class
+        return null;
+    }
+
     public IMessageCallback onUserAdditionalInfoRequest = data -> {
         UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data;
         try {

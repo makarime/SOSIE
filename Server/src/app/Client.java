@@ -53,6 +53,7 @@ public class Client {
 
     private void registerCallback() {
         messagesCallback.put(ModelProxyRequest.class, onModelProxyRequest);
+        messagesCallback.put(ModelProxyIdRequest.class, onModelProxyIdRequest);
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
         messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
@@ -62,6 +63,11 @@ public class Client {
 
     public IMessageCallback onModelProxyRequest = data -> {
         data.setResponse(new ModelProxyResponse(DataBase.currentProxy.load(((ModelProxyRequest) data.getMessage()).getMsg())));
+    };
+
+    public IMessageCallback onModelProxyIdRequest = data -> {
+        ModelProxyIdRequest msg = (ModelProxyIdRequest) data.getMessage();
+        data.setResponse(new ModelProxyIdResponse(DataBase.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
     };
 
     public IMessageCallback onPingRequest = data -> {

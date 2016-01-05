@@ -4,6 +4,7 @@ import Models.Classroom;
 import Models.Professor;
 import utils.socket.IMessage;
 
+@Deprecated
 public class CourseClassroomResponse implements IMessage {
     private final Classroom classroom;
 
