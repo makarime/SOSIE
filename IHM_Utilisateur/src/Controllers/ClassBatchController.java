@@ -20,6 +20,8 @@ public class ClassBatchController implements Initializable {
     public ListView<Student> studentsListView;
     @FXML
     public Button viewInfoStudentButton;
+    @FXML
+    public Button viewEUButton;
 
     private ClassBatch classBatch = null;
 
@@ -43,6 +45,11 @@ public class ClassBatchController implements Initializable {
 
     @FXML
     public void viewInfoStudentAction() {
+
+    }
+
+    @FXML
+    public void viewEUAction() {
 
     }
 }

@@ -234,7 +234,7 @@ public class MainController implements Initializable {
     @FXML
     public void detailClassAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassBatchView.fxml"));
             Stage classWindowStage = new Stage();
             loader.setController(new ClassBatchController(this.classBatchesChoiceBox.getValue()));
             classWindowStage.setTitle("Visionneur de promotion");

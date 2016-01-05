@@ -3,16 +3,16 @@ package messages.models;
 import Models.Subject;
 import utils.socket.IMessage;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class EuSubjectsResponse implements IMessage {
-    private final List<Subject> subjects;
+    private final ArrayList<Subject> subjects;
 
-    public EuSubjectsResponse(List<Subject> subjects) {
+    public EuSubjectsResponse(ArrayList<Subject> subjects) {
         this.subjects = subjects;
     }
 
-    public List<Subject> getSubjects() {
+    public ArrayList<Subject> getSubjects() {
         return subjects;
     }
 }
