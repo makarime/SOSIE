@@ -2,7 +2,7 @@ package messages.models;
 
 import utils.socket.IMessage;
 
-
+@Deprecated
 public class ClassBatchStudentsRequest implements IMessage {
     private final int classBatchId;
 

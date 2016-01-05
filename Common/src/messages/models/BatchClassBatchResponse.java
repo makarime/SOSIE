@@ -4,6 +4,7 @@ import Models.ClassBatch;
 import utils.socket.IMessage;
 import java.util.List;
 
+@Deprecated
 public class BatchClassBatchResponse implements IMessage {
     private final List<ClassBatch> classBatches;
 

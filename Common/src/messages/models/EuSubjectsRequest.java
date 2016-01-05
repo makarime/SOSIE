@@ -2,6 +2,7 @@ package messages.models;
 
 import utils.socket.IMessage;
 
+@Deprecated
 public class EuSubjectsRequest implements IMessage {
     private final int euId;
 

@@ -5,6 +5,7 @@ import utils.socket.IMessage;
 
 import java.util.List;
 
+@Deprecated
 public class ClassroomCourseResponse implements IMessage {
     public final List<Course> courses;
 

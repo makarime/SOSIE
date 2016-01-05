@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class DaoProxy implements IProxy {
     private final HashMap<java.lang.Class, IMessageCallback> messagesCallback = new HashMap<>();
@@ -42,6 +43,12 @@ public class DaoProxy implements IProxy {
         if(clazz == Classroom.class) return clazz.cast(new Classroom(0,0,30,true,true,true,true));
         if(clazz == Subject.class) return clazz.cast(new Subject(0,0,"EU"));
         if(clazz == Class.class) return clazz.cast(new Class("Class", 1));
+        return null;
+    }
+
+    @Override
+    public <T> List<T> loadObjectByReverseId(java.lang.Class<T> target, java.lang.Class<?> source, int id) {
+        //TODO
         return null;
     }
 

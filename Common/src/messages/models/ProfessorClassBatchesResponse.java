@@ -6,6 +6,7 @@ import utils.socket.IMessage;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class ProfessorClassBatchesResponse implements IMessage {
     private final ArrayList<ClassBatch> classBatches;
 

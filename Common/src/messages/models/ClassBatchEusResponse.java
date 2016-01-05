@@ -6,6 +6,7 @@ import utils.socket.IMessage;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class ClassBatchEusResponse implements IMessage {
     private final ArrayList<Eu> eus;
 
