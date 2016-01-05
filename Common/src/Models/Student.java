@@ -3,6 +3,8 @@ package Models;
 import messages.models.StudentClassBatchRequest;
 import messages.models.StudentClassBatchResponse;
 
+import java.util.List;
+
 public class Student extends User {
     private ClassBatch currentCB = null;
 
@@ -26,4 +28,9 @@ public class Student extends User {
 
         return this.currentCB;
     }
+
+    public List<StudentClassBatch> getStudentClassBatches() {
+        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, Student.class, userId);
+    }
+
 }

@@ -3,6 +3,7 @@ package Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClassBatch implements Serializable {
     private int classBatchId;
@@ -47,7 +48,7 @@ public class ClassBatch implements Serializable {
         }
     }
 
-    public ArrayList<Student> getStudents() {
+    public List<Student> getStudents() {
         if (this.students == null) {
             this.students = new ArrayList<>();
             for (Student student : DataBase.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, classBatchId)) {
@@ -64,12 +65,16 @@ public class ClassBatch implements Serializable {
         return this.students;
     }
 
-    public ArrayList<Eu> getEus() {
-        if (this.eus == null) {
+    public Batch getBatch() {
+        return DataBase.currentProxy.loadObjectById(Batch.class, batchId);
+    }
 
-        }
+    public Class getClassObj() {
+        return DataBase.currentProxy.loadObjectById(Class.class, classId);
+    }
 
-        return this.eus;
+    public List<Course> getCourses() {
+        return DataBase.currentProxy.loadObjectByReverseId(Course.class, ClassBatch.class, classBatchId);
     }
 
     public String toString() {

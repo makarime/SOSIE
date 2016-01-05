@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.List;
+
 public class Mark {
     private int markId;
     private int studentClassBatchId;
@@ -11,6 +13,14 @@ public class Mark {
         this.studentClassBatchId = studentClassBatchId;
         this.subjectId = subjectId;
         this.value = value;
+    }
+
+    public Subject getSubject() {
+        return DataBase.currentProxy.loadObjectById(Subject.class, subjectId);
+    }
+
+    public List<StudentClassBatch> getStudentClassBatches() {
+        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, Mark.class, markId);
     }
 
     public int getMarkId() {

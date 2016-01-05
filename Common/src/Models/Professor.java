@@ -2,6 +2,7 @@ package Models;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Professor extends User {
     private ArrayList<ClassBatch> classBatches = null;
@@ -28,4 +29,9 @@ public class Professor extends User {
 
         return this.classBatches;
     }
+
+    public List<Course> getCourses() {
+        return DataBase.currentProxy.loadObjectByReverseId(Course.class, Professor.class, userId);
+    }
+
 }
