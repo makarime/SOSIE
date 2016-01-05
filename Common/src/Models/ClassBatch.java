@@ -1,9 +1,6 @@
 package Models;
 
 
-import messages.models.ClassBatchStudentsRequest;
-import messages.models.ClassBatchStudentsResponse;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -53,8 +50,7 @@ public class ClassBatch implements Serializable {
     public ArrayList<Student> getStudents() {
         if (this.students == null) {
             this.students = new ArrayList<>();
-            ClassBatchStudentsResponse response = ((ClassBatchStudentsResponse) DataBase.currentProxy.load(new ClassBatchStudentsRequest(this.classBatchId)));
-            for (Student student : response.getStudents()) {
+            for (Student student : DataBase.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, classBatchId)) {
                 if (DataBase.studentHashtable.containsKey(student.getUserId()))
                     this.students.add(DataBase.studentHashtable.get(student.getUserId()));
                 else {

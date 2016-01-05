@@ -1,8 +1,5 @@
 package Models;
 
-import messages.models.BatchClassBatchRequest;
-import messages.models.BatchClassBatchResponse;
-
 import java.util.List;
 
 public class Batch {
@@ -17,7 +14,7 @@ public class Batch {
     }
 
     public List<ClassBatch> getClassBatches() {
-        return ((BatchClassBatchResponse)DataBase.currentProxy.load(new BatchClassBatchRequest(this.batchId))).getClassBatches();
+        return DataBase.currentProxy.loadObjectByReverseId(ClassBatch.class, Batch.class, batchId);
     }
 
     public int getBatchId() {

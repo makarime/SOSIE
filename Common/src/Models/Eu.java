@@ -1,9 +1,6 @@
 package Models;
 
-import messages.models.EuSubjectsRequest;
-import messages.models.EuSubjectsResponse;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Eu {
     private int euId;
@@ -25,8 +22,8 @@ public class Eu {
         return clazz;
     }
 
-    public ArrayList<Subject> getSubjects() {
-        return ((EuSubjectsResponse) DataBase.currentProxy.load(new EuSubjectsRequest(euId))).getSubjects();
+    public List<Subject> getSubjects() {
+        return DataBase.currentProxy.loadObjectByReverseId(Subject.class, Eu.class, euId);
     }
 
 

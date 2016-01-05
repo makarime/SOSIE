@@ -21,11 +21,7 @@ public class DaoProxy implements IProxy {
 
     public DaoProxy() {
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
-        messagesCallback.put(ClassBatchEusRequest.class, onClassBatchEusRequest);
-        messagesCallback.put(ClassBatchStudentsRequest.class, onClassBatchStudentsRequest);
-        messagesCallback.put(ProfessorClassBatchesRequest.class, onProfessorClassBatchesRequest);
         messagesCallback.put(StudentClassBatchRequest.class, onStudentClassBatchRequest);
-        messagesCallback.put(EuSubjectsRequest.class, onEuSubjectsRequest);
     }
 
     @Override
@@ -48,7 +44,11 @@ public class DaoProxy implements IProxy {
 
     @Override
     public <T> List<T> loadObjectByReverseId(java.lang.Class<T> target, java.lang.Class<?> source, int id) {
-        //TODO
+        if(target == ClassBatch.class) return (List<T>) new ArrayList<>(Arrays.asList(new ClassBatch(0, 0, 0, 0), new ClassBatch(1, 1, 1, 0)));
+        if(target == Eu.class) return (List<T>) new ArrayList<>(Arrays.asList(new Eu(0, 0, "Eu1"), new Eu(1, 0, "Eu2")));
+        if(target == Student.class) return (List<T>) new ArrayList<>(Arrays.asList(new Student(1, "toto", "titi"), new Student(2, "aaaa", "bbbb")));
+        if(target == Course.class) return (List<T>) new ArrayList<>(Arrays.asList(new Course(0,0,0,0,0,null), new Course(1,0,0,0,0,null)));
+        if(target == Subject.class) return (List<T>) new ArrayList<>(Arrays.asList(new Subject(0,0,"mat1"), new Subject(1,0,"mat2")));
         return null;
     }
 
@@ -63,29 +63,9 @@ public class DaoProxy implements IProxy {
         }
     };
 
-    public IMessageCallback onClassBatchStudentsRequest = data -> {
-        ClassBatchStudentsRequest msg = (ClassBatchStudentsRequest) data;
-        return new ClassBatchStudentsResponse(new ArrayList<>(Arrays.asList(new Student(1, "toto", "titi"), new Student(2, "aaaa", "bbbb"))));
-    };
-
-    public IMessageCallback onClassBatchEusRequest = data -> {
-        ClassBatchEusRequest msg = (ClassBatchEusRequest) data;
-        return new ClassBatchEusResponse(new ArrayList<>(Arrays.asList(new Eu(0, 0, "Eu1"), new Eu(1, 0, "Eu2"))));
-    };
-
-    public IMessageCallback onProfessorClassBatchesRequest = data -> {
-        ProfessorClassBatchesRequest msg = (ProfessorClassBatchesRequest) data;
-        return new ProfessorClassBatchesResponse(new ArrayList<>(Arrays.asList(new ClassBatch(0, 0, 0, 0), new ClassBatch(1, 1, 1, 0))));
-    };
-
     public IMessageCallback onStudentClassBatchRequest = data -> {
         StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
         return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
-    };
-
-    public IMessageCallback onEuSubjectsRequest = data -> {
-        EuSubjectsRequest msg = (EuSubjectsRequest) data;
-        return new EuSubjectsResponse(new ArrayList<>(Arrays.asList(new Subject(0, 0, "MATIERE"), new Subject(1, 0, "MATIERE"))));
     };
 
 }

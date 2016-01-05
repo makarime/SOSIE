@@ -1,9 +1,6 @@
 package Models;
 
 
-import messages.models.ProfessorClassBatchesRequest;
-import messages.models.ProfessorClassBatchesResponse;
-
 import java.util.ArrayList;
 
 public class Professor extends User {
@@ -18,9 +15,8 @@ public class Professor extends User {
     public ArrayList<ClassBatch> getClassBatches() {
         if (this.classBatches == null) {
             this.classBatches = new ArrayList<>();
-            ProfessorClassBatchesResponse response = ((ProfessorClassBatchesResponse) DataBase.currentProxy.load(new ProfessorClassBatchesRequest(this.getUserId())));
 
-            for (ClassBatch classBatch : response.getClassBatches()) {
+            for (ClassBatch classBatch : DataBase.currentProxy.loadObjectByReverseId(ClassBatch.class, Professor.class, this.getUserId())) {
                 if (DataBase.classBatchHashtable.containsKey(classBatch.getClassBatchId()))
                     this.classBatches.add(DataBase.classBatchHashtable.get(classBatch.getClassBatchId()));
                 else {

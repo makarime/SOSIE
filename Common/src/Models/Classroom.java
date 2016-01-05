@@ -1,8 +1,5 @@
 package Models;
 
-import messages.models.ClassroomCourseRequest;
-import messages.models.ClassroomCourseResponse;
-
 import java.util.List;
 
 public class Classroom {
@@ -25,7 +22,7 @@ public class Classroom {
     }
 
     public List<Course> getCourses() {
-        return ((ClassroomCourseResponse) DataBase.currentProxy.load(new ClassroomCourseRequest(classroomId))).getCourses();
+        return DataBase.currentProxy.loadObjectByReverseId(Course.class, Classroom.class, classroomId);
     }
 
     public int getClassroomId() {
