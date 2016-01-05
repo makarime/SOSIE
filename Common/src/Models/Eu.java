@@ -14,12 +14,7 @@ public class Eu {
     }
 
     public Class getClassObj() {
-        if(DataBase.classHashtable.containsKey(classId))
-            return DataBase.classHashtable.get(classId);
-
-        Class clazz = DataBase.currentProxy.loadObjectById(Class.class, classId);
-        DataBase.classHashtable.put(classId, clazz);
-        return clazz;
+        return DataBase.currentProxy.loadObjectById(Class.class, classId);
     }
 
     public List<Subject> getSubjects() {
