@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.*;
-import Models.DataBaseModels.Appointment;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,16 +123,6 @@ public class MainController implements Initializable {
         this.wednesdayLabel.setText("Mercredi\n" + this.weeks.get(this.weekOffset).getDay(2).getDateToString());
         this.thursdayLabel.setText("Jeudi\n" + this.weeks.get(this.weekOffset).getDay(3).getDateToString());
         this.fridayLabel.setText("Vendredi\n" + this.weeks.get(this.weekOffset).getDay(4).getDateToString());
-    }
-
-    private void setHBox() {
-        this.mondayHBox.getChildren().clear();
-        this.tuesdayHBox.getChildren().clear();
-        this.wednesdayHBox.getChildren().clear();
-        this.thursdayHBox.getChildren().clear();
-        this.fridayHBox.getChildren().clear();
-
-        ArrayList<ArrayList<Appointment>> l = this.weeks.get(this.weekOffset).getAppointments();
     }
 
     private void setUI() {

@@ -1,7 +1,5 @@
 package Models;
 
-import messages.models.*;
-
 import java.util.Date;
 
 public class Course {

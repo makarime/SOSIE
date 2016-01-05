@@ -13,18 +13,16 @@
         </padding>
         <Label fx:id="classNameLabel" prefHeight="25.0"/>
         <HBox>
-            <children>
-                <Label fx:id="professorInChargeLabel" prefHeight="25.0"/>
-                <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false"
-                        onAction="#viewProfessorInChargeInfoAction" text="Voir infos">
-                    <HBox.margin>
-                        <Insets left="5.0"/>
-                    </HBox.margin>
-                </Button>
-            </children>
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
+            <Label fx:id="professorInChargeLabel" prefHeight="25.0"/>
+            <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false"
+                    onAction="#viewProfessorInChargeInfoAction" text="Voir infos">
+                <HBox.margin>
+                    <Insets left="5.0"/>
+                </HBox.margin>
+            </Button>
         </HBox>
         <Button fx:id="viewEUButton" mnemonicParsing="false" onAction="#viewEUAction" text="Voir les UE">
             <VBox.margin>
