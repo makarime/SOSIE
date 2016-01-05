@@ -16,6 +16,7 @@ public class ClassBatch implements Serializable {
     private int professorInChargeId;
 
     private ArrayList<Student> students = null;
+    private ArrayList<Eu> eus = null;
 
     public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId) {
         this.classBatchId = classBatchId;
@@ -67,6 +68,14 @@ public class ClassBatch implements Serializable {
         }
 
         return this.students;
+    }
+
+    public ArrayList<Eu> getEus() {
+        if (this.eus == null) {
+
+        }
+
+        return this.eus;
     }
 
     public String toString() {
