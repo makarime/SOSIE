@@ -28,6 +28,11 @@ public class DaoProxy implements IProxy {
         messagesCallback.put(EuClassRequest.class, onEuClassRequest);
         messagesCallback.put(EuSubjectsRequest.class, onEuSubjectsRequest);
         //BatchClassBatchRequest
+        //ClassroomCourseRequest
+        //CourseSubjectRequest
+        //CourseClassBatchRequest
+        //CourseProfessorRequest
+        //CourseClassroomRequest
     }
 
     @Override

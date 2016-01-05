@@ -1,5 +1,8 @@
 package Models;
 
+import messages.models.ClassroomCourseRequest;
+import messages.models.ClassroomCourseResponse;
+
 import java.util.List;
 
 public class Classroom {
@@ -21,8 +24,8 @@ public class Classroom {
         this.canDisabledPerson = canDisabledPerson;
     }
 
-    public List<?> getCourse() {
-        return null; //TODO
+    public List<Course> getCourses() {
+        return ((ClassroomCourseResponse) DataBase.currentProxy.load(new ClassroomCourseRequest(classroomId))).getCourses();
     }
 
     public int getClassroomId() {
