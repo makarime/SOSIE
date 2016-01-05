@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null">
+<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Fichier">
@@ -109,11 +109,11 @@
                             <Insets/>
                         </VBox.margin>
                     </Label>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="190.0">
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="160.0">
                         <VBox.margin>
                             <Insets top="5.0"/>
                         </VBox.margin>
-                        <ImageView fx:id="profileImageView" fitHeight="250.0" fitWidth="190.0" pickOnBounds="true"
+                        <ImageView fx:id="profileImageView" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true"
                                    preserveRatio="true"/>
                     </Pane>
                     <Button mnemonicParsing="false" onAction="#editProfileAction" text="Editer">
@@ -123,10 +123,10 @@
                     </Button>
                 </VBox>
             </TitledPane>
-            <TitledPane text="Promotion">
+            <TitledPane text="Promotion(s)">
                 <VBox>
                     <ChoiceBox fx:id="classBatchesChoiceBox"/>
-                    <Button fx:id="detailsClassButton" mnemonicParsing="false" onAction="#detailClassAction"
+                    <Button fx:id="detailsClassBatchButton" mnemonicParsing="false" onAction="#detailClassBatchAction"
                             text="Voir détails">
                         <VBox.margin>
                             <Insets top="5.0"/>

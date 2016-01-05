@@ -31,7 +31,7 @@ public class MainController implements Initializable {
     @FXML
     public ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
-    public Button detailsClassButton;
+    public Button detailsClassBatchButton;
     @FXML
     public DatePicker datePicker;
     @FXML
@@ -150,7 +150,7 @@ public class MainController implements Initializable {
         AppUser.sClient.close();
         AppUser.sClient = null;
         DataBase.currentProxy = null;
-        DataBase.flushHastable();
+        DataBase.flushHastables();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionView.fxml"));
@@ -232,7 +232,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void detailClassAction() {
+    public void detailClassBatchAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassBatchView.fxml"));
             Stage classWindowStage = new Stage();

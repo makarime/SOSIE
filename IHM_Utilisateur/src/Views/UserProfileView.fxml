@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox>
+            <children>
+                <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="182.0" prefWidth="160.0">
+                    <children>
+                        <ImageView fx:id="userProfileImageView" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true"
+                                   preserveRatio="true"/>
+                    </children>
+                </Pane>
+                <VBox>
+                    <children>
+                        <Label fx:id="userNameLabel" prefHeight="25.0"/>
+                        <Label fx:id="userEmailLabel" prefHeight="25.0">
+                            <VBox.margin>
+                                <Insets top="5.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <Label prefHeight="25.0" text="Promotion(s) :">
+                            <VBox.margin>
+                                <Insets top="5.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <HBox>
+                            <children>
+                                <ChoiceBox fx:id="classBatchesChoiceBox"/>
+                                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false"
+                                        onAction="#viewClassBatchInfoAction" text="Voir infos">
+                                    <HBox.margin>
+                                        <Insets left="5.0"/>
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="5.0"/>
+                    </HBox.margin>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+</GridPane>
