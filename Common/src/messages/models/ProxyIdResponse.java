@@ -1,11 +1,11 @@
-package messages;
+package messages.models;
 
 import utils.socket.IMessage;
 
-public class ModelProxyIdResponse implements IMessage {
+public class ProxyIdResponse implements IMessage {
     private final Object value;
 
-    public ModelProxyIdResponse(Object value) {
+    public ProxyIdResponse(Object value) {
         this.value = value;
     }
 

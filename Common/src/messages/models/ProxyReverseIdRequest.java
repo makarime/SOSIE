@@ -1,13 +1,13 @@
-package messages;
+package messages.models;
 
 import utils.socket.IMessage;
 
-public class ModelProxyReverseIdRequest implements IMessage {
+public class ProxyReverseIdRequest implements IMessage {
     private final Class<?> target;
     private final Class<?> source;
     private final int id;
 
-    public ModelProxyReverseIdRequest(Class<?> target, Class<?> source, int id) {
+    public ProxyReverseIdRequest(Class<?> target, Class<?> source, int id) {
         this.target = target;
         this.source = source;
         this.id = id;

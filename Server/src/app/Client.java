@@ -5,6 +5,7 @@ import Models.Student;
 import Models.User;
 import dao.UserRepository;
 import messages.*;
+import messages.models.*;
 import utils.socket.DataArrivalEvent;
 import utils.socket.SClient;
 import utils.socket.SClientAdapter;
@@ -52,8 +53,9 @@ public class Client {
     ///////////////// Gestion des messages ///////////////
 
     private void registerCallback() {
-        messagesCallback.put(ModelProxyRequest.class, onModelProxyRequest);
-        messagesCallback.put(ModelProxyIdRequest.class, onModelProxyIdRequest);
+        messagesCallback.put(ProxyRequest.class, onProxyRequest);
+        messagesCallback.put(ProxyIdRequest.class, onProxyIdRequest);
+        messagesCallback.put(ProxyReverseIdRequest.class, onProxyReverseIdRequest);
         messagesCallback.put(PingRequest.class, onPingRequest);
         messagesCallback.put(LoginRequest.class, onLoginRequest);
         messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
@@ -61,13 +63,19 @@ public class Client {
         messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
     }
 
-    public IMessageCallback onModelProxyRequest = data -> {
-        data.setResponse(new ModelProxyResponse(DataBase.currentProxy.load(((ModelProxyRequest) data.getMessage()).getMsg())));
+    public IMessageCallback onProxyRequest = data -> {
+        data.setResponse(new ProxyResponse(DataBase.currentProxy.load(((ProxyRequest) data.getMessage()).getMsg())));
     };
 
-    public IMessageCallback onModelProxyIdRequest = data -> {
-        ModelProxyIdRequest msg = (ModelProxyIdRequest) data.getMessage();
-        data.setResponse(new ModelProxyIdResponse(DataBase.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
+    public IMessageCallback onProxyIdRequest = data -> {
+        ProxyIdRequest msg = (ProxyIdRequest) data.getMessage();
+        data.setResponse(new ProxyIdResponse(DataBase.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
+    };
+
+    public IMessageCallback onProxyReverseIdRequest = data -> {
+        ProxyReverseIdRequest msg = (ProxyReverseIdRequest) data.getMessage();
+        //TODO: A Voir pour eviter le unchecked
+        data.setResponse(new ProxyReverseIdResponse(DataBase.currentProxy.loadObjectByReverseId(msg.getTarget(), msg.getSource(), msg.getId())));
     };
 
     public IMessageCallback onPingRequest = data -> {

@@ -1,12 +1,12 @@
-package messages;
+package messages.models;
 
 import utils.socket.IMessage;
 
-public class ModelProxyIdRequest implements IMessage {
+public class ProxyIdRequest implements IMessage {
     private final Class<?> clazz;
     private final int id;
 
-    public ModelProxyIdRequest(Class<?> clazz, int id) {
+    public ProxyIdRequest(Class<?> clazz, int id) {
         this.clazz = clazz;
         this.id = id;
     }
