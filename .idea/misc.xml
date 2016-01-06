@@ -60,6 +60,11 @@
         <entry key="$PROJECT_DIR$">
           <value>
             <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="https://github.com/SOSIEISTY/SOSIE/branches" />
+                </list>
+              </option>
               <option name="trunkUrl" value="https://github.com/SOSIEISTY/SOSIE/trunk" />
             </SvnBranchConfiguration>
           </value>

@@ -15,7 +15,7 @@ public class DataBase {
     public static Hashtable<Integer, Eu> euHashtable = new Hashtable<>();
     public static Hashtable<Integer, Subject> subjectHashtable = new Hashtable<>();
 
-    public static void flushHastable() {
+    public static void flushHastables() {
         DataBase.userHashtable = new Hashtable<>();
         DataBase.studentHashtable = new Hashtable<>();
         DataBase.professorHashtable = new Hashtable<>();

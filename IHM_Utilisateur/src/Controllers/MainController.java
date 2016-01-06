@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.*;
-import Models.DataBaseModels.Appointment;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +30,7 @@ public class MainController implements Initializable {
     @FXML
     public ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
-    public Button detailsClassButton;
+    public Button detailsClassBatchButton;
     @FXML
     public DatePicker datePicker;
     @FXML
@@ -126,16 +125,6 @@ public class MainController implements Initializable {
         this.fridayLabel.setText("Vendredi\n" + this.weeks.get(this.weekOffset).getDay(4).getDateToString());
     }
 
-    private void setHBox() {
-        this.mondayHBox.getChildren().clear();
-        this.tuesdayHBox.getChildren().clear();
-        this.wednesdayHBox.getChildren().clear();
-        this.thursdayHBox.getChildren().clear();
-        this.fridayHBox.getChildren().clear();
-
-        ArrayList<ArrayList<Appointment>> l = this.weeks.get(this.weekOffset).getAppointments();
-    }
-
     private void setUI() {
         this.weekSpanLabel.setText(this.weeks.get(this.weekOffset).getSpanWeekString());
         this.setDisableWeekBeforeButton();
@@ -150,7 +139,7 @@ public class MainController implements Initializable {
         AppUser.sClient.close();
         AppUser.sClient = null;
         DataBase.currentProxy = null;
-        DataBase.flushHastable();
+        DataBase.flushHastables();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionView.fxml"));
@@ -232,7 +221,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void detailClassAction() {
+    public void detailClassBatchAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassBatchView.fxml"));
             Stage classWindowStage = new Stage();
