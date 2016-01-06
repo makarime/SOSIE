@@ -11,9 +11,6 @@ public class ClassBatch implements Serializable {
     private int batchId;
     private int professorInChargeId;
 
-    private ArrayList<Student> students = null;
-    private ArrayList<Eu> eus = null;
-
     public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId) {
         this.classBatchId = classBatchId;
         this.classId = classId;
@@ -48,21 +45,8 @@ public class ClassBatch implements Serializable {
         }
     }
 
-    public List<Student> getStudents() {
-        if (this.students == null) {
-            this.students = new ArrayList<>();
-            for (Student student : DataBase.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, classBatchId)) {
-                if (DataBase.studentHashtable.containsKey(student.getUserId()))
-                    this.students.add(DataBase.studentHashtable.get(student.getUserId()));
-                else {
-                    DataBase.userHashtable.put(student.getUserId(), student);
-                    DataBase.studentHashtable.put(student.getUserId(), student);
-                    this.students.add(student);
-                }
-            }
-        }
-
-        return this.students;
+    public List<StudentClassBatch> getStudents() {
+        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, ClassBatch.class, classBatchId);
     }
 
     public Batch getBatch() {

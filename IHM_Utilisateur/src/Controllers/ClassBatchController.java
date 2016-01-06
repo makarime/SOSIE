@@ -3,6 +3,7 @@ package Controllers;
 
 import Models.ClassBatch;
 import Models.Student;
+import Models.StudentClassBatch;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ClassBatchController implements Initializable {
     @FXML
@@ -53,7 +55,7 @@ public class ClassBatchController implements Initializable {
     }
 
     private void setStudentsListView() {
-        this.studentsListView.setItems(FXCollections.observableArrayList(this.classBatch.getStudents()));
+        this.studentsListView.setItems(FXCollections.observableArrayList(this.classBatch.getStudents().stream().map(StudentClassBatch::getStudent).collect(Collectors.toList())));
         this.studentsListView.getSelectionModel().select(0);
     }
 
