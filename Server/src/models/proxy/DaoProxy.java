@@ -51,11 +51,17 @@ public class DaoProxy implements IProxy {
 
     @Override
     public <T> List<T> loadObjectByReverseId(java.lang.Class<T> target, java.lang.Class<?> source, int id) {
-        if(target == ClassBatch.class) return (List<T>) new ArrayList<>(Arrays.asList(new ClassBatch(0, 0, 0, 0), new ClassBatch(1, 1, 1, 0)));
-        if(target == Eu.class) return (List<T>) new ArrayList<>(Arrays.asList(new Eu(0, 0, "Eu1"), new Eu(1, 0, "Eu2")));
-        if(target == Student.class) return (List<T>) new ArrayList<>(Arrays.asList(new Student(1, "toto", "titi"), new Student(2, "aaaa", "bbbb")));
-        if(target == Course.class) return (List<T>) new ArrayList<>(Arrays.asList(new Course(0,0,0,0,0,null), new Course(1,0,0,0,0,null)));
-        if(target == Subject.class) return (List<T>) new ArrayList<>(Arrays.asList(new Subject(0,0,"mat1"), new Subject(1,0,"mat2")));
+        //if(target == Professor.class) return (List<T>) ProfessorRepository.getByReverseId(source, id);
+        //if(target == Student.class) return (List<T>) StudentRepository.getByReverseId(source, id);
+        if(target == Course.class) return (List<T>) CourseRepository.getByReverseId(source, id);
+        if(target == Subject.class) return (List<T>) SubjectRepository.getByReverseId(source, id);
+        if(target == Eu.class) return (List<T>) EuRepository.getByReverseId(source, id);
+        //if(target == Class.class) return (List<T>) ClassRepository.getByReverseId(source, id);
+        //if(target == Batch.class) return (List<T>) BatchRepository.getByReverseId(source, id);
+        //if(target == Classroom.class) return (List<T>) ClassroomRepository.getByReverseId(source, id);
+        if(target == Mark.class) return (List<T>) MarkRepository.getByReverseId(source, id);
+        if(target == ClassBatch.class) return (List<T>) ClassBatchRepository.getByReverseId(source, id);
+        if(target == StudentClassBatch.class) return (List<T>) StudentClassBatchRepository.getByReverseId(source, id);
         return null;
     }
 

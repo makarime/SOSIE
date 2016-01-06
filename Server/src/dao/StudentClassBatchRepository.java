@@ -1,5 +1,6 @@
 package dao;
 
+import Models.ClassBatch;
 import Models.Student;
 import Models.StudentClassBatch;
 
@@ -26,7 +27,8 @@ public class StudentClassBatchRepository extends DaoBase<StudentClassBatch> {
 
     public static List<StudentClassBatch> getByReverseId(Class<?> clazz, int id) {
         String column = null;
-        if(clazz == Student.class) column = "EleveId";
+        if(clazz == Student.class)      column = "EleveId";
+        if(clazz == ClassBatch.class)   column = "ClassPromoId";
         if(column == null) {
             System.err.println(String.format("%s.getByReverseId: Class not found : %s",
                     getInstance().getClass().getSimpleName(), clazz.getClass().getSimpleName()));
