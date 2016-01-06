@@ -19,8 +19,8 @@ public class Mark {
         return DataBase.currentProxy.loadObjectById(Subject.class, subjectId);
     }
 
-    public List<StudentClassBatch> getStudentClassBatches() {
-        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, Mark.class, markId);
+    public StudentClassBatch getStudentClassBatch() {
+        return DataBase.currentProxy.loadObjectById(StudentClassBatch.class, studentClassBatchId);
     }
 
     public int getMarkId() {

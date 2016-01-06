@@ -21,10 +21,6 @@ public class Eu {
         return DataBase.currentProxy.loadObjectByReverseId(Subject.class, Eu.class, euId);
     }
 
-    public List<Mark> getMarks() {
-        return DataBase.currentProxy.loadObjectByReverseId(Mark.class, Eu.class, euId);
-    }
-
 
     ////////////////
 

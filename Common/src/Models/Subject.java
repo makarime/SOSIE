@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.List;
+
 public class Subject {
     private int subjectId;
     private int euId;
@@ -18,6 +20,14 @@ public class Subject {
         Eu eu = DataBase.currentProxy.loadObjectById(Eu.class, euId);
         DataBase.euHashtable.put(euId, eu);
         return eu;
+    }
+
+    public List<Mark> getMarks() {
+        return DataBase.currentProxy.loadObjectByReverseId(Mark.class, Subject.class, subjectId);
+    }
+
+    public List<Course> getCourses() {
+        return DataBase.currentProxy.loadObjectByReverseId(Course.class, Subject.class, subjectId);
     }
 
     /////////
