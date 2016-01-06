@@ -3,6 +3,7 @@ package models.proxy;
 import Models.Class;
 import Models.*;
 import Models.proxy.IProxy;
+import dao.*;
 import messages.models.*;
 import utils.socket.IMessage;
 
@@ -34,11 +35,17 @@ public class DaoProxy implements IProxy {
 
     @Override
     public <T> T loadObjectById(java.lang.Class<T> clazz, int id) {
-        if(clazz == Professor.class) return clazz.cast(new Professor(0, "Marc", "Landers"));
-        if(clazz == ClassBatch.class) return clazz.cast(new ClassBatch(0, 0, 0, 0));
-        if(clazz == Classroom.class) return clazz.cast(new Classroom(0,0,30,true,true,true,true));
-        if(clazz == Subject.class) return clazz.cast(new Subject(0,0,"EU"));
-        if(clazz == Class.class) return clazz.cast(new Class("Class", 1));
+        if(clazz == Professor.class) return clazz.cast(UserRepository.getById(id));
+        if(clazz == Student.class) return clazz.cast(UserRepository.getById(id));
+        if(clazz == Course.class) return clazz.cast(CourseRepository.getById(id));
+        if(clazz == Subject.class) return clazz.cast(SubjectRepository.getById(id));
+        if(clazz == Eu.class) return clazz.cast(EuRepository.getById(id));
+        if(clazz == Class.class) return clazz.cast(ClassRepository.getById(id));
+        if(clazz == Batch.class) return clazz.cast(BatchRepository.getById(id));
+        if(clazz == Classroom.class) return clazz.cast(ClassRepository.getById(id));
+        if(clazz == Mark.class) return clazz.cast(MarkRepository.getById(id));
+        if(clazz == ClassBatch.class) return clazz.cast(ClassBatchRepository.getById(id));
+        if(clazz == StudentClassBatch.class) return clazz.cast(StudentClassBatchRepository.getById(id));
         return null;
     }
 
