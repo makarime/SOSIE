@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.List;
-
 public class Mark {
     private int markId;
     private int studentClassBatchId;

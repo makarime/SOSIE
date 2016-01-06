@@ -1,10 +1,12 @@
 package dao;
 
+import Models.Class;
 import Models.Eu;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EuRepository extends DaoBase<Eu> {
 
@@ -20,6 +22,17 @@ public class EuRepository extends DaoBase<Eu> {
     public static Eu getById(int id) {
         ArrayList<Eu> ar = getInstance().select(SElECTREQUEST + "WHERE UeId = " + id);
         return ar.size() > 0 ? ar.get(0) : null;
+    }
+
+    public static List<Eu> getByReverseId(java.lang.Class<?> clazz, int id) {
+        String column = null;
+        if(clazz == Class.class) column = "classId";
+        if(column == null) {
+            System.err.println(String.format("%s.getByReverseId: Class not found : %s",
+                    getInstance().getClass().getSimpleName(), clazz.getClass().getSimpleName()));
+            return null;
+        }
+        return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
     @Override
