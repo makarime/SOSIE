@@ -33,6 +33,11 @@ public class SocketProxy implements IProxy {
     @Override
     public <T> List<T> loadObjectByReverseId(Class<T> target, Class<?> source, int id) {
         //TODO: A Voir pour eviter le unchecked
-        return ((ProxyReverseIdResponse<T>) socket.sendRequest(new ProxyReverseIdRequest(target, source, id))).getValue();
+        if(cache.containsKey(target.getName() + ";" + source.getName() + ";" + id))
+            return (List<T>) cache.get(target.getName() + ";" + source.getName() + ";" + id);
+
+        Object response = ((ProxyReverseIdResponse) socket.sendRequest(new ProxyReverseIdRequest(target, source, id))).getValue();
+        cache.put(target.getName() + ";" + source.getName() + ";" + id, response);
+        return (List<T>) response;
     }
 }
