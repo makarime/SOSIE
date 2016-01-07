@@ -2,7 +2,6 @@ package Models;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClassBatch implements Serializable {
@@ -10,12 +9,14 @@ public class ClassBatch implements Serializable {
     private int classId;
     private int batchId;
     private int professorInChargeId;
+    private String name = null;
 
-    public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId) {
+    public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId, String name) {
         this.classBatchId = classBatchId;
         this.classId = classId;
         this.batchId = batchId;
         this.professorInChargeId = professorInChargeId;
+        this.name = name;
     }
 
     public int getClassBatchId() {
@@ -32,6 +33,10 @@ public class ClassBatch implements Serializable {
 
     public int getProfessorInChargeId() {
         return this.professorInChargeId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public Professor getProfessorInCharge() {
@@ -62,6 +67,6 @@ public class ClassBatch implements Serializable {
     }
 
     public String toString() {
-        return "No name yet";
+        return this.name;
     }
 }

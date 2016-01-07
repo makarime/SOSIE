@@ -62,7 +62,14 @@ public class AppUser {
                 DataBase.professorHashtable.put(AppUser.user.getUserId(), (Professor) AppUser.user);
 
             return true;
-        } else
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur connexion");
+            alert.setHeaderText(null);
+            alert.setContentText("Identifiant ou mot de passe incorect.");
+            alert.showAndWait();
+
             return false;
+        }
     }
 }

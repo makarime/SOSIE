@@ -1,7 +1,6 @@
 package app;
 
 import Models.DataBase;
-import Models.Student;
 import Models.User;
 import dao.UserRepository;
 import messages.*;
@@ -85,8 +84,7 @@ public class Client {
         LoginRequest msg = (LoginRequest) data.getMessage();
         System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPasswordHash()));
         User user = UserRepository.getByCredential(msg.getLogin(), msg.getPasswordHash());
-        //data.setResponse(new LoginResponse(user != null, user));
-        data.setResponse(new LoginResponse(true, new Student(10, "Piere", "Petit")));
+        data.setResponse(new LoginResponse(user != null, user));
     };
 
     public IMessageCallback onChangeUserEmailRequest = data -> {
