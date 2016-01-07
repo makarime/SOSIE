@@ -1,16 +1,17 @@
 package models.proxy;
 
-import Models.Class;
 import Models.*;
+import Models.Class;
 import Models.proxy.IProxy;
 import dao.*;
-import messages.models.*;
+import messages.models.StudentClassBatchRequest;
+import messages.models.StudentClassBatchResponse;
+import messages.models.UserAdditionalInfoRequest;
+import messages.models.UserAdditionalInfoResponse;
 import utils.socket.IMessage;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class DaoProxy implements IProxy {
 
     public IMessageCallback onStudentClassBatchRequest = data -> {
         StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
-        return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
+        return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0, "toto"));
     };
 
 }
