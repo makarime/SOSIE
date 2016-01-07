@@ -22,7 +22,6 @@ public class DaoProxy implements IProxy {
 
     public DaoProxy() {
         messagesCallback.put(UserAdditionalInfoRequest.class, onUserAdditionalInfoRequest);
-        messagesCallback.put(StudentClassBatchRequest.class, onStudentClassBatchRequest);
     }
 
     @Override
@@ -74,11 +73,6 @@ public class DaoProxy implements IProxy {
             //TODO handle image fail
             return null;
         }
-    };
-
-    public IMessageCallback onStudentClassBatchRequest = data -> {
-        StudentClassBatchRequest msg = (StudentClassBatchRequest) data;
-        return new StudentClassBatchResponse(new ClassBatch(0, 0, 0, 0));
     };
 
 }

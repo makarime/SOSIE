@@ -1,32 +1,19 @@
 package Models;
 
-import messages.models.StudentClassBatchRequest;
-import messages.models.StudentClassBatchResponse;
-
 import java.util.List;
 
 public class Student extends User {
-    private ClassBatch currentCB = null;
+    private int currentCP;
 
-    public Student(int userId, String lastName, String firstName) {
+    public Student(int userId, String lastName, String firstName, int currentCP) {
         this.userId = userId;
         this.lastName = lastName;
         this.firstName = firstName;
+        this.currentCP = currentCP;
     }
 
     public ClassBatch getClassBatch() {
-        if (this.currentCB == null) {
-            StudentClassBatchResponse response = ((StudentClassBatchResponse) DataBase.currentProxy.load(new StudentClassBatchRequest(this.getUserId())));
-
-            if (DataBase.classBatchHashtable.containsKey(response.getClassBatch().getClassBatchId()))
-                this.currentCB = DataBase.classBatchHashtable.get(response.getClassBatch().getClassBatchId());
-            else {
-                DataBase.classBatchHashtable.put(response.getClassBatch().getClassBatchId(), response.getClassBatch());
-                this.currentCB = response.getClassBatch();
-            }
-        }
-
-        return this.currentCB;
+        return DataBase.currentProxy.loadObjectById(ClassBatch.class, currentCP);
     }
 
     public List<StudentClassBatch> getStudentClassBatches() {
