@@ -83,8 +83,8 @@ public class Client {
     };
     public IMessageCallback onLoginRequest = data -> {
         LoginRequest msg = (LoginRequest) data.getMessage();
-        System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPassword()));
-        User user = UserRepository.getByCredential(msg.getLogin(), msg.getPassword());
+        System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPasswordHash()));
+        User user = UserRepository.getByCredential(msg.getLogin(), msg.getPasswordHash());
         //data.setResponse(new LoginResponse(user != null, user));
         data.setResponse(new LoginResponse(true, new Student(10, "Piere", "Petit")));
     };

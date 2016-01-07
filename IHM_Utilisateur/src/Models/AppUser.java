@@ -50,8 +50,8 @@ public class AppUser {
         }
     }
 
-    public static boolean loginRequest(String userName, String password) {
-        LoginResponse loginResponse = ((LoginResponse) AppUser.sClient.sendRequest(new LoginRequest(userName, password)));
+    public static boolean loginRequest(String userName, String passwordHash) {
+        LoginResponse loginResponse = ((LoginResponse) AppUser.sClient.sendRequest(new LoginRequest(userName, passwordHash)));
 
         if (loginResponse.getSuccess()) {
             AppUser.user = loginResponse.getUser();

@@ -10,6 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class UserConnectionController {
     @FXML
     public TextField loginTextField;
@@ -24,8 +28,8 @@ public class UserConnectionController {
     }
 
     @FXML
-    public void LoginAction() {
-        if (AppUser.loginRequest(loginTextField.getText(), userPasswordTextField.getText())) {
+    public void LoginAction() throws NoSuchAlgorithmException {
+        if (AppUser.loginRequest(loginTextField.getText(), (new HexBinaryAdapter()).marshal(MessageDigest.getInstance("SHA-256").digest(userPasswordTextField.getText().getBytes())))) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/MainView.fxml"));
                 Stage mainWindowStage = new Stage();
