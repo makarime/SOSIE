@@ -136,9 +136,6 @@ public class MainController implements Initializable {
     @FXML
     public void logOutAction() {
         AppUser.user = null;
-        AppUser.sClient.close();
-        AppUser.sClient = null;
-        DataBase.currentProxy = null;
         DataBase.flushHastables();
 
         try {

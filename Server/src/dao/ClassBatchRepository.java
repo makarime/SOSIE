@@ -44,7 +44,8 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
                 rs.getInt("PromoClassId"),
                 rs.getInt("ClasseId"),
                 rs.getInt("PromotionId"),
-                rs.getInt("ResponsableId")
+                rs.getInt("ResponsableId"),
+                rs.getString("Nom")
         );
     }
 }
