@@ -175,7 +175,8 @@ public class SClient {
                                 System.err.println("Callback " + rid + " introuvable !");
                         } else {
                             // Flux standard //
-                            DataArrivalEvent e = new DataArrivalEvent(msg, rid != -1);
+                            DataArrivalEvent e = new DataArrivalEvent<>(msg, rid != -1);
+                            fireOnMessageArrival(e);
                             fireOnDataArrival(e);
                             if(e.isRequest() && e.getResponse() == null)
                                 e.setResponse(new NullResponse());
@@ -195,12 +196,38 @@ public class SClient {
         }
     }
 
+    public <T extends IMessage> void addMessageArrival(Class<T> clazz, IMessageArrival<T> callback) {
+        listeners.add(SClientMessageArrivalListener.class, new SClientMessageArrivalListener<>(clazz, callback));
+    }
+
+    public <T extends IMessage> void removeMessageArrival(Class<T> clazz, IMessageArrival<T> callback) {
+        SClientMessageArrivalListener obj = null;
+        for(SClientMessageArrivalListener listener : listeners.getListeners(SClientMessageArrivalListener.class)) {
+            if(listener.clazz == clazz && listener.callback == callback) {
+                obj = listener;
+                break;
+            }
+        }
+        if(obj != null) {
+            listeners.remove(SClientMessageArrivalListener.class, obj);
+        }
+    }
+
     public void addListener(SClientListener listener){
         listeners.add(SClientListener.class, listener);
     }
 
     public void removeListener(SClientListener listener){
         listeners.remove(SClientListener.class, listener);
+    }
+
+    private void fireOnMessageArrival(DataArrivalEvent event) {
+        final Class<?> clazz = event.getMessageClass();
+        for(SClientMessageArrivalListener listener : listeners.getListeners(SClientMessageArrivalListener.class)) {
+            if(listener.clazz == clazz) {
+                listener.callback.onMessageArrival(this, event);
+            }
+        }
     }
 
     private void fireOnConnected() {
