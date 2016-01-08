@@ -1,16 +1,16 @@
 package utils.socket;
 
-public class DataArrivalEvent {
+public class DataArrivalEvent<T extends IMessage> {
     private final boolean request;
-    private final IMessage message;
+    private final T message;
     private IMessage response;
 
-    public DataArrivalEvent(IMessage msg, boolean request) {
+    public DataArrivalEvent(T msg, boolean request) {
         this.message = msg;
         this.request = request;
     }
 
-    public IMessage getMessage() {
+    public T getMessage() {
         return message;
     }
 
