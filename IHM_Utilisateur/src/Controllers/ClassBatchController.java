@@ -3,6 +3,7 @@ package Controllers;
 
 import Models.Async;
 import Models.ClassBatch;
+import Models.Professor;
 import Models.Student;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -53,19 +54,38 @@ public class ClassBatchController implements Initializable {
     }
 
     private void setProfessorInChargeLabel() {
+        this.professorInChargeInfoButton.setDisable(true);
+        this.professorInChargeInfoButton.setText("Chargement...");
+
         Async.execute(() -> {
-            ObjectProperty<String> stringObjectProperty = new SimpleObjectProperty<String>();
-            this.professorInChargeLabel.textProperty().bind(stringObjectProperty);
-            Platform.runLater(() -> stringObjectProperty.setValue("Professeur en charge : " + this.classBatch.getProfessorInCharge().toString()));
+            Professor professor = this.classBatch.getProfessorInCharge();
+            ObjectProperty<String> stringObjectPropertyLabel = new SimpleObjectProperty<>();
+            ObjectProperty<String> stringObjectPropertyButton = new SimpleObjectProperty<>();
+            Platform.runLater(() -> {
+                this.professorInChargeLabel.textProperty().bind(stringObjectPropertyLabel);
+                this.professorInChargeInfoButton.textProperty().bind(stringObjectPropertyButton);
+                stringObjectPropertyLabel.setValue("Professeur en charge : " + professor.toString());
+                stringObjectPropertyButton.setValue("Voir détails");
+            });
+            this.professorInChargeInfoButton.setDisable(false);
         });
     }
 
     private void setStudentsListView() {
+        this.viewInfoStudentButton.setDisable(true);
+        this.viewInfoStudentButton.setText("Chargement...");
+
         Async.execute(() -> {
             this.studentsListView.setItems(FXCollections.observableArrayList());
             this.studentsListView.getItems().addAll(this.classBatch.getStudents());
+            this.studentsListView.getSelectionModel().select(0);
+            ObjectProperty<String> stringObjectProperty = new SimpleObjectProperty<>();
+            Platform.runLater(() -> {
+                this.viewInfoStudentButton.textProperty().bind(stringObjectProperty);
+                stringObjectProperty.setValue("Voir détails");
+            });
+            this.viewInfoStudentButton.setDisable(false);
         });
-        this.studentsListView.getSelectionModel().select(0);
     }
 
     @FXML

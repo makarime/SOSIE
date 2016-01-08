@@ -1,6 +1,9 @@
 package Controllers;
 
 import Models.*;
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,14 +98,25 @@ public class MainController implements Initializable {
     }
 
     private void setClassBatchesChoiceBox() {
+        this.detailsClassBatchButton.setDisable(true);
+        this.detailsClassBatchButton.setText("Chargement...");
+
         if (AppUser.user.isStudent()) {
             Async.execute(() -> {
                 this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
+
                 if (AppUser.user.isStudent())
                     this.classBatchesChoiceBox.getItems().addAll(((Student) AppUser.user).getCurrentClassBatch());
                 else if (AppUser.user.isProfessor())
                     this.classBatchesChoiceBox.getItems().addAll(((Professor) AppUser.user).getClassBatches());
+
                 this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+                ObjectProperty<String> stringObjectProperty = new SimpleObjectProperty<>();
+                Platform.runLater(() -> {
+                    this.detailsClassBatchButton.textProperty().bind(stringObjectProperty);
+                    stringObjectProperty.setValue("Voir détails");
+                });
+                this.detailsClassBatchButton.setDisable(false);
             });
         }
     }

@@ -18,7 +18,7 @@
             </VBox.margin>
             <Label fx:id="professorInChargeLabel" prefHeight="25.0"/>
             <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false"
-                    onAction="#viewProfessorInChargeInfoAction" text="Voir infos">
+                    onAction="#viewProfessorInChargeInfoAction" text="Voir détails">
                 <HBox.margin>
                     <Insets left="5.0"/>
                 </HBox.margin>
