@@ -78,7 +78,7 @@ public class MainController implements Initializable {
 
     private void setProfileTitledPane() {
         this.appUserNameLabel.setText(AppUser.user.toString());
-        this.profileImageView.setImage(AppUser.user.getProfileImage());
+        Async.execute(() -> this.profileImageView.setImage(AppUser.user.getProfileImage()));
     }
 
     private void setDatePicker() {
@@ -91,16 +91,19 @@ public class MainController implements Initializable {
                     setDisable(true);
             }
         };
-        this.datePicker.setDayCellFactory(dayCellFactory);
+        Async.execute(() -> this.datePicker.setDayCellFactory(dayCellFactory));
     }
 
     private void setClassBatchesChoiceBox() {
         if (AppUser.user.isStudent()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) AppUser.user).getCurrentClassBatch()));
-            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-        } else if (AppUser.user.isProfessor()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) AppUser.user).getClassBatches()));
-            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+            Async.execute(() -> {
+                this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
+                if (AppUser.user.isStudent())
+                    this.classBatchesChoiceBox.getItems().addAll(((Student) AppUser.user).getCurrentClassBatch());
+                else if (AppUser.user.isProfessor())
+                    this.classBatchesChoiceBox.getItems().addAll(((Professor) AppUser.user).getClassBatches());
+                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+            });
         }
     }
 
