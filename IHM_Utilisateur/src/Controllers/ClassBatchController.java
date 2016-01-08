@@ -1,8 +1,12 @@
 package Controllers;
 
 
+import Models.Async;
 import Models.ClassBatch;
 import Models.Student;
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,11 +53,18 @@ public class ClassBatchController implements Initializable {
     }
 
     private void setProfessorInChargeLabel() {
-        this.professorInChargeLabel.setText("Professeur en charge : " + this.classBatch.getProfessorInCharge().toString());
+        Async.execute(() -> {
+            ObjectProperty<String> stringObjectProperty = new SimpleObjectProperty<String>();
+            this.professorInChargeLabel.textProperty().bind(stringObjectProperty);
+            Platform.runLater(() -> stringObjectProperty.setValue("Professeur en charge : " + this.classBatch.getProfessorInCharge().toString()));
+        });
     }
 
     private void setStudentsListView() {
-        this.studentsListView.setItems(FXCollections.observableArrayList(this.classBatch.getStudents()));
+        Async.execute(() -> {
+            this.studentsListView.setItems(FXCollections.observableArrayList());
+            this.studentsListView.getItems().addAll(this.classBatch.getStudents());
+        });
         this.studentsListView.getSelectionModel().select(0);
     }
 
