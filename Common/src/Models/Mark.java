@@ -1,6 +1,8 @@
 package Models;
 
-public class Mark {
+import java.io.Serializable;
+
+public class Mark implements Serializable, IEntity {
     private int markId;
     private int studentClassBatchId;
     private int subjectId;
@@ -11,6 +13,11 @@ public class Mark {
         this.studentClassBatchId = studentClassBatchId;
         this.subjectId = subjectId;
         this.value = value;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return markId;
     }
 
     public Subject getSubject() {

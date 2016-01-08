@@ -4,7 +4,7 @@ package Models;
 import java.io.Serializable;
 import java.util.List;
 
-public class StudentClassBatch implements Serializable {
+public class StudentClassBatch implements Serializable, IEntity {
     private int studentClassBatchId;
     private int studentId;
     private int classBatchId;
@@ -13,6 +13,11 @@ public class StudentClassBatch implements Serializable {
         this.studentClassBatchId = studentClassBatchId;
         this.studentId = studentId;
         this.classBatchId = classBatchId;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return studentClassBatchId;
     }
 
     public List<Mark> getMarks() {

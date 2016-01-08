@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Subject {
+public class Subject implements Serializable, IEntity {
     private int subjectId;
     private int euId;
     private String name;
@@ -11,6 +12,11 @@ public class Subject {
         this.subjectId = subjectId;
         this.euId = euId;
         this.name = name;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return subjectId;
     }
 
     public Eu getEu() {

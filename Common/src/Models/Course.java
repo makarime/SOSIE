@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Course {
+public class Course implements Serializable, IEntity {
     private int courseId;
     private int subjectId;
     private int classBatchId;
@@ -17,6 +18,11 @@ public class Course {
         this.professorId = professorId;
         this.classroomId = classroomId;
         this.date = date;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return courseId;
     }
 
     public Subject getSubject() {

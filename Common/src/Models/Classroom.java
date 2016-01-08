@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Classroom {
+public class Classroom implements Serializable, IEntity {
     private int classroomId;
     private int number;
     private int capacity;
@@ -19,6 +20,11 @@ public class Classroom {
         this.hasProjector = hasProjector;
         this.hasDigitalPanel = hasDigitalPanel;
         this.canDisabledPerson = canDisabledPerson;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return classroomId;
     }
 
     public List<Course> getCourses() {

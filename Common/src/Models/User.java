@@ -7,13 +7,18 @@ import messages.models.UserAdditionalInfoResponse;
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
-public abstract class User implements Serializable {
+public abstract class User implements Serializable, IEntity {
     protected int userId;
     private String login;
     protected String lastName = null;
     protected String firstName = null;
     protected String email = null;
     protected Image profileImage = null;
+
+    @Override
+    public int getPrimaryKey() {
+        return userId;
+    }
 
     public String toString() {
         return this.firstName + " " + this.lastName;

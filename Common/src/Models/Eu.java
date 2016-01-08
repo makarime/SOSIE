@@ -1,8 +1,9 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Eu {
+public class Eu implements Serializable, IEntity {
     private int euId;
     private int classId;
     private String name;
@@ -11,6 +12,11 @@ public class Eu {
         this.euId = euId;
         this.classId = classId;
         this.name = name;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return euId;
     }
 
     public Class getClassObj() {

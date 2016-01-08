@@ -4,7 +4,7 @@ package Models;
 import java.io.Serializable;
 import java.util.List;
 
-public class ClassBatch implements Serializable {
+public class ClassBatch implements Serializable, IEntity {
     private int classBatchId;
     private int classId;
     private int batchId;
@@ -17,6 +17,11 @@ public class ClassBatch implements Serializable {
         this.batchId = batchId;
         this.professorInChargeId = professorInChargeId;
         this.name = name;
+    }
+
+    @Override
+    public int getPrimaryKey() {
+        return batchId;
     }
 
     public int getClassBatchId() {
