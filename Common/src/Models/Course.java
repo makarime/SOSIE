@@ -25,4 +25,44 @@ public class Course implements Serializable, IEntity {
         return courseId;
     }
 
+    public Subject getSubject() {
+        return DataBaseEnv.currentProxy.loadObjectById(Subject.class, subjectId);
+    }
+
+    public ClassBatch getClassBatch() {
+        return DataBaseEnv.currentProxy.loadObjectById(ClassBatch.class, classBatchId);
+    }
+
+    public Professor getProfessor() {
+        return DataBaseEnv.currentProxy.loadObjectById(Professor.class, professorId);
+    }
+
+    public Classroom getClassroom() {
+        return DataBaseEnv.currentProxy.loadObjectById(Classroom.class, classroomId);
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public int getClassBatchId() {
+        return classBatchId;
+    }
+
+    public int getProfessorId() {
+        return professorId;
+    }
+
+    public int getClassroomId() {
+        return classroomId;
+    }
+
 }

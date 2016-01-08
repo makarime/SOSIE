@@ -14,4 +14,8 @@ public class Professor extends User {
     public List<ClassBatch> getClassBatches() {
         return DataBaseEnv.currentProxy.loadObjectByReverseId(ClassBatch.class, Professor.class, this.getUserId());
     }
+
+    public List<Course> getCourses() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(Course.class, Professor.class, userId);
+    }
 }

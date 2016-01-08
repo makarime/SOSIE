@@ -1,6 +1,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Classroom implements Serializable, IEntity {
     private int classroomId;
@@ -24,5 +25,37 @@ public class Classroom implements Serializable, IEntity {
     @Override
     public int getPrimaryKey() {
         return classroomId;
+    }
+
+    public List<Course> getCourses() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(Course.class, Classroom.class, classroomId);
+    }
+
+    public int getClassroomId() {
+        return classroomId;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public boolean isHasPC() {
+        return hasPC;
+    }
+
+    public boolean isHasProjector() {
+        return hasProjector;
+    }
+
+    public boolean isHasDigitalPanel() {
+        return hasDigitalPanel;
+    }
+
+    public boolean isCanDisabledPerson() {
+        return canDisabledPerson;
     }
 }
