@@ -17,6 +17,6 @@ public class Batch implements Serializable, IEntity {
     }
 
     public String getName() {
-        return this.year + " - " + this.year + 5;
+        return this.year + " - " + (this.year + 5);
     }
 }

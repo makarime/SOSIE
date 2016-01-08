@@ -31,7 +31,7 @@ public class ClassBatch implements Serializable, IEntity {
     }
 
     public List<Student> getStudents() {
-        return DataBaseEnv.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, classBatchId);
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, this.classBatchId);
     }
 
     public Class getClasss() {
