@@ -1,6 +1,7 @@
 package Models.proxy;
 
 import Models.IEntity;
+import messages.UpdateEntityMessage;
 import utils.socket.SClient;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class SocketCacheProxy extends SocketProxy {
 
     public SocketCacheProxy(SClient socket) {
         super(socket);
+        // Met a jour le cache en cas d'une nouvelle entitée provenant du serveur //
+        socket.addMessageArrival(UpdateEntityMessage.class, (sender, event) -> this.updateCache(event.getMessage().getEntity()));
     }
 
     @Override
