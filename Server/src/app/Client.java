@@ -5,10 +5,7 @@ import Models.User;
 import dao.UserRepository;
 import messages.*;
 import messages.models.*;
-import utils.socket.DataArrivalEvent;
-import utils.socket.SClient;
-import utils.socket.SClientAdapter;
-import utils.socket.SClientListener;
+import utils.socket.*;
 import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
@@ -16,17 +13,13 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class Client {
-    private final HashMap<java.lang.Class, IMessageCallback> messagesCallback = new HashMap<>();
     private SClient socket;
-
-    public interface IMessageCallback {
-        void run(DataArrivalEvent e);
-    }
 
     public Client(Socket socket) {
         try {
-            this.registerCallback();
             this.socket = new SClient(socket, clientEvent);
+            this.socket.addMessageArrival(PingRequest.class, onPingRequest);
+            this.socket.addMessageArrival(LoginRequest.class, onLoginRequest);
         } catch (IOException e) {
             System.err.println("[Serveur] Erreur création du client.");
             e.printStackTrace();
@@ -35,15 +28,6 @@ public class Client {
 
     public SClientListener clientEvent = new SClientAdapter() {
         @Override
-        public void onDataArrival(SClient sender, DataArrivalEvent event) {
-            //TODO: Si non connecté & non LoginRequest, retourne une erreur ?
-            if (messagesCallback.containsKey(event.getMessageClass()))
-                messagesCallback.get(event.getMessageClass()).run(event);
-            else if (event.isRequest())
-                event.setResponse(new ErrorMessage(0, "Request not found"));
-        }
-
-        @Override
         public void onClosed(SClient sender) {
             System.out.println("[Serveur] Deconnexion du client");
         }
@@ -51,54 +35,52 @@ public class Client {
 
     ///////////////// Gestion des messages ///////////////
 
-    private void registerCallback() {
-        messagesCallback.put(ProxyRequest.class, onProxyRequest);
-        messagesCallback.put(ProxyIdRequest.class, onProxyIdRequest);
-        messagesCallback.put(ProxyReverseIdRequest.class, onProxyReverseIdRequest);
-        messagesCallback.put(PingRequest.class, onPingRequest);
-        messagesCallback.put(LoginRequest.class, onLoginRequest);
-        messagesCallback.put(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
-        messagesCallback.put(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
-        messagesCallback.put(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+    public void loginMessageRegister(User user) {
+        socket.removeMessageArrival(LoginRequest.class, onLoginRequest);
+        socket.addMessageArrival(ProxyRequest.class, onProxyRequest);
+        socket.addMessageArrival(ProxyIdRequest.class, onProxyIdRequest);
+        socket.addMessageArrival(ProxyReverseIdRequest.class, onProxyReverseIdRequest);
+        socket.addMessageArrival(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
+        socket.addMessageArrival(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
+        socket.addMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
     }
 
-    public IMessageCallback onProxyRequest = data -> {
-        data.setResponse(new ProxyResponse(DataBaseEnv.currentProxy.load(((ProxyRequest) data.getMessage()).getMsg())));
+    public IMessageArrival<LoginRequest> onLoginRequest = (sender, event) -> {
+        System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", event.getMessage().getLogin(), event.getMessage().getPasswordHash()));
+        User user = UserRepository.getByCredential(event.getMessage().getLogin(), event.getMessage().getPasswordHash());
+        event.setResponse(new LoginResponse(user != null, user));
+        if(user != null) {
+            loginMessageRegister(user);
+        }
     };
 
-    public IMessageCallback onProxyIdRequest = data -> {
-        ProxyIdRequest msg = (ProxyIdRequest) data.getMessage();
-        data.setResponse(new ProxyIdResponse(DataBaseEnv.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
+    public IMessageArrival<ProxyRequest> onProxyRequest = (sender, event) -> {
+        event.setResponse(new ProxyResponse(DataBaseEnv.currentProxy.load(event.getMessage().getMsg())));
     };
 
-    public IMessageCallback onProxyReverseIdRequest = data -> {
-        ProxyReverseIdRequest msg = (ProxyReverseIdRequest) data.getMessage();
+    public IMessageArrival<ProxyIdRequest> onProxyIdRequest = (sender, event) -> {
+        event.setResponse(new ProxyIdResponse(DataBaseEnv.currentProxy.loadObjectById(event.getMessage().getClazz(), event.getMessage().getId())));
+    };
+
+    public IMessageArrival<ProxyReverseIdRequest> onProxyReverseIdRequest = (sender, event) -> {
         //TODO: A Voir pour eviter le unchecked
-        data.setResponse(new ProxyReverseIdResponse(DataBaseEnv.currentProxy.loadObjectByReverseId(msg.getTarget(), msg.getSource(), msg.getId())));
+        event.setResponse(new ProxyReverseIdResponse(DataBaseEnv.currentProxy.loadObjectByReverseId(event.getMessage().getTarget(), event.getMessage().getSource(), event.getMessage().getId())));
     };
 
-    public IMessageCallback onPingRequest = data -> {
-        data.setResponse(new PingResponse());
-    };
-    public IMessageCallback onLoginRequest = data -> {
-        LoginRequest msg = (LoginRequest) data.getMessage();
-        System.out.println(String.format("[Serveur] LoginRequest {Login: '%s'; Password: '%s'}", msg.getLogin(), msg.getPasswordHash()));
-        User user = UserRepository.getByCredential(msg.getLogin(), msg.getPasswordHash());
-        data.setResponse(new LoginResponse(user != null, user));
+    public IMessageArrival<PingRequest> onPingRequest = (sender, event) -> {
+        event.setResponse(new PingResponse());
     };
 
-    public IMessageCallback onChangeUserEmailRequest = data -> {
-        ChangeUserEmailRequest msg = (ChangeUserEmailRequest) data.getMessage();
-        data.setResponse(new ChangeUserEmailResponse(true));
+    public IMessageArrival<ChangeUserEmailRequest> onChangeUserEmailRequest = (sender, event) -> {
+        event.setResponse(new ChangeUserEmailResponse(true));
     };
 
-    public IMessageCallback onChangeUserPasswordRequest = data -> {
-        ChangeUserPasswordRequest msg = (ChangeUserPasswordRequest) data.getMessage();
-        data.setResponse(new ChangeUserPasswordResponse(true));
+    public IMessageArrival<ChangeUserPasswordRequest> onChangeUserPasswordRequest = (sender, event) -> {
+        event.setResponse(new ChangeUserPasswordResponse(true));
     };
 
-    public IMessageCallback onChangeUserProfileImageRequest = data -> {
-        ChangeUserProfileImageRequest msg = (ChangeUserProfileImageRequest) data.getMessage();
-        data.setResponse(new ChangeUserProfileImageResponse(true));
+    public IMessageArrival<ChangeUserProfileImageRequest> onChangeUserProfileImageRequest = (sender, event) -> {
+        event.setResponse(new ChangeUserProfileImageResponse(true));
     };
+
 }
