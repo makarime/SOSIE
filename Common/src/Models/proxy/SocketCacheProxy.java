@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SocketCacheProxy extends SocketProxy {
-    @Deprecated
     private final HashMap<String, List<?>> cache = new HashMap<>();
     private final HashMap<Class<?>, HashMap<Integer, IEntity>> elementCache = new HashMap<>();
 
@@ -33,26 +32,28 @@ public class SocketCacheProxy extends SocketProxy {
 
     @Override
     public <T> List<T> loadObjectByReverseId(Class<T> target, Class<?> source, int id) {
+        final String cacheKey = target.getName() + ";" + source.getName() + ";" + id;
+        final List<T> response;
+
         // Si presence d'un cache request //
-        if(cache.containsKey(target.getName() + ";" + source.getName() + ";" + id)) {
-            List<T> result = new ArrayList<>();
-            for(Object item : cache.get(target.getName() + ";" + source.getName() + ";" + id)) {
-                result.add(this.getCache(target, ((IEntity)item).getPrimaryKey()));
+        if(cache.containsKey(cacheKey)) {
+            response = new ArrayList<>();
+            for(Object item : cache.get(cacheKey)) {
+                response.add(this.getCache(target, ((IEntity)item).getPrimaryKey()));
             }
-            return result;
+        } else { // Pas de presence de cache //
+             response = super.loadObjectByReverseId(target, source, id);
+
+            // Si c'est une liste IEntity, on met a jour le cache pour chacun des elements //
+            if (IEntity.class.isAssignableFrom(target)) {
+                for (Object entity : response) {
+                    this.updateCache(target, (IEntity) entity);
+                }
+                cache.put(cacheKey, response);
+            }
         }
 
-        List<?> response = super.loadObjectByReverseId(target, source, id);
-
-        // Si c'est une liste IEntity, on peut mettre a jour le cache pour chacun des elements //
-        if(IEntity.class.isAssignableFrom(target)) {
-            for (Object entity : response) {
-                this.updateCache(target, (IEntity) entity);
-            }
-            cache.put(target.getName() + ";" + source.getName() + ";" + id, response);
-        }
-
-        return (List<T>) response;
+        return response;
     }
 
     public void updateCache(IEntity obj) {
