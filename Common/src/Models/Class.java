@@ -17,19 +17,30 @@ public class Class implements Serializable, IEntity {
         return classId;
     }
 
+    public int getClassId() {
+        return this.classId;
+    }
+
+    public String getName() {
+        {
+            return this.name;
+        }
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public List<Eu> getEus() {
         return DataBaseEnv.currentProxy.loadObjectByReverseId(Eu.class, Class.class, classId);
     }
 
     public List<ClassBatch> getClassBatches() {
         return DataBaseEnv.currentProxy.loadObjectByReverseId(ClassBatch.class, Class.class, classId);
-    }
-
-    public int getClassId() {
-        return this.classId;
-    }
-
-    public String getName() {
-        return this.name;
     }
 }

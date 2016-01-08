@@ -13,10 +13,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import messages.*;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 public class ProfileEditorController implements Initializable {
@@ -77,7 +80,7 @@ public class ProfileEditorController implements Initializable {
         this.profileImageView.setImage(new Image("file:" + file.getPath()));
     }
 
-    public void validateAction() {
+    public void validateAction() throws NoSuchAlgorithmException {
         this.changeEmail();
         this.changePassword();
         this.changeProfileImage();
@@ -88,7 +91,7 @@ public class ProfileEditorController implements Initializable {
             String email = this.emailFirstPart.getText() + "@" + this.emailSecondPart.getText() + "." + this.emailThirdPart.getText();
 
             if (!email.equals(AppUser.user.getEmail())) {
-                ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(AppUser.user.getUserId(), email)));
+                ChangeUserEmailResponse changeUserEmailResponse = ((ChangeUserEmailResponse) AppUser.sClient.sendRequest(new ChangeUserEmailRequest(email)));
 
                 if (changeUserEmailResponse.getResult()) {
                     AppUser.user.setEmail(email);
@@ -115,10 +118,10 @@ public class ProfileEditorController implements Initializable {
         }
     }
 
-    private void changePassword() {
+    private void changePassword() throws NoSuchAlgorithmException {
         if (!this.passwordField1.getText().isEmpty()) {
             if (this.passwordField2.getText().equals(this.passwordField1.getText())) {
-                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(AppUser.user.getUserId(), this.passwordField1.getText())));
+                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest((new HexBinaryAdapter()).marshal(MessageDigest.getInstance("SHA-256").digest(this.passwordField1.getText().getBytes())))));
 
                 if (changeUserPasswordResponse.getResult()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -146,10 +149,11 @@ public class ProfileEditorController implements Initializable {
     private void changeProfileImage() {
         if (this.profileImageChanged) {
             try {
-                byte[] bytes = Files.readAllBytes(this.newProfileImageFile.toPath());
-                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(AppUser.user.getUserId(), bytes)));
+                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(Files.readAllBytes(this.newProfileImageFile.toPath()))));
 
                 if (changeUserProfileImageResponse.getResult()) {
+                    AppUser.user.setProfileImage(this.profileImageView.getImage());
+                    this.profileImageChanged = false;
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Erreur");
                     alert.setHeaderText(null);

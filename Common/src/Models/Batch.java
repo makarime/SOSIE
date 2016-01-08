@@ -17,10 +17,6 @@ public class Batch implements Serializable, IEntity {
         return this.batchId;
     }
 
-    public List<ClassBatch> getClassBatches() {
-        return DataBaseEnv.currentProxy.loadObjectByReverseId(ClassBatch.class, Batch.class, batchId);
-    }
-
     public int getBatchId() {
         return batchId;
     }
@@ -29,7 +25,16 @@ public class Batch implements Serializable, IEntity {
         return year;
     }
 
-    public String getName() {
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    @Override
+    public String toString() {
         return this.year + " - " + (this.year + 5);
+    }
+
+    public List<ClassBatch> getClassBatches() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(ClassBatch.class, Batch.class, batchId);
     }
 }
