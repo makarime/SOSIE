@@ -26,8 +26,7 @@ public class BatchRepository extends DaoBase<Batch> {
     public Batch dataToClass(ResultSet rs) throws SQLException {
         return new Batch(
                 rs.getInt("idPromotion"),
-                rs.getInt("Annee"),
-                rs.getString("Nom")
+                rs.getInt("Annee")
         );
     }
 }

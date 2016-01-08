@@ -1,7 +1,6 @@
 package Models;
 
 import Models.proxy.SocketCacheProxy;
-import Models.proxy.SocketProxy;
 import javafx.scene.control.Alert;
 import messages.LoginRequest;
 import messages.LoginResponse;
@@ -36,7 +35,7 @@ public class AppUser {
     public static boolean testServerAccess() {
         try {
             AppUser.sClient = new SClient("127.0.0.1", 3698);
-            DataBase.currentProxy = new SocketCacheProxy(AppUser.sClient);
+            DataBaseEnv.currentProxy = new SocketCacheProxy(AppUser.sClient);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,12 +55,6 @@ public class AppUser {
 
         if (loginResponse.getSuccess()) {
             AppUser.user = loginResponse.getUser();
-            DataBase.userHashtable.put(AppUser.user.getUserId(), AppUser.user);
-            if (AppUser.user.isStudent())
-                DataBase.studentHashtable.put(AppUser.user.getUserId(), (Student) AppUser.user);
-            else if (AppUser.user.isProfessor())
-                DataBase.professorHashtable.put(AppUser.user.getUserId(), (Professor) AppUser.user);
-
             return true;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 public abstract class User implements Serializable, IEntity {
     protected int userId;
-    private String login;
     protected String lastName = null;
     protected String firstName = null;
     protected String email = null;
@@ -20,12 +19,12 @@ public abstract class User implements Serializable, IEntity {
         return userId;
     }
 
-    public String toString() {
-        return this.firstName + " " + this.lastName;
-    }
-
     public int getUserId() {
         return this.userId;
+    }
+
+    public String getName() {
+        return this.firstName + " " + this.lastName;
     }
 
     public String getEmail() {
@@ -42,24 +41,12 @@ public abstract class User implements Serializable, IEntity {
         return this.profileImage;
     }
 
-    public void setProfileImage(Image image) {
-        this.profileImage = image;
-    }
-
     private void loadAdditionalInformation() {
         if ((this.profileImage == null) && (this.email == null)) {
-            UserAdditionalInfoResponse response = ((UserAdditionalInfoResponse) DataBase.currentProxy.load(new UserAdditionalInfoRequest(this.userId)));
+            UserAdditionalInfoResponse response = ((UserAdditionalInfoResponse) DataBaseEnv.currentProxy.load(new UserAdditionalInfoRequest(this.userId)));
             this.profileImage = new Image(new ByteArrayInputStream(response.getProfileImage()));
             this.email = response.getEmail();
         }
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public boolean isStudent() {

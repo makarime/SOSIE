@@ -60,7 +60,7 @@ public class UserProfileController implements Initializable {
 
     public void setClassBatchesChoiceBox() {
         if (this.user.isStudent()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) this.user).getClassBatch()));
+            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) this.user).getCurrentClassBatch()));
             this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
         } else if (this.user.isProfessor()) {
             this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) this.user).getClassBatches()));

@@ -1,6 +1,5 @@
 package Models;
 
-import java.util.List;
 
 public class Student extends User {
     private int currentCP;
@@ -12,12 +11,7 @@ public class Student extends User {
         this.currentCP = currentCP;
     }
 
-    public ClassBatch getClassBatch() {
-        return DataBase.currentProxy.loadObjectById(ClassBatch.class, currentCP);
+    public ClassBatch getCurrentClassBatch() {
+        return DataBaseEnv.currentProxy.loadObjectById(ClassBatch.class, currentCP);
     }
-
-    public List<StudentClassBatch> getStudentClassBatches() {
-        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, Student.class, userId);
-    }
-
 }

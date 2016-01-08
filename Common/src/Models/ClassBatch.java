@@ -9,14 +9,12 @@ public class ClassBatch implements Serializable, IEntity {
     private int classId;
     private int batchId;
     private int professorInChargeId;
-    private String name = null;
 
-    public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId, String name) {
+    public ClassBatch(int classBatchId, int classId, int batchId, int professorInChargeId) {
         this.classBatchId = classBatchId;
         this.classId = classId;
         this.batchId = batchId;
         this.professorInChargeId = professorInChargeId;
-        this.name = name;
     }
 
     @Override
@@ -24,54 +22,28 @@ public class ClassBatch implements Serializable, IEntity {
         return batchId;
     }
 
-    public int getClassBatchId() {
-        return this.classBatchId;
-    }
-
-    public int getClassId() {
-        return this.classId;
-    }
-
-    public int getBatchId() {
-        return this.batchId;
-    }
-
-    public int getProfessorInChargeId() {
-        return this.professorInChargeId;
-    }
-
     public String getName() {
-        return this.name;
+        return this.getClasss().getName() + " / " + this.getBatch().getName();
     }
 
     public Professor getProfessorInCharge() {
-        if (DataBase.professorHashtable.containsKey(this.professorInChargeId))
-            return DataBase.professorHashtable.get(this.professorInChargeId);
-        else {
-            Professor professor = DataBase.currentProxy.loadObjectById(Professor.class, this.professorInChargeId);
-            DataBase.userHashtable.put(professor.getUserId(), professor);
-            DataBase.professorHashtable.put(professor.getUserId(), professor);
-            return professor;
-        }
+        return DataBaseEnv.currentProxy.loadObjectById(Professor.class, this.professorInChargeId);
     }
 
-    public List<StudentClassBatch> getStudents() {
-        return DataBase.currentProxy.loadObjectByReverseId(StudentClassBatch.class, ClassBatch.class, classBatchId);
+    public List<Student> getStudents() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(Student.class, ClassBatch.class, classBatchId);
+    }
+
+    public Class getClasss() {
+        return DataBaseEnv.currentProxy.loadObjectById(Class.class, this.classId);
     }
 
     public Batch getBatch() {
-        return DataBase.currentProxy.loadObjectById(Batch.class, batchId);
+        return DataBaseEnv.currentProxy.loadObjectById(Batch.class, batchId);
     }
 
-    public Class getClassObj() {
-        return DataBase.currentProxy.loadObjectById(Class.class, classId);
-    }
-
-    public List<Course> getCourses() {
-        return DataBase.currentProxy.loadObjectByReverseId(Course.class, ClassBatch.class, classBatchId);
-    }
-
+    @Override
     public String toString() {
-        return this.name;
+        return this.getName();
     }
 }

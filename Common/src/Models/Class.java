@@ -1,7 +1,6 @@
 package Models;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Class implements Serializable, IEntity {
     private int classId;
@@ -15,18 +14,6 @@ public class Class implements Serializable, IEntity {
     @Override
     public int getPrimaryKey() {
         return classId;
-    }
-
-    public List<Eu> getEus() {
-        return DataBase.currentProxy.loadObjectByReverseId(Eu.class, Class.class, classId);
-    }
-
-    public List<ClassBatch> getClassBatches() {
-        return DataBase.currentProxy.loadObjectByReverseId(ClassBatch.class, Class.class, classId);
-    }
-
-    public int getClassId() {
-        return this.classId;
     }
 
     public String getName() {

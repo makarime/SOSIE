@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     }
 
     private void setProfileTitledPane() {
-        this.appUserNameLabel.setText(AppUser.user.toString());
+        this.appUserNameLabel.setText(AppUser.user.getName());
         this.profileImageView.setImage(AppUser.user.getProfileImage());
     }
 
@@ -96,7 +96,7 @@ public class MainController implements Initializable {
 
     private void setClassBatchesChoiceBox() {
         if (AppUser.user.isStudent()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) AppUser.user).getClassBatch()));
+            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) AppUser.user).getCurrentClassBatch()));
             this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
         } else if (AppUser.user.isProfessor()) {
             this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) AppUser.user).getClassBatches()));
@@ -136,7 +136,6 @@ public class MainController implements Initializable {
     @FXML
     public void logOutAction() {
         AppUser.user = null;
-        DataBase.flushHastables();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionView.fxml"));

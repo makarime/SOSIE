@@ -1,6 +1,6 @@
 package app;
 
-import Models.DataBase;
+import Models.DataBaseEnv;
 import Models.User;
 import dao.UserRepository;
 import messages.*;
@@ -63,18 +63,18 @@ public class Client {
     }
 
     public IMessageCallback onProxyRequest = data -> {
-        data.setResponse(new ProxyResponse(DataBase.currentProxy.load(((ProxyRequest) data.getMessage()).getMsg())));
+        data.setResponse(new ProxyResponse(DataBaseEnv.currentProxy.load(((ProxyRequest) data.getMessage()).getMsg())));
     };
 
     public IMessageCallback onProxyIdRequest = data -> {
         ProxyIdRequest msg = (ProxyIdRequest) data.getMessage();
-        data.setResponse(new ProxyIdResponse(DataBase.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
+        data.setResponse(new ProxyIdResponse(DataBaseEnv.currentProxy.loadObjectById(msg.getClazz(), msg.getId())));
     };
 
     public IMessageCallback onProxyReverseIdRequest = data -> {
         ProxyReverseIdRequest msg = (ProxyReverseIdRequest) data.getMessage();
         //TODO: A Voir pour eviter le unchecked
-        data.setResponse(new ProxyReverseIdResponse(DataBase.currentProxy.loadObjectByReverseId(msg.getTarget(), msg.getSource(), msg.getId())));
+        data.setResponse(new ProxyReverseIdResponse(DataBaseEnv.currentProxy.loadObjectByReverseId(msg.getTarget(), msg.getSource(), msg.getId())));
     };
 
     public IMessageCallback onPingRequest = data -> {
