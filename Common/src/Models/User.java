@@ -23,8 +23,20 @@ public abstract class User implements Serializable, IEntity {
         return this.userId;
     }
 
-    public String getName() {
-        return this.firstName + " " + this.lastName;
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -39,6 +51,15 @@ public abstract class User implements Serializable, IEntity {
     public Image getProfileImage() {
         this.loadAdditionalInformation();
         return this.profileImage;
+    }
+
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName;
     }
 
     private void loadAdditionalInformation() {

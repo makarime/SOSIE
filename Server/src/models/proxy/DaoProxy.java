@@ -1,16 +1,15 @@
 package models.proxy;
 
-import Models.Class;
 import Models.*;
+import Models.Class;
 import Models.proxy.IProxy;
 import dao.*;
-import messages.models.*;
+import messages.models.UserAdditionalInfoRequest;
+import messages.models.UserAdditionalInfoResponse;
 import utils.socket.IMessage;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class DaoProxy implements IProxy {
     @Override
     public <T> List<T> loadObjectByReverseId(java.lang.Class<T> target, java.lang.Class<?> source, int id) {
         //if(target == Professor.class) return (List<T>) ProfessorRepository.getByReverseId(source, id);
-        //if(target == Student.class) return (List<T>) StudentRepository.getByReverseId(source, id);
+        if (target == Student.class) return (List<T>) StudentRepository.getByReverseId(source, id);
         if(target == Course.class) return (List<T>) CourseRepository.getByReverseId(source, id);
         if(target == Subject.class) return (List<T>) SubjectRepository.getByReverseId(source, id);
         if(target == Eu.class) return (List<T>) EuRepository.getByReverseId(source, id);

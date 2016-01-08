@@ -19,7 +19,7 @@ public class ClassBatch implements Serializable, IEntity {
 
     @Override
     public int getPrimaryKey() {
-        return batchId;
+        return this.classBatchId;
     }
 
     public int getClassBatchId() {
@@ -30,16 +30,29 @@ public class ClassBatch implements Serializable, IEntity {
         return this.classId;
     }
 
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
     public int getBatchId() {
         return this.batchId;
+    }
+
+    public void setBatchId(int batchId) {
+        this.batchId = batchId;
     }
 
     public int getProfessorInChargeId() {
         return this.professorInChargeId;
     }
 
-    public String getName() {
-        return this.getClasss().getName() + " / " + this.getBatch().getName();
+    public void setProfessorInChargeId(int professorInChargeId) {
+        this.professorInChargeId = professorInChargeId;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClasss().toString() + " / " + this.getBatch().toString();
     }
 
     public List<StudentClassBatch> getStudentClassBatches() {
@@ -64,10 +77,5 @@ public class ClassBatch implements Serializable, IEntity {
 
     public Batch getBatch() {
         return DataBaseEnv.currentProxy.loadObjectById(Batch.class, batchId);
-    }
-
-    @Override
-    public String toString() {
-        return this.getName();
     }
 }

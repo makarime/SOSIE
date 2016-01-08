@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     }
 
     private void setProfileTitledPane() {
-        this.appUserNameLabel.setText(AppUser.user.getName());
+        this.appUserNameLabel.setText(AppUser.user.toString());
         this.profileImageView.setImage(AppUser.user.getProfileImage());
     }
 
