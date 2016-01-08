@@ -22,8 +22,32 @@ public class ClassBatch implements Serializable, IEntity {
         return batchId;
     }
 
+    public int getClassBatchId() {
+        return this.classBatchId;
+    }
+
+    public int getClassId() {
+        return this.classId;
+    }
+
+    public int getBatchId() {
+        return this.batchId;
+    }
+
+    public int getProfessorInChargeId() {
+        return this.professorInChargeId;
+    }
+
     public String getName() {
         return this.getClasss().getName() + " / " + this.getBatch().getName();
+    }
+
+    public List<StudentClassBatch> getStudentClassBatches() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(StudentClassBatch.class, ClassBatch.class, classBatchId);
+    }
+
+    public List<Course> getCourses() {
+        return DataBaseEnv.currentProxy.loadObjectByReverseId(Course.class, ClassBatch.class, classBatchId);
     }
 
     public Professor getProfessorInCharge() {
