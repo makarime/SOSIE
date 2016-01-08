@@ -12,6 +12,6 @@ public class Student extends User {
     }
 
     public ClassBatch getCurrentClassBatch() {
-        return DataBaseEnv.currentProxy.loadObjectById(ClassBatch.class, currentCP);
+        return DataBaseEnv.currentProxy.loadObjectById(ClassBatch.class, this.currentCP);
     }
 }
