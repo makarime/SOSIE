@@ -76,7 +76,7 @@ public class SClient {
     private void internalSend(String header, IMessage message) {
         try {
             //TODO: NonUrgent: Ici pour chiffrer le flux (Encode64 << Chiffrement << Serialisation << IMessage)
-            out.writeBytes(header + "#" + Base64.getEncoder().encodeToString(serialize(message)) + "\r\n");
+            out.write((header + "#" + Base64.getEncoder().encodeToString(serialize(message)) + "\r\n").getBytes());
         } catch (IOException e) {
             e.printStackTrace();
             close();
