@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    @Deprecated //TODO A modifier par EventManagerList
     private final EventListenerList listeners = new EventListenerList();
     private ListenThread thread = null;
     private ServerSocket socket = null;

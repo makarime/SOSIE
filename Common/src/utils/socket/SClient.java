@@ -1,15 +1,19 @@
 package utils.socket;
 
+import utils.socket.interfaces.SClientClosed;
+import utils.socket.interfaces.SClientConnected;
+import utils.socket.interfaces.SClientDataArrival;
 import utils.socket.message.NullResponse;
 import utils.socket.message.StringMessage;
+import utils.EventManagerList;
 
-import javax.swing.event.EventListenerList;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Base64;
+import java.util.EventListener;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -21,7 +25,7 @@ import static utils.Serialization.deserialize;
 import static utils.Serialization.serialize;
 
 public class SClient {
-    private final EventListenerList listeners = new EventListenerList();
+    private final EventManagerList listeners = new EventManagerList();
     private DataArrivalThread thread = null;
     private Socket socket;
     private BufferedReader in = null;
@@ -31,9 +35,9 @@ public class SClient {
     private final ConcurrentHashMap<Long, SClientCallback> requestCallback = new ConcurrentHashMap<>();
 
     public SClient(String host, int port) throws IOException {this.connect(host, port);}
-    public SClient(String host, int port, SClientListener listener) throws IOException {this.addListener(listener); this.connect(host, port);}
+    public SClient(String host, int port, EventListener listener) throws IOException {this.addListener(listener); this.connect(host, port);}
     public SClient(Socket socket) throws IOException {this.connect(socket);}
-    public SClient(Socket socket, SClientListener listener) throws IOException {this.addListener(listener); this.connect(socket);}
+    public SClient(Socket socket, EventListener listener) throws IOException {this.addListener(listener); this.connect(socket);}
     public SClient() {}
 
     public void connect(String host, int port) throws IOException {
@@ -197,7 +201,7 @@ public class SClient {
     }
 
     public <T extends IMessage> void addMessageArrival(Class<T> clazz, IMessageArrival<T> callback) {
-        listeners.add(SClientMessageArrivalListener.class, new SClientMessageArrivalListener<>(clazz, callback));
+        listeners.add(new SClientMessageArrivalListener<>(clazz, callback));
     }
 
     public <T extends IMessage> void removeMessageArrival(Class<T> clazz, IMessageArrival<T> callback) {
@@ -209,16 +213,16 @@ public class SClient {
             }
         }
         if(obj != null) {
-            listeners.remove(SClientMessageArrivalListener.class, obj);
+            listeners.remove(obj);
         }
     }
 
-    public void addListener(SClientListener listener){
-        listeners.add(SClientListener.class, listener);
+    public void addListener(EventListener listener){
+        listeners.add(listener);
     }
 
-    public void removeListener(SClientListener listener){
-        listeners.remove(SClientListener.class, listener);
+    public void removeListener(EventListener listener){
+        listeners.remove(listener);
     }
 
     private void fireOnMessageArrival(DataArrivalEvent event) {
@@ -231,19 +235,19 @@ public class SClient {
     }
 
     private void fireOnConnected() {
-        for(SClientListener listener : listeners.getListeners(SClientListener.class)) {
+        for(SClientConnected listener : listeners.getListeners(SClientConnected.class)) {
             listener.onConnected(this);
         }
     }
 
     private void fireOnDataArrival(DataArrivalEvent event) {
-        for(SClientListener listener : listeners.getListeners(SClientListener.class)) {
+        for(SClientDataArrival listener : listeners.getListeners(SClientDataArrival.class)) {
             listener.onDataArrival(this, event);
         }
     }
 
     private void fireOnClosed() {
-        for(SClientListener listener : listeners.getListeners(SClientListener.class)) {
+        for(SClientClosed listener : listeners.getListeners(SClientClosed.class)) {
             listener.onClosed(this);
         }
     }

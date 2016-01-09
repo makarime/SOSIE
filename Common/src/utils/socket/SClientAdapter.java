@@ -1,6 +1,8 @@
 package utils.socket;
 
-public class SClientAdapter implements SClientListener {
+import utils.socket.interfaces.*;
+
+public class SClientAdapter implements SClientConnected, SClientClosed, SClientDataArrival {
 
     @Override
     public void onConnected(SClient sender) {}
