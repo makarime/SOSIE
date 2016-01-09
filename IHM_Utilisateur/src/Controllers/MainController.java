@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ public class MainController implements Initializable {
     public Label appUserNameLabel;
     @FXML
     public ImageView profileImageView;
+    @FXML
+    public Button editProfileButton;
     @FXML
     public ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
@@ -79,7 +82,16 @@ public class MainController implements Initializable {
 
     private void setProfileTitledPane() {
         this.appUserNameLabel.setText(AppUser.user.toString());
-        Async.execute(() -> this.profileImageView.setImage(AppUser.user.getProfileImage()));
+        this.editProfileButton.setDisable(true);
+        this.editProfileButton.setText("Chargement...");
+        Async.execute(() -> {
+            Image image = AppUser.user.getProfileImage();
+            Platform.runLater(() -> {
+                this.profileImageView.setImage(image);
+                this.editProfileButton.setDisable(false);
+                this.editProfileButton.setText("Editer");
+            });
+        });
     }
 
     private void setDatePicker() {
@@ -106,9 +118,11 @@ public class MainController implements Initializable {
             else if (AppUser.user.isProfessor())
                 this.classBatchesChoiceBox.getItems().addAll(((Professor) AppUser.user).getClassBatches());
 
-            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-            Platform.runLater(() -> this.detailsClassBatchButton.setText("Voir détails"));
-            this.detailsClassBatchButton.setDisable(false);
+            Platform.runLater(() -> {
+                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+                this.detailsClassBatchButton.setText("Voir détails");
+                this.detailsClassBatchButton.setDisable(false);
+            });
         });
     }
 

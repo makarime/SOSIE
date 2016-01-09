@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +9,8 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
     <HBox>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="182.0" prefWidth="160.0">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0"
+              prefWidth="160.0">
             <ImageView fx:id="userProfileImageView" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true"
                        preserveRatio="true"/>
         </Pane>
@@ -29,10 +29,10 @@
                     <Insets top="5.0"/>
                 </VBox.margin>
             </Label>
-            <HBox>
+            <HBox prefWidth="280.0">
                 <ChoiceBox fx:id="classBatchesChoiceBox"/>
-                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false"
-                        onAction="#viewClassBatchInfoAction" text="Voir infos">
+                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#viewClassBatchInfoAction"
+                        text="Voir infos">
                     <HBox.margin>
                         <Insets left="5.0"/>
                     </HBox.margin>
@@ -40,4 +40,10 @@
             </HBox>
         </VBox>
     </HBox>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
 </GridPane>

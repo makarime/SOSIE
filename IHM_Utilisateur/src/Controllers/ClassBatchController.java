@@ -60,8 +60,8 @@ public class ClassBatchController implements Initializable {
             Platform.runLater(() -> {
                 this.professorInChargeLabel.setText("Professeur en charge : " + professor.toString());
                 this.professorInChargeInfoButton.setText("Voir détails");
+                this.professorInChargeInfoButton.setDisable(false);
             });
-            this.professorInChargeInfoButton.setDisable(false);
         });
     }
 
@@ -72,9 +72,11 @@ public class ClassBatchController implements Initializable {
 
         Async.execute(() -> {
             this.studentsListView.getItems().addAll(this.classBatch.getStudents());
-            this.studentsListView.getSelectionModel().select(0);
-            Platform.runLater(() -> this.viewInfoStudentButton.setText("Voir détails"));
-            this.viewInfoStudentButton.setDisable(false);
+            Platform.runLater(() -> {
+                this.studentsListView.getSelectionModel().select(0);
+                this.viewInfoStudentButton.setText("Voir détails");
+                this.viewInfoStudentButton.setDisable(false);
+            });
         });
     }
 
@@ -86,6 +88,7 @@ public class ClassBatchController implements Initializable {
             loader.setController(new UserProfileController(this.classBatch.getProfessorInCharge()));
             mainWindowStage.setTitle("Profile utilisateur");
             mainWindowStage.setScene(new Scene(loader.load()));
+            mainWindowStage.setResizable(false);
             mainWindowStage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,6 +108,7 @@ public class ClassBatchController implements Initializable {
             Stage mainWindowStage = new Stage();
             loader.setController(new UserProfileController(this.studentsListView.getSelectionModel().getSelectedItem()));
             mainWindowStage.setTitle("Profile utilisateur");
+            mainWindowStage.setResizable(false);
             mainWindowStage.setScene(new Scene(loader.load()));
             mainWindowStage.show();
         } catch (Exception e) {

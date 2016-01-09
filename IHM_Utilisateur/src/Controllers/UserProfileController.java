@@ -1,10 +1,8 @@
 package Controllers;
 
 
-import Models.ClassBatch;
-import Models.Professor;
-import Models.Student;
-import Models.User;
+import Models.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -47,7 +46,10 @@ public class UserProfileController implements Initializable {
     }
 
     public void setUserProfileImageView() {
-        this.userProfileImageView.setImage(this.user.getProfileImage());
+        Async.execute(() -> {
+            Image image = this.user.getProfileImage();
+            Platform.runLater(() -> this.userProfileImageView.setImage(image));
+        });
     }
 
     public void setUserNameLabel() {
@@ -59,13 +61,22 @@ public class UserProfileController implements Initializable {
     }
 
     public void setClassBatchesChoiceBox() {
-        if (this.user.isStudent()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Student) this.user).getCurrentClassBatch()));
-            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-        } else if (this.user.isProfessor()) {
-            this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList(((Professor) this.user).getClassBatches()));
-            this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-        }
+        this.viewInfosClassBatchButton.setDisable(true);
+        this.viewInfosClassBatchButton.setText("Chargement...");
+        this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
+
+        Async.execute(() -> {
+            if (this.user.isStudent())
+                this.classBatchesChoiceBox.getItems().addAll(((Student) this.user).getCurrentClassBatch());
+            else if (this.user.isProfessor())
+                this.classBatchesChoiceBox.getItems().addAll(((Professor) this.user).getClassBatches());
+
+            Platform.runLater(() -> {
+                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
+                this.viewInfosClassBatchButton.setDisable(false);
+                this.viewInfosClassBatchButton.setText("Voir details");
+            });
+        });
     }
 
     @FXML

@@ -2,9 +2,12 @@ package Controllers;
 
 
 import Models.AppUser;
+import Models.Async;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,6 +29,8 @@ public class ProfileEditorController implements Initializable {
     @FXML
     public ImageView profileImageView;
     @FXML
+    public Button changePictureButton;
+    @FXML
     public TextField emailFirstPart;
     @FXML
     public TextField emailSecondPart;
@@ -35,6 +40,8 @@ public class ProfileEditorController implements Initializable {
     public PasswordField passwordField1;
     @FXML
     public PasswordField passwordField2;
+    @FXML
+    public Button validateButton;
 
     private Stage stage = null;
     private boolean profileImageChanged = false;
@@ -52,15 +59,32 @@ public class ProfileEditorController implements Initializable {
     }
 
     private void setProfileImageViewInitialization() {
-        this.profileImageView.setImage(AppUser.user.getProfileImage());
+        this.changePictureButton.setDisable(true);
+        this.changePictureButton.setText("Chargement...");
+        Async.execute(() -> {
+            Image image = AppUser.user.getProfileImage();
+            Platform.runLater(() -> {
+                this.profileImageView.setImage(image);
+                this.changePictureButton.setDisable(false);
+                this.changePictureButton.setText("Changer");
+            });
+        });
     }
 
     private void setEmailTextFieldsInitialization() {
-        String[] ss = AppUser.user.getEmail().split("@");
-        String[] ss2 = ss[1].split("\\.");
-        this.emailFirstPart.setText(ss[0]);
-        this.emailSecondPart.setText(ss2[0]);
-        this.emailThirdPart.setText(ss2[1]);
+        this.validateButton.setDisable(true);
+        this.validateButton.setText("Chargement...");
+        Async.execute(() -> {
+            String[] ss = AppUser.user.getEmail().split("@");
+            String[] ss2 = ss[1].split("\\.");
+            Platform.runLater(() -> {
+                this.emailFirstPart.setText(ss[0]);
+                this.emailSecondPart.setText(ss2[0]);
+                this.emailThirdPart.setText(ss2[1]);
+                this.validateButton.setDisable(false);
+                this.validateButton.setText("Valider");
+            });
+        });
     }
 
     /* Actions */
