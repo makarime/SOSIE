@@ -46,6 +46,18 @@ public abstract class DaoBase<T> {
         }
     }
 
+    public boolean updateRow(String column, String newValue) {
+        final String sql = String.format("UPDATE %s SET %s = ?", tableName, column);
+        try(PreparedStatement f =  getJdbc().prepareStatement(sql)){
+            f.setString(1, newValue);
+            f.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public ArrayList<T> parseResultset(ResultSet rs) throws SQLException {
         ArrayList<T> rslt = new ArrayList<>();
         while(rs.next())

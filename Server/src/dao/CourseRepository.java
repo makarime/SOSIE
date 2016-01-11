@@ -11,7 +11,7 @@ import java.util.List;
 public class CourseRepository extends DaoBase<Course> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Cours ";
-    private static final String TABLENAME = "Cours";
+    public static final String TABLENAME = "Cours";
 
     private static CourseRepository instance = null;
     public static CourseRepository getInstance() {
@@ -41,6 +41,10 @@ public class CourseRepository extends DaoBase<Course> {
             return null;
         }
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override

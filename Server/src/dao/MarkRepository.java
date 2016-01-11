@@ -12,7 +12,7 @@ import java.util.List;
 public class MarkRepository extends DaoBase<Mark> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Notes ";
-    private static final String TABLENAME = "Notes";
+    public static final String TABLENAME = "Notes";
 
     private static MarkRepository instance = null;
     public static MarkRepository getInstance() {
@@ -25,7 +25,7 @@ public class MarkRepository extends DaoBase<Mark> {
         super(TABLENAME);
     }
 
-   public static Mark getById(int id) {
+    public static Mark getById(int id) {
         ArrayList<Mark> ar = getInstance().select(SElECTREQUEST + "WHERE NoteId = " + id);
         return ar.size() > 0 ? ar.get(0) : null;
     }
@@ -40,6 +40,10 @@ public class MarkRepository extends DaoBase<Mark> {
             return null;
         }
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override

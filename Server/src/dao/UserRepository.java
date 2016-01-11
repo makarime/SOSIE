@@ -14,7 +14,7 @@ public class UserRepository extends DaoBase<User>{
     private static final String SElECTREQUEST = "SELECT * FROM Utilisateurs " +
             "  LEFT JOIN Eleves ON Eleves.EleveId = Utilisateurs.IdUtilisateur " +
             "  LEFT JOIN Enseignants ON Enseignants.EnseignantId = Utilisateurs.IdUtilisateur ";
-    private static final String TABLENAME = "Utilisateurs"; //TODO Erreur heritage
+    public static final String TABLENAME = "Utilisateurs"; //TODO Erreur heritage
 
     private static UserRepository instance = null;
     public static UserRepository getInstance() {
@@ -46,6 +46,10 @@ public class UserRepository extends DaoBase<User>{
             if(i + 1 != ids.length) builder.append(", ");
         }
         return getInstance().select(SElECTREQUEST + "WHERE IdUtilisateur IN (" + builder.toString() + ")");
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override

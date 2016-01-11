@@ -12,7 +12,7 @@ public class StudentRepository extends DaoBase<Student> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Eleves " +
             "  INNER JOIN Utilisateurs ON Utilisateurs.IdUtilisateur = Eleves.EleveId ";
-    private static final String TABLENAME = "Eleves"; //TODO Erreur heritage
+    public static final String TABLENAME = "Eleves"; //TODO Erreur heritage
 
     private static StudentRepository instance = null;
     public static StudentRepository getInstance() {
@@ -45,6 +45,10 @@ public class StudentRepository extends DaoBase<Student> {
         }
 
         return null;
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override

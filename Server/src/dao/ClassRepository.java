@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ClassRepository extends DaoBase<Class> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Classes ";
-    private static final String TABLENAME = "Classes";
+    public static final String TABLENAME = "Classes";
 
     private static ClassRepository instance = null;
     public static ClassRepository getInstance() {
@@ -25,6 +25,10 @@ public class ClassRepository extends DaoBase<Class> {
     public static Class getById(int id) {
         ArrayList<Class> ar = getInstance().select(SElECTREQUEST + "WHERE ClasseId = " + id);
         return ar.size() > 0 ? ar.get(0) : null;
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override

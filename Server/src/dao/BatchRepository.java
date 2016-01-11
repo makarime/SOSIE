@@ -9,7 +9,11 @@ import java.util.ArrayList;
 public class BatchRepository extends DaoBase<Batch> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Promotion ";
-    private static final String TABLENAME = "Promotion";
+    public static final String TABLENAME = "Promotion";
+    public interface Columns{
+        String ID   = "IdPromotion";
+        String YEAR = "Annee";
+    }
 
     private static BatchRepository instance = null;
     public static BatchRepository getInstance() {
@@ -27,11 +31,15 @@ public class BatchRepository extends DaoBase<Batch> {
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
+    }
+
     @Override
     public Batch dataToClass(ResultSet rs) throws SQLException {
         return new Batch(
-                rs.getInt("idPromotion"),
-                rs.getInt("Annee")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.YEAR)
         );
     }
 }

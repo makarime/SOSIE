@@ -12,7 +12,7 @@ import java.util.List;
 public class ClassBatchRepository extends DaoBase<ClassBatch> {
 
     private static final String SElECTREQUEST = "SELECT * FROM ClassePromo ";
-    private static final String TABLENAME = "ClassePromo";
+    public static final String TABLENAME = "ClassePromo";
 
     private static ClassBatchRepository instance = null;
     public static ClassBatchRepository getInstance() {
@@ -41,6 +41,10 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
             return null;
         }
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
+    }
+
+    public static boolean update(String columnName, String newValue) {
+        return getInstance().updateRow(columnName, newValue);
     }
 
     @Override
