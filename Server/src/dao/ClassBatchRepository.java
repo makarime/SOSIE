@@ -11,6 +11,9 @@ import java.util.List;
 
 public class ClassBatchRepository extends DaoBase<ClassBatch> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM ClassePromo ";
+    private static final String TABLENAME = "ClassePromo";
+
     private static ClassBatchRepository instance = null;
     public static ClassBatchRepository getInstance() {
         if(instance == null)
@@ -18,7 +21,9 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM ClassePromo ";
+    public ClassBatchRepository() {
+        super(TABLENAME);
+    }
 
     public static ClassBatch getById(int id) {
         ArrayList<ClassBatch> ar = getInstance().select(SElECTREQUEST + "WHERE PromoClassId = " + id);

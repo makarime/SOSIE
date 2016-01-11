@@ -8,6 +8,15 @@ public abstract class DaoBase<T> {
     private static Connection getJdbc() {
         return DaoConnection.getInstance().jdbc;
     }
+    private final String tableName;
+
+    public DaoBase(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public ArrayList<T> selectAll() {
+        return select("SELECT * FROM " + tableName);
+    }
 
     public ArrayList<T> select(String sql) {
         try(Statement stmt = getJdbc().createStatement() ;

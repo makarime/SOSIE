@@ -11,6 +11,9 @@ import java.util.List;
 
 public class MarkRepository extends DaoBase<Mark> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM Notes ";
+    private static final String TABLENAME = "Notes";
+
     private static MarkRepository instance = null;
     public static MarkRepository getInstance() {
         if(instance == null)
@@ -18,9 +21,11 @@ public class MarkRepository extends DaoBase<Mark> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Notes ";
+    public MarkRepository() {
+        super(TABLENAME);
+    }
 
-    public static Mark getById(int id) {
+   public static Mark getById(int id) {
         ArrayList<Mark> ar = getInstance().select(SElECTREQUEST + "WHERE NoteId = " + id);
         return ar.size() > 0 ? ar.get(0) : null;
     }

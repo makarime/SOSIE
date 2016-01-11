@@ -10,6 +10,10 @@ import java.util.List;
 
 public class StudentRepository extends DaoBase<Student> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM Eleves " +
+            "  INNER JOIN Utilisateurs ON Utilisateurs.IdUtilisateur = Eleves.EleveId ";
+    private static final String TABLENAME = "Eleves"; //TODO Erreur heritage
+
     private static StudentRepository instance = null;
     public static StudentRepository getInstance() {
         if(instance == null)
@@ -17,8 +21,9 @@ public class StudentRepository extends DaoBase<Student> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Eleves " +
-                                                "  INNER JOIN Utilisateurs ON Utilisateurs.IdUtilisateur = Eleves.EleveId ";
+    public StudentRepository() {
+        super(TABLENAME);
+    }
 
     public static Student getById(int id) {
         ArrayList<Student> ar = getInstance().select(SElECTREQUEST + "WHERE EleveId = " + id);

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class ClassroomRepository extends DaoBase<Classroom>{
 
+    private static final String SElECTREQUEST = "SELECT * FROM Salle ";
+    private static final String TABLENAME = "Salle";
+
     private static ClassroomRepository instance = null;
     public static ClassroomRepository getInstance() {
         if(instance == null)
@@ -15,7 +18,9 @@ public class ClassroomRepository extends DaoBase<Classroom>{
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Salle ";
+    public ClassroomRepository() {
+        super(TABLENAME);
+    }
 
     public static Classroom getById(int id) {
         ArrayList<Classroom> ar = getInstance().select(SElECTREQUEST + "WHERE idSalle = " + id);

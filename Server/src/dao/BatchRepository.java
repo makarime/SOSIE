@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class BatchRepository extends DaoBase<Batch> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM Promotion ";
+    private static final String TABLENAME = "Promotion";
+
     private static BatchRepository instance = null;
     public static BatchRepository getInstance() {
         if(instance == null)
@@ -15,7 +18,9 @@ public class BatchRepository extends DaoBase<Batch> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Promotion ";
+    public BatchRepository() {
+        super(TABLENAME);
+    }
 
     public static Batch getById(int id) {
         ArrayList<Batch> ar = getInstance().select(SElECTREQUEST + "WHERE idPromotion = " + id);

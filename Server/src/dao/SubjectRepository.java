@@ -10,6 +10,9 @@ import java.util.List;
 
 public class SubjectRepository extends DaoBase<Subject> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM Matiere ";
+    private static final String TABLENAME = "Matiere";
+
     private static SubjectRepository instance = null;
     public static SubjectRepository getInstance() {
         if(instance == null)
@@ -17,7 +20,9 @@ public class SubjectRepository extends DaoBase<Subject> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Matiere ";
+    public SubjectRepository() {
+        super(TABLENAME);
+    }
 
     public static Subject getById(int id) {
         ArrayList<Subject> ar = getInstance().select(SElECTREQUEST + "WHERE MatiereId = " + id);

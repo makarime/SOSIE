@@ -10,6 +10,9 @@ import java.util.List;
 
 public class EuRepository extends DaoBase<Eu> {
 
+    private static final String SElECTREQUEST = "SELECT * FROM Ue ";
+    private static final String TABLENAME = "Ue";
+
     private static EuRepository instance = null;
     public static EuRepository getInstance() {
         if(instance == null)
@@ -17,7 +20,9 @@ public class EuRepository extends DaoBase<Eu> {
         return instance;
     }
 
-    private static final String SElECTREQUEST = "SELECT * FROM Ue ";
+    public EuRepository() {
+        super(TABLENAME);
+    }
 
     public static Eu getById(int id) {
         ArrayList<Eu> ar = getInstance().select(SElECTREQUEST + "WHERE UeId = " + id);
