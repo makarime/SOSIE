@@ -21,13 +21,6 @@ public class Client {
             this.socket = new SClient(socket, clientEvent);
             this.socket.addMessageArrival(PingRequest.class, onPingRequest);
             this.socket.addMessageArrival(LoginRequest.class, onLoginRequest);
-            this.socket.addListener((SClientDataArrival) (sender, event) -> System.out.println(event.toString()));
-            this.socket.addListener(new SClientAdapter() {
-                @Override
-                public void onDataArrival(SClient sender, DataArrivalEvent event) {
-                    System.out.println("r" + event.toString());
-                }
-            });
         } catch (IOException e) {
             System.err.println("[Serveur] Erreur création du client.");
             e.printStackTrace();

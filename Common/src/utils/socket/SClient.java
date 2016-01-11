@@ -170,23 +170,28 @@ public class SClient {
                     try {
                         //TODO: NonUrgent: Ici pour dechiffrer le flux (IMessage << Deserialisation << Decode64 << Dechiffrement << Flux)
                         IMessage msg = ((IMessage) deserialize(Base64.getDecoder().decode(data)));
-                        //TODO: A Voir si on dédie un nouveau thread a cette tache ?
-                        if(!request && rid != -1) {
-                            if(requestCallback.containsKey(rid)) {
-                                requestCallback.get(rid).onResult(SClient.this, msg);
-                                requestCallback.remove(rid);
-                            } else
-                                System.err.println("Callback " + rid + " introuvable !");
-                        } else {
-                            // Flux standard //
-                            DataArrivalEvent e = new DataArrivalEvent<>(msg, rid != -1);
-                            fireOnMessageArrival(e);
-                            fireOnDataArrival(e);
-                            if(e.isRequest() && e.getResponse() == null)
-                                e.setResponse(new NullResponse());
-                            if(e.getResponse() != null)
-                                internalSend("r" + rid, e.getResponse());
-                        }
+                        new Thread(() -> {
+                            try {
+                                if (!request && rid != -1) {
+                                    if (requestCallback.containsKey(rid)) {
+                                        requestCallback.get(rid).onResult(SClient.this, msg);
+                                        requestCallback.remove(rid);
+                                    } else
+                                        System.err.println("Callback " + rid + " introuvable !");
+                                } else {
+                                    // Flux standard //
+                                    DataArrivalEvent e = new DataArrivalEvent<>(msg, rid != -1);
+                                    fireOnMessageArrival(e);
+                                    fireOnDataArrival(e);
+                                    if (e.isRequest() && e.getResponse() == null)
+                                        e.setResponse(new NullResponse());
+                                    if (e.getResponse() != null)
+                                        internalSend("r" + rid, e.getResponse());
+                                }
+                            } catch (Exception e) { // Probleme traitement du message
+                                e.printStackTrace();
+                            }
+                        }).start();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
