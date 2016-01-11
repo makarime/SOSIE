@@ -47,8 +47,7 @@ public class StudentRepository extends DaoBase<Student> {
         return new Student(
                 rs.getInt("IdUtilisateur"),
                 rs.getString("FirstName"),
-                rs.getString("LastName"),
-                rs.getInt("CurrentCP")
+                rs.getString("LastName")
         );
     }
 }
