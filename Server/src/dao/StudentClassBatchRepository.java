@@ -13,6 +13,11 @@ public class StudentClassBatchRepository extends DaoBase<StudentClassBatch> {
 
     private static final String SElECTREQUEST = "SELECT * FROM EleveCP ";
     public static final String TABLENAME = "EleveCP";
+    public interface Columns{
+        String ID           = "EleveCPId";
+        String STUDENTID    = "EleveId";
+        String CLASSBATCHID = "ClassPromoId";
+    }
 
     private static StudentClassBatchRepository instance = null;
     public static StudentClassBatchRepository getInstance() {
@@ -49,9 +54,9 @@ public class StudentClassBatchRepository extends DaoBase<StudentClassBatch> {
     @Override
     public StudentClassBatch dataToClass(ResultSet rs) throws SQLException {
         return new StudentClassBatch(
-                rs.getInt("EleveCPId"),
-                rs.getInt("EleveId"),
-                rs.getInt("ClassPromoId")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.STUDENTID),
+                rs.getInt(Columns.CLASSBATCHID)
         );
     }
 }

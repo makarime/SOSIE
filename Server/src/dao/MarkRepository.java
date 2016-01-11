@@ -13,6 +13,12 @@ public class MarkRepository extends DaoBase<Mark> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Notes ";
     public static final String TABLENAME = "Notes";
+    public interface Columns{
+        String ID           = "NoteId";
+        String STUDENTCB    = "EleveCPId";
+        String SUBJECTID    = "MatiereId";
+        String VALUE        = "valeur";
+    }
 
     private static MarkRepository instance = null;
     public static MarkRepository getInstance() {
@@ -49,10 +55,10 @@ public class MarkRepository extends DaoBase<Mark> {
     @Override
     public Mark dataToClass(ResultSet rs) throws SQLException {
         return new Mark(
-                rs.getInt("NoteId"),
-                rs.getInt("EleveCPId"),
-                rs.getInt("MatiereId"),
-                rs.getInt("valeur")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.STUDENTCB),
+                rs.getInt(Columns.SUBJECTID),
+                rs.getInt(Columns.VALUE)
         );
     }
 }

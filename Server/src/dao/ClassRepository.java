@@ -10,6 +10,11 @@ public class ClassRepository extends DaoBase<Class> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Classes ";
     public static final String TABLENAME = "Classes";
+    public interface Columns{
+        String ID       = "ClasseId";
+        String NAME     = "Nom";
+        String RANK     = "rank";
+    }
 
     private static ClassRepository instance = null;
     public static ClassRepository getInstance() {
@@ -34,9 +39,9 @@ public class ClassRepository extends DaoBase<Class> {
     @Override
     public Class dataToClass(ResultSet rs) throws SQLException {
         return new Class(
-                rs.getInt("ClasseId"),
-                rs.getString("Nom"),
-                rs.getInt("rank")
+                rs.getInt(Columns.ID),
+                rs.getString(Columns.NAME),
+                rs.getInt(Columns.RANK)
         );
     }
 }

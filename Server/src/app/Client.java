@@ -1,5 +1,6 @@
 package app;
 
+import Models.Batch;
 import Models.DataBaseEnv;
 import Models.User;
 import dao.UserRepository;

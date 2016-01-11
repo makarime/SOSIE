@@ -10,6 +10,15 @@ public class ClassroomRepository extends DaoBase<Classroom>{
 
     private static final String SElECTREQUEST = "SELECT * FROM Salle ";
     public static final String TABLENAME = "Salle";
+    public interface Columns{
+        String ID           = "idSalle";
+        String NUMBER       = "Numero";
+        String CAPACITY     = "Capacite";
+        String COMPUTER     = "Pc";
+        String PROJECTOR    = "Videoprojecteur";
+        String DIGITALPANE  = "TabNum";
+        String DISABLEPERS  = "Handi";
+    }
 
     private static ClassroomRepository instance = null;
     public static ClassroomRepository getInstance() {
@@ -34,13 +43,13 @@ public class ClassroomRepository extends DaoBase<Classroom>{
     @Override
     public Classroom dataToClass(ResultSet rs) throws SQLException {
         return new Classroom(
-                    rs.getInt("idSalle"),
-                    rs.getInt("Numero"),
-                    rs.getInt("Capacite"),
-                    rs.getBoolean("Pc"),
-                    rs.getBoolean("Videoprojecteur"),
-                    rs.getBoolean("TabNum"),
-                    rs.getBoolean("Handi"));
+                    rs.getInt(Columns.ID),
+                    rs.getInt(Columns.NUMBER),
+                    rs.getInt(Columns.CAPACITY),
+                    rs.getBoolean(Columns.COMPUTER),
+                    rs.getBoolean(Columns.PROJECTOR),
+                    rs.getBoolean(Columns.DIGITALPANE),
+                    rs.getBoolean(Columns.DISABLEPERS));
     }
 
 }

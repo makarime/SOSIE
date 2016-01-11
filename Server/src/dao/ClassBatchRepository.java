@@ -13,6 +13,12 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
 
     private static final String SElECTREQUEST = "SELECT * FROM ClassePromo ";
     public static final String TABLENAME = "ClassePromo";
+    public interface Columns{
+        String ID           = "PromoClassId";
+        String CLASSID      = "ClassId";
+        String BATCHID      = "PromotionId";
+        String PROFESSORID  = "ResponsableId";
+    }
 
     private static ClassBatchRepository instance = null;
     public static ClassBatchRepository getInstance() {
@@ -50,10 +56,10 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
     @Override
     public ClassBatch dataToClass(ResultSet rs) throws SQLException {
         return new ClassBatch(
-                rs.getInt("PromoClassId"),
-                rs.getInt("ClasseId"),
-                rs.getInt("PromotionId"),
-                rs.getInt("ResponsableId")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.CLASSID),
+                rs.getInt(Columns.BATCHID),
+                rs.getInt(Columns.PROFESSORID)
         );
     }
 }

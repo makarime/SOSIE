@@ -12,6 +12,11 @@ public class EuRepository extends DaoBase<Eu> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Ue ";
     public static final String TABLENAME = "Ue";
+    public interface Columns{
+        String ID       = "UeId";
+        String CLASSID  = "ClassId";
+        String NAME     = "Nom";
+    }
 
     private static EuRepository instance = null;
     public static EuRepository getInstance() {
@@ -47,9 +52,9 @@ public class EuRepository extends DaoBase<Eu> {
     @Override
     public Eu dataToClass(ResultSet rs) throws SQLException {
         return new Eu(
-                rs.getInt("UeId"),
-                rs.getInt("ClassId"),
-                rs.getString("Nom")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.CLASSID),
+                rs.getString(Columns.NAME)
         );
     }
 }

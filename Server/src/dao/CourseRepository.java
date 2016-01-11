@@ -12,6 +12,14 @@ public class CourseRepository extends DaoBase<Course> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Cours ";
     public static final String TABLENAME = "Cours";
+    public interface Columns{
+        String ID           = "CoursId";
+        String SUBJECTID    = "MatiereId";
+        String CLASSBATCHID = "PromoClassId";
+        String PROFESSORID  = "EnseignantId";
+        String CLASSROOMID  = "SalleId";
+        String DATE         = "date";
+    }
 
     private static CourseRepository instance = null;
     public static CourseRepository getInstance() {
@@ -50,12 +58,12 @@ public class CourseRepository extends DaoBase<Course> {
     @Override
     public Course dataToClass(ResultSet rs) throws SQLException {
         return new Course(
-                rs.getInt("CoursId"),
-                rs.getInt("MatiereId"),
-                rs.getInt("PromoClassId"),
-                rs.getInt("EnseignantId"),
-                rs.getInt("SalleId"),
-                rs.getDate("date")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.SUBJECTID),
+                rs.getInt(Columns.CLASSBATCHID),
+                rs.getInt(Columns.PROFESSORID),
+                rs.getInt(Columns.CLASSROOMID),
+                rs.getDate(Columns.DATE)
         );
     }
 }

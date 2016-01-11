@@ -15,6 +15,7 @@ public class UserRepository extends DaoBase<User>{
             "  LEFT JOIN Eleves ON Eleves.EleveId = Utilisateurs.IdUtilisateur " +
             "  LEFT JOIN Enseignants ON Enseignants.EnseignantId = Utilisateurs.IdUtilisateur ";
     public static final String TABLENAME = "Utilisateurs"; //TODO Erreur heritage
+    //TODO A Faire Columns pour USER/STUDENT/PROFESSOR
 
     private static UserRepository instance = null;
     public static UserRepository getInstance() {
