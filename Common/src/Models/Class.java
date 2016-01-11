@@ -6,10 +6,12 @@ import java.util.List;
 public class Class implements Serializable, IEntity {
     private int classId;
     private String name = null;
+    private int rank;
 
-    public Class(String name, int classId) {
-        this.name = name;
+    public Class(int classId, String name, int rank) {
         this.classId = classId;
+        this.name = name;
+        this.rank = rank;
     }
 
     @Override
@@ -29,6 +31,10 @@ public class Class implements Serializable, IEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getRank() {
+        return rank;
     }
 
     @Override

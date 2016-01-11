@@ -25,8 +25,9 @@ public class ClassRepository extends DaoBase<Class> {
     @Override
     public Class dataToClass(ResultSet rs) throws SQLException {
         return new Class(
+                rs.getInt("ClasseId"),
                 rs.getString("Nom"),
-                rs.getInt("ClasseId")
+                rs.getInt("rank")
         );
     }
 }
