@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 public class Client {
     private SClient socket;
+    private User user;
 
     public Client(Socket socket) {
         try {
@@ -53,6 +54,7 @@ public class Client {
         event.setResponse(new LoginResponse(user != null, user));
         if(user != null) {
             loginMessageRegister(user);
+            this.user = user;
         }
     };
 
@@ -74,7 +76,8 @@ public class Client {
     };
 
     public IMessageArrival<ChangeUserEmailRequest> onChangeUserEmailRequest = (sender, event) -> {
-        event.setResponse(new ChangeUserEmailResponse(true));
+        final boolean result = UserRepository.update(user.getUserId(), UserRepository.Columns.EMAIL, event.getMessage().getEmail());
+        event.setResponse(new ChangeUserEmailResponse(result));
     };
 
     public IMessageArrival<ChangeUserPasswordRequest> onChangeUserPasswordRequest = (sender, event) -> {
