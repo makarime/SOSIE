@@ -19,6 +19,7 @@ public class CourseRepository extends DaoBase<Course> {
         String PROFESSORID  = "EnseignantId";
         String CLASSROOMID  = "SalleId";
         String DATE         = "date";
+        String DURATION     = "Duree";
     }
 
     private static CourseRepository instance = null;
@@ -63,7 +64,8 @@ public class CourseRepository extends DaoBase<Course> {
                 rs.getInt(Columns.CLASSBATCHID),
                 rs.getInt(Columns.PROFESSORID),
                 rs.getInt(Columns.CLASSROOMID),
-                rs.getDate(Columns.DATE)
+                rs.getDate(Columns.DATE),
+                rs.getInt(Columns.DURATION)
         );
     }
 }
