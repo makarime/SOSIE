@@ -1,7 +1,6 @@
 package dao;
 
 import Models.Professor;
-import Models.Student;
 import Models.User;
 
 import java.sql.ResultSet;
@@ -57,6 +56,12 @@ public class UserRepository extends DaoBase<User>{
 
     public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
+    }
+
+    public static boolean changePassword(int id, String oldPassword, String newPassword) {
+        if(getInstance().select(SElECTREQUEST + "WHERE IdUtilisateur = ? AND MdP = ?", id, oldPassword).size() != 1)
+            return false;
+        return getInstance().updateRow("MdP", newPassword, id);
     }
 
     @Override

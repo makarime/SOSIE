@@ -81,7 +81,8 @@ public class Client {
     };
 
     public IMessageArrival<ChangeUserPasswordRequest> onChangeUserPasswordRequest = (sender, event) -> {
-        event.setResponse(new ChangeUserPasswordResponse(true));
+        final boolean result = UserRepository.changePassword(user.getUserId(), event.getMessage().getOldUserPassword(), event.getMessage().getUserPassword());
+        event.setResponse(new ChangeUserPasswordResponse(result));
     };
 
     public IMessageArrival<ChangeUserProfileImageRequest> onChangeUserProfileImageRequest = (sender, event) -> {
