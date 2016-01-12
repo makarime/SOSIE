@@ -77,16 +77,11 @@ public class MainController implements Initializable {
     }
 
     private void initProfileTitledPane() {
+        this.editProfileButton.disableProperty().bind(this.profileImageView.imageProperty().isNull());
         this.appUserNameLabel.setText(AppUser.user.toString());
-        this.editProfileButton.setDisable(true);
-        this.editProfileButton.setText("Chargement...");
         Async.execute(() -> {
             Image image = AppUser.user.getProfileImage();
-            Platform.runLater(() -> {
-                this.profileImageView.setImage(image);
-                this.editProfileButton.setDisable(false);
-                this.editProfileButton.setText("Editer");
-            });
+            Platform.runLater(() -> this.profileImageView.setImage(image));
         });
     }
 
@@ -104,8 +99,7 @@ public class MainController implements Initializable {
     }
 
     private void initClassBatchesChoiceBox() {
-        this.classBatchInfoButton.setDisable(true);
-        this.classBatchInfoButton.setText("Chargement...");
+        this.classBatchInfoButton.disableProperty().bind(this.classBatchesChoiceBox.getSelectionModel().selectedItemProperty().isNull());
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
@@ -114,11 +108,7 @@ public class MainController implements Initializable {
             else if (AppUser.user.isProfessor())
                 this.classBatchesChoiceBox.getItems().addAll(((Professor) AppUser.user).getClassBatches());
 
-            Platform.runLater(() -> {
-                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-                this.classBatchInfoButton.setText("Voir détails");
-                this.classBatchInfoButton.setDisable(false);
-            });
+            Platform.runLater(() -> this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0)));
         });
     }
 

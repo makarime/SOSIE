@@ -61,8 +61,7 @@ public class UserProfileController implements Initializable {
     }
 
     public void initClassBatchesChoiceBox() {
-        this.classBatchInfoButton.setDisable(true);
-        this.classBatchInfoButton.setText("Chargement...");
+        this.classBatchInfoButton.disableProperty().bind(this.classBatchesChoiceBox.getSelectionModel().selectedItemProperty().isNull());
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
@@ -71,11 +70,7 @@ public class UserProfileController implements Initializable {
             else if (this.user.isProfessor())
                 this.classBatchesChoiceBox.getItems().addAll(((Professor) this.user).getClassBatches());
 
-            Platform.runLater(() -> {
-                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-                this.classBatchInfoButton.setDisable(false);
-                this.classBatchInfoButton.setText("Voir details");
-            });
+            Platform.runLater(() -> this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0)));
         });
     }
 

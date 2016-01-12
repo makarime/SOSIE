@@ -77,11 +77,11 @@
             <GridPane.margin>
                <Insets left="5.0" />
             </GridPane.margin></PasswordField>
-            <PasswordField fx:id="passwordField1" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <PasswordField fx:id="passwordField1" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                <Insets left="5.0" top="5.0" />
             </GridPane.margin></PasswordField>
-            <PasswordField fx:id="passwordField2" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <PasswordField fx:id="passwordField2" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                <Insets left="5.0" top="5.0" />
             </GridPane.margin></PasswordField>
