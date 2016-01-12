@@ -66,7 +66,7 @@ public class DaoProxy implements IProxy {
     public IMessageCallback onUserAdditionalInfoRequest = data -> {
         UserAdditionalInfoRequest msg = (UserAdditionalInfoRequest) data;
         try {
-            return new UserAdditionalInfoResponse("test@gmail.com", Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg")));
+            return new UserAdditionalInfoResponse(Files.readAllBytes(Paths.get("IHM_Utilisateur\\src\\Nicolas Cage.jpg")));
         } catch (Exception e) {
             e.printStackTrace();
             //TODO handle image fail

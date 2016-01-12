@@ -54,9 +54,10 @@ public class StudentRepository extends DaoBase<Student> {
     @Override
     public Student dataToClass(ResultSet rs) throws SQLException {
         return new Student(
-                rs.getInt("IdUtilisateur"),
-                rs.getString("FirstName"),
-                rs.getString("LastName")
+                rs.getInt(UserRepository.Columns.ID),
+                rs.getString(UserRepository.Columns.FIRSTNAME),
+                rs.getString(UserRepository.Columns.LASTNAME),
+                rs.getString(UserRepository.Columns.EMAIL)
         );
     }
 }

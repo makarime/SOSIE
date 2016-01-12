@@ -4,16 +4,10 @@ package messages.models;
 import utils.socket.IMessage;
 
 public class UserAdditionalInfoResponse implements IMessage {
-    private String email = null;
-    private byte[] profileImage = null;
+    private final byte[] profileImage;
 
-    public UserAdditionalInfoResponse(String email, byte[] profileImage) {
-        this.email = email;
+    public UserAdditionalInfoResponse(byte[] profileImage) {
         this.profileImage = profileImage;
-    }
-
-    public String getEmail() {
-        return this.email;
     }
 
     public byte[] getProfileImage() {
