@@ -14,6 +14,13 @@ public abstract class User implements Serializable, IEntity {
     protected String email = null;
     protected Image profileImage = null;
 
+    public User(int userId, String lastName, String firstName, String email) {
+        this.userId = userId;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+    }
+
     @Override
     public int getPrimaryKey() {
         return userId;
@@ -40,7 +47,6 @@ public abstract class User implements Serializable, IEntity {
     }
 
     public String getEmail() {
-        this.loadAdditionalInformation();
         return this.email;
     }
 
@@ -63,10 +69,9 @@ public abstract class User implements Serializable, IEntity {
     }
 
     private void loadAdditionalInformation() {
-        if ((this.profileImage == null) && (this.email == null)) {
+        if (this.profileImage == null) {
             UserAdditionalInfoResponse response = ((UserAdditionalInfoResponse) DataBaseEnv.currentProxy.load(new UserAdditionalInfoRequest(this.userId)));
             this.profileImage = new Image(new ByteArrayInputStream(response.getProfileImage()));
-            this.email = response.getEmail();
         }
     }
 

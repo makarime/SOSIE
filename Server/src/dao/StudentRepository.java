@@ -56,7 +56,8 @@ public class StudentRepository extends DaoBase<Student> {
         return new Student(
                 rs.getInt(UserRepository.Columns.ID),
                 rs.getString(UserRepository.Columns.FIRSTNAME),
-                rs.getString(UserRepository.Columns.LASTNAME)
+                rs.getString(UserRepository.Columns.LASTNAME),
+                rs.getString(UserRepository.Columns.EMAIL)
         );
     }
 }

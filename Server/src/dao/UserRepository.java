@@ -66,8 +66,9 @@ public class UserRepository extends DaoBase<User>{
         } else if(data.getObject("EnseignantId") != null)  {
             return new Professor(
                     data.getInt(Columns.ID),
+                    data.getString(Columns.LASTNAME),
                     data.getString(Columns.FIRSTNAME),
-                    data.getString(Columns.LASTNAME));
+                    data.getString(Columns.EMAIL));
         } else {
             System.err.println(String.format("Unknown user (Id: %d, Login: %s)", data.getInt("IdUtilisateur"), data.getString("Login")));
             return null;

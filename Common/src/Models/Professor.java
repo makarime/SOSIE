@@ -5,10 +5,8 @@ import java.util.List;
 
 public class Professor extends User {
 
-    public Professor(int userId, String lastName, String firstName) {
-        this.userId = userId;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Professor(int userId, String lastName, String firstName, String email) {
+        super(userId, lastName, firstName, email);
     }
 
     public List<ClassBatch> getClassBatches() {

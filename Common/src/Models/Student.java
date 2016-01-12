@@ -4,10 +4,8 @@ package Models;
 import java.util.List;
 
 public class Student extends User {
-    public Student(int userId, String lastName, String firstName) {
-        this.userId = userId;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    public Student(int userId, String lastName, String firstName, String email) {
+        super(userId, lastName, firstName, email);
     }
 
     public List<StudentClassBatch> getStudentClassBatches() {
