@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
@@ -8,39 +8,35 @@
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
-    <HBox>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0"
-              prefWidth="180.0">
-            <ImageView fx:id="userProfileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
-                       preserveRatio="true"/>
-        </Pane>
-        <VBox>
-            <HBox.margin>
-                <Insets left="5.0"/>
-            </HBox.margin>
-            <Label fx:id="userNameLabel" prefHeight="25.0"/>
-            <Label fx:id="userEmailLabel" prefHeight="25.0">
-                <VBox.margin>
-                    <Insets top="5.0"/>
-                </VBox.margin>
-            </Label>
-            <Label prefHeight="25.0" text="Promotion(s) :">
-                <VBox.margin>
-                    <Insets top="5.0"/>
-                </VBox.margin>
-            </Label>
-            <HBox prefWidth="280.0">
-                <ChoiceBox fx:id="classBatchesChoiceBox"/>
-                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
-                        text="Voir infos">
-                    <HBox.margin>
-                        <Insets left="5.0"/>
-                    </HBox.margin>
-                </Button>
-            </HBox>
-        </VBox>
-    </HBox>
+    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0"
+          prefWidth="180.0">
+        <ImageView fx:id="userProfileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+    </Pane>
+    <VBox GridPane.columnIndex="1">
+        <Label fx:id="userNameLabel" prefHeight="25.0"/>
+        <Label fx:id="userEmailLabel" prefHeight="25.0">
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+        </Label>
+        <Label prefHeight="25.0" text="Promotion(s) :">
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+        </Label>
+        <HBox prefWidth="280.0">
+            <ChoiceBox fx:id="classBatchesChoiceBox"/>
+            <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
+                    text="Voir infos">
+                <HBox.margin>
+                    <Insets left="5.0"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </VBox>
     <columnConstraints>
+        <ColumnConstraints/>
         <ColumnConstraints/>
     </columnConstraints>
     <rowConstraints>
