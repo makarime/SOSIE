@@ -15,7 +15,7 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
     public static final String TABLENAME = "ClassePromo";
     public interface Columns{
         String ID           = "PromoClassId";
-        String CLASSID      = "ClassId";
+        String CLASSID      = "ClasseId";
         String BATCHID      = "PromotionId";
         String PROFESSORID  = "ResponsableId";
     }

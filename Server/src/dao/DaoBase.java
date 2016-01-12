@@ -49,7 +49,8 @@ public abstract class DaoBase<T> {
     }
 
     public boolean updateRow(String column, String newValue, Integer id) {
-        final String sql = String.format("UPDATE %s SET %s = ?", tableName, column) + (id != null ? " " + primaryKey + " = ?" : null);
+        final String sql = String.format("UPDATE %s SET %s = ?", tableName, column) + (id != null ? " WHERE " + primaryKey + " = ?" : null);
+        System.out.println(sql);
         try(PreparedStatement f =  getJdbc().prepareStatement(sql)){
             f.setString(1, newValue);
             if(id != null)
