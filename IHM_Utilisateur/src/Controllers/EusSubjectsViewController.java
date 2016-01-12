@@ -22,18 +22,18 @@ public class EusSubjectsViewController implements Initializable {
     @FXML
     public ChoiceBox<Subject> subjectsChoiceBox;
     @FXML
+    public Label nameLabel;
+    @FXML
     public Label nbHoursLabel;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.initEusChoiceBox();
     }
 
     public EusSubjectsViewController(ClassBatch classBatch) {
         this.classBatch = classBatch;
-
-        this.initEusChoiceBox();
     }
 
     private void initEusChoiceBox() {
@@ -64,6 +64,7 @@ public class EusSubjectsViewController implements Initializable {
 
     private void initSubjectsChoiceBox() {
         this.subjectsChoiceBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            EusSubjectsViewController.this.nameLabel.setText(newValue.getName());
             EusSubjectsViewController.this.nbHoursLabel.setText(Integer.toString(newValue.getNbHours()));
         }));
 

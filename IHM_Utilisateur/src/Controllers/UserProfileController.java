@@ -39,28 +39,28 @@ public class UserProfileController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.setUserProfileImageView();
-        this.setUserNameLabel();
-        this.setUserEmailLabel();
-        this.setClassBatchesChoiceBox();
+        this.initUserProfileImageView();
+        this.initUserNameLabel();
+        this.initUserEmailLabel();
+        this.initClassBatchesChoiceBox();
     }
 
-    public void setUserProfileImageView() {
+    public void initUserProfileImageView() {
         Async.execute(() -> {
             Image image = this.user.getProfileImage();
             Platform.runLater(() -> this.userProfileImageView.setImage(image));
         });
     }
 
-    public void setUserNameLabel() {
+    public void initUserNameLabel() {
         this.userNameLabel.setText(this.user.toString());
     }
 
-    public void setUserEmailLabel() {
+    public void initUserEmailLabel() {
         this.userEmailLabel.setText("Email : " + this.user.getEmail());
     }
 
-    public void setClassBatchesChoiceBox() {
+    public void initClassBatchesChoiceBox() {
         this.viewInfosClassBatchButton.setDisable(true);
         this.viewInfosClassBatchButton.setText("Chargement...");
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
@@ -80,7 +80,7 @@ public class UserProfileController implements Initializable {
     }
 
     @FXML
-    public void viewClassBatchInfoAction() {
+    public void classBatchInfoAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassBatchView.fxml"));
             Stage classWindowStage = new Stage();

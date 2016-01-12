@@ -31,7 +31,7 @@
             </Label>
             <HBox prefWidth="280.0">
                 <ChoiceBox fx:id="classBatchesChoiceBox"/>
-                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#viewClassBatchInfoAction"
+                <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
                         text="Voir infos">
                     <HBox.margin>
                         <Insets left="5.0"/>

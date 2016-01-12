@@ -56,11 +56,11 @@ public class ProfileEditorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.setProfileImageViewInitialization();
-        this.setEmailTextFieldsInitialization();
+        this.initProfileImageView();
+        this.initEmailTextFields();
     }
 
-    private void setProfileImageViewInitialization() {
+    private void initProfileImageView() {
         this.changePictureButton.setDisable(true);
         this.changePictureButton.setText("Chargement...");
         Async.execute(() -> {
@@ -73,7 +73,7 @@ public class ProfileEditorController implements Initializable {
         });
     }
 
-    private void setEmailTextFieldsInitialization() {
+    private void initEmailTextFields() {
         this.validateButton.setDisable(true);
         this.validateButton.setText("Chargement...");
         Async.execute(() -> {

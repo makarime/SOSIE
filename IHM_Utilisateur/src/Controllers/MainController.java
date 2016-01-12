@@ -76,11 +76,11 @@ public class MainController implements Initializable {
         this.weekOffset = 0;
         this.weeks.add(new Week(0));
 
-        this.setInitializationUI();
+        this.initUI();
         this.setUI();
     }
 
-    private void setProfileTitledPane() {
+    private void initProfileTitledPane() {
         this.appUserNameLabel.setText(AppUser.user.toString());
         this.editProfileButton.setDisable(true);
         this.editProfileButton.setText("Chargement...");
@@ -94,7 +94,7 @@ public class MainController implements Initializable {
         });
     }
 
-    private void setDatePicker() {
+    private void initDatePicker() {
         this.datePicker.setValue(LocalDateTime.ofInstant(AppCalendar.currentDate.toInstant(), ZoneId.systemDefault()).plusDays(1).toLocalDate());
         Callback<DatePicker, DateCell> dayCellFactory = dp -> new DateCell() {
             @Override
@@ -107,7 +107,7 @@ public class MainController implements Initializable {
         Async.execute(() -> this.datePicker.setDayCellFactory(dayCellFactory));
     }
 
-    private void setClassBatchesChoiceBox() {
+    private void initClassBatchesChoiceBox() {
         this.detailsClassBatchButton.setDisable(true);
         this.detailsClassBatchButton.setText("Chargement...");
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
@@ -126,10 +126,10 @@ public class MainController implements Initializable {
         });
     }
 
-    private void setInitializationUI() {
-        this.setDatePicker();
-        this.setProfileTitledPane();
-        this.setClassBatchesChoiceBox();
+    private void initUI() {
+        this.initDatePicker();
+        this.initProfileTitledPane();
+        this.initClassBatchesChoiceBox();
     }
 
     private void setDisableWeekBeforeButton() {
@@ -239,7 +239,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void detailClassBatchAction() {
+    public void classBatchInfoAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/ClassBatchView.fxml"));
             Stage classWindowStage = new Stage();

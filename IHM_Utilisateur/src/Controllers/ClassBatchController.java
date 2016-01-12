@@ -42,16 +42,16 @@ public class ClassBatchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.setClassNameLabel();
-        this.setProfessorInChargeLabel();
-        this.setStudentsListView();
+        this.initClassNameLabel();
+        this.initProfessorInChargeLabel();
+        this.initStudentsListView();
     }
 
-    private void setClassNameLabel() {
+    private void initClassNameLabel() {
         this.classNameLabel.setText("Nom de la promotion : " + this.classBatch.toString());
     }
 
-    private void setProfessorInChargeLabel() {
+    private void initProfessorInChargeLabel() {
         this.professorInChargeInfoButton.setDisable(true);
         this.professorInChargeInfoButton.setText("Chargement...");
 
@@ -65,7 +65,7 @@ public class ClassBatchController implements Initializable {
         });
     }
 
-    private void setStudentsListView() {
+    private void initStudentsListView() {
         this.viewInfoStudentButton.setDisable(true);
         this.viewInfoStudentButton.setText("Chargement...");
         this.studentsListView.setItems(FXCollections.observableArrayList());
@@ -81,7 +81,7 @@ public class ClassBatchController implements Initializable {
     }
 
     @FXML
-    public void viewProfessorInChargeInfoAction() {
+    public void professorInChargeInfoAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserProfileView.fxml"));
             Stage mainWindowStage = new Stage();
@@ -124,6 +124,22 @@ public class ClassBatchController implements Initializable {
 
     @FXML
     public void viewEUAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/EusSubjectsView.fxml"));
+            Stage mainWindowStage = new Stage();
+            loader.setController(new EusSubjectsViewController(this.classBatch));
+            mainWindowStage.setTitle("UEs - Matières visionneur");
+            mainWindowStage.setResizable(false);
+            mainWindowStage.setScene(new Scene(loader.load()));
+            mainWindowStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
 
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Impossible d'ouvrir le visionneur d'UEs - Matières.");
+            alert.showAndWait();
+        }
     }
 }

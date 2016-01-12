@@ -27,6 +27,15 @@
                         <Insets top="5.0"/>
                     </VBox.margin>
                     <children>
+                        <Label prefHeight="25.0" text="Nom : "/>
+                        <Label fx:id="nameLabel" prefHeight="25.0"/>
+                    </children>
+                </HBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets top="5.0"/>
+                    </VBox.margin>
+                    <children>
                         <Label prefHeight="25.0" text="Nombre d'heures : "/>
                         <Label fx:id="nbHoursLabel" prefHeight="25.0"/>
                     </children>
