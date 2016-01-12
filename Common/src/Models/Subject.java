@@ -7,11 +7,13 @@ public class Subject implements Serializable, IEntity {
     private int subjectId;
     private int euId;
     private String name;
+    private int nbHours;
 
-    public Subject(int subjectId, int euId, String name) {
+    public Subject(int subjectId, int euId, String name, int nbHours) {
         this.subjectId = subjectId;
         this.euId = euId;
         this.name = name;
+        this.nbHours = nbHours;
     }
 
     @Override
@@ -55,5 +57,13 @@ public class Subject implements Serializable, IEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNbHours() {
+        return this.nbHours;
+    }
+
+    public void setNbHours(int nbHours) {
+        this.nbHours = nbHours;
     }
 }
