@@ -94,7 +94,6 @@ public class Client {
         List<Course> result = user.isStudent() ?
                 CourseRepository.getCoursesOnDateByCP(((Student)user).getCurrentClassBatch().getClassBatchId(), event.getMessage().getDate()) :
                 CourseRepository.getCoursesOnDateByProfessor(user.getUserId(), event.getMessage().getDate());
-        System.out.println(result);
         event.setResponse(new UserCoursesResponse(result));
     };
 }
