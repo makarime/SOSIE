@@ -1,20 +1,16 @@
 package app;
 
-import Models.Batch;
-import Models.Course;
-import Models.DataBaseEnv;
-import Models.User;
+import Models.*;
+import dao.CourseRepository;
 import dao.UserRepository;
 import messages.*;
 import messages.models.*;
 import utils.socket.*;
-import utils.socket.interfaces.SClientDataArrival;
-import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class Client {
     private SClient socket;
@@ -94,7 +90,10 @@ public class Client {
     };
 
     public IMessageArrival<UserCoursesRequest> onUserCoursesRequest = (sender, event) -> {
-        System.out.println(event.getMessage().getDate());
-        event.setResponse(new UserCoursesResponse(new ArrayList<>()));
+        //TODO: A Optimiser
+        List<Course> result = user.isStudent() ?
+                CourseRepository.getCoursesOnDateByCP(((Student)user).getCurrentClassBatch().getClassBatchId(), event.getMessage().getDate()) :
+                CourseRepository.getCoursesOnDateByProfessor(user.getUserId(), event.getMessage().getDate());
+        event.setResponse(new UserCoursesResponse(result));
     };
 }
