@@ -1,6 +1,7 @@
 package app;
 
 import Models.Batch;
+import Models.Course;
 import Models.DataBaseEnv;
 import Models.User;
 import dao.UserRepository;
@@ -12,6 +13,7 @@ import utils.socket.message.ErrorMessage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Client {
@@ -46,6 +48,8 @@ public class Client {
         socket.addMessageArrival(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
         socket.addMessageArrival(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
         socket.addMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        socket.addMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        socket.addMessageArrival(UserCoursesRequest.class, onUserCoursesRequest);
     }
 
     public IMessageArrival<LoginRequest> onLoginRequest = (sender, event) -> {
@@ -89,4 +93,8 @@ public class Client {
         event.setResponse(new ChangeUserProfileImageResponse(true));
     };
 
+    public IMessageArrival<UserCoursesRequest> onUserCoursesRequest = (sender, event) -> {
+        System.out.println(event.getMessage().getDate());
+        event.setResponse(new UserCoursesResponse(new ArrayList<>()));
+    };
 }
