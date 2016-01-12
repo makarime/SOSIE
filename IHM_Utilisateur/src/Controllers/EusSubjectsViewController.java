@@ -29,6 +29,7 @@ public class EusSubjectsViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.initSubjectsChoiceBox();
         this.initEusChoiceBox();
     }
 
@@ -56,7 +57,6 @@ public class EusSubjectsViewController implements Initializable {
             Platform.runLater(() -> {
                 this.eusChoiceBox.setDisable(false);
                 this.eusChoiceBox.getSelectionModel().select(0);
-                this.initSubjectsChoiceBox();
             });
         });
 
@@ -67,15 +67,15 @@ public class EusSubjectsViewController implements Initializable {
             EusSubjectsViewController.this.nameLabel.setText(newValue.getName());
             EusSubjectsViewController.this.nbHoursLabel.setText(Integer.toString(newValue.getNbHours()));
         }));
-
-        this.subjectsChoiceBox.setDisable(true);
         this.subjectsChoiceBox.setItems(FXCollections.observableArrayList());
+
+        /*this.subjectsChoiceBox.setDisable(true);
         Async.execute(() -> {
             this.subjectsChoiceBox.getItems().addAll(this.eusChoiceBox.getSelectionModel().getSelectedItem().getSubjects());
             Platform.runLater(() -> {
                 this.subjectsChoiceBox.setDisable(false);
                 this.subjectsChoiceBox.getSelectionModel().select(0);
             });
-        });
+        });*/
     }
 }
