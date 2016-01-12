@@ -110,11 +110,11 @@
                         </VBox.margin>
                     </Label>
                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                          prefHeight="200.0" prefWidth="160.0">
+                          prefHeight="220.0" prefWidth="180.0">
                         <VBox.margin>
                             <Insets top="5.0"/>
                         </VBox.margin>
-                        <ImageView fx:id="profileImageView" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true"
+                        <ImageView fx:id="profileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
                                    preserveRatio="true"/>
                     </Pane>
                     <Button fx:id="editProfileButton" mnemonicParsing="false" onAction="#editProfileAction"

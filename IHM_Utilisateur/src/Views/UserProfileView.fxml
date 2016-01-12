@@ -9,9 +9,9 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
     <HBox>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0"
-              prefWidth="160.0">
-            <ImageView fx:id="userProfileImageView" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true"
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0"
+              prefWidth="180.0">
+            <ImageView fx:id="userProfileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
                        preserveRatio="true"/>
         </Pane>
         <VBox>

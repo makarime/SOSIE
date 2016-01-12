@@ -9,12 +9,12 @@
         <HBox.margin>
             <Insets bottom="5.0" left="5.0" top="5.0"/>
         </HBox.margin>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="188.0"
-              prefWidth="160.0">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0"
+              prefWidth="180.0">
             <VBox.margin>
                 <Insets left="5.0" top="5.0"/>
             </VBox.margin>
-            <ImageView fx:id="profileImageView" fitHeight="188.0" fitWidth="160.0" pickOnBounds="true"
+            <ImageView fx:id="profileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
                        preserveRatio="true"/>
         </Pane>
         <Button fx:id="changePictureButton" mnemonicParsing="false" onAction="#changeProfileImageAction" text="Changer">
@@ -27,12 +27,16 @@
         <HBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </HBox.margin>
-        <Label prefHeight="25.0" text="E-mail :"/>
+        <Label prefHeight="25.0" text="Changer d'E-mail :"/>
         <HBox>
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
-            <TextField fx:id="emailFirstPart" prefWidth="150.0"/>
+            <TextField fx:id="emailFirstPart" prefWidth="150.0">
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </TextField>
             <Label prefHeight="25.0" text="\@"/>
             <TextField fx:id="emailSecondPart" prefWidth="75.0"/>
             <Label prefHeight="25.0" text="."/>
@@ -43,26 +47,38 @@
                 <Insets top="10.0"/>
             </VBox.margin>
         </Separator>
-        <Label prefHeight="25.0" text="Nouveau mot de passe (optionnel) :">
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
-        </Label>
-        <PasswordField fx:id="passwordField1" maxWidth="-Infinity" prefWidth="150.0">
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-        </PasswordField>
-        <Label prefHeight="25.0" text="Répéter le mot de passe :">
+        <Label prefHeight="25.0" text="Changer de mot de passe :">
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
         </Label>
-        <PasswordField fx:id="passwordField2" maxWidth="-Infinity" prefWidth="150.0">
+        <HBox>
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
-        </PasswordField>
+            <children>
+                <Label prefHeight="25.0" text="Ancien MdP : "/>
+                <PasswordField fx:id="oldPasswordField"/>
+            </children>
+        </HBox>
+        <HBox>
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+            <children>
+                <Label prefHeight="25.0" text="Nouveau MdP : "/>
+                <PasswordField fx:id="passwordField1" maxWidth="-Infinity" prefWidth="150.0"/>
+            </children>
+        </HBox>
+        <HBox>
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+            <children>
+                <Label prefHeight="25.0" text="Repeter le nouveau MdP : "/>
+                <PasswordField fx:id="passwordField2" maxWidth="-Infinity" prefWidth="150.0"/>
+            </children>
+        </HBox>
         <Separator prefWidth="200.0">
             <opaqueInsets>
                 <Insets/>
@@ -73,7 +89,7 @@
         </Separator>
         <Button fx:id="validateButton" mnemonicParsing="false" onAction="#validateAction" text="Valider">
             <VBox.margin>
-                <Insets top="5.0"/>
+                <Insets top="7.0"/>
             </VBox.margin>
         </Button>
     </VBox>
