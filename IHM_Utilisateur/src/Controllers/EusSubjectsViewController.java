@@ -22,8 +22,6 @@ public class EusSubjectsViewController implements Initializable {
     @FXML
     public ChoiceBox<Subject> subjectsChoiceBox;
     @FXML
-    public Label nameLabel;
-    @FXML
     public Label nbHoursLabel;
 
 
@@ -64,7 +62,6 @@ public class EusSubjectsViewController implements Initializable {
 
     private void initSubjectsChoiceBox() {
         this.subjectsChoiceBox.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
-            EusSubjectsViewController.this.nameLabel.setText(newValue.getName());
             EusSubjectsViewController.this.nbHoursLabel.setText(Integer.toString(newValue.getNbHours()));
         }));
         this.subjectsChoiceBox.setItems(FXCollections.observableArrayList());

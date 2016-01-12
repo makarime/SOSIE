@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
@@ -13,7 +13,7 @@
         <ImageView fx:id="userProfileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
                    preserveRatio="true"/>
     </Pane>
-    <VBox GridPane.columnIndex="1">
+    <VBox>
         <Label fx:id="userNameLabel" prefHeight="25.0"/>
         <Label fx:id="userEmailLabel" prefHeight="25.0">
             <VBox.margin>
@@ -38,11 +38,4 @@
             <Insets left="5.0"/>
         </padding>
     </VBox>
-    <columnConstraints>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints/>
-    </rowConstraints>
-</GridPane>
+</HBox>

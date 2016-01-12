@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
-    <HBox>
-        <Label prefHeight="25.0" text="UE : "/>
-        <ChoiceBox fx:id="eusChoiceBox" prefWidth="150.0"/>
-    </HBox>
-    <HBox>
-        <VBox.margin>
-            <Insets top="5.0"/>
-        </VBox.margin>
-        <Label prefHeight="25.0" text="Matière : "/>
-        <ChoiceBox fx:id="subjectsChoiceBox" prefWidth="150.0"/>
-    </HBox>
-    <HBox>
-        <VBox.margin>
-            <Insets top="5.0"/>
-        </VBox.margin>
-        <Label prefHeight="25.0" text="Nom : "/>
-        <Label fx:id="nameLabel" prefHeight="25.0"/>
-    </HBox>
-    <HBox>
-        <VBox.margin>
-            <Insets top="5.0"/>
-        </VBox.margin>
-        <Label prefHeight="25.0" text="Nombre d'heures : "/>
-        <Label fx:id="nbHoursLabel" prefHeight="25.0"/>
-    </HBox>
+
+<GridPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
-</VBox>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+     <Label prefHeight="25.0" text="UE : " />
+     <Label prefHeight="25.0" text="Matière : " GridPane.rowIndex="1">
+      <GridPane.margin>
+         <Insets top="5.0" />
+      </GridPane.margin>
+   </Label>
+     <Label prefHeight="25.0" text="Nombre d'heures : " GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets top="5.0" />
+      </GridPane.margin>
+   </Label>
+     <ChoiceBox fx:id="eusChoiceBox" prefWidth="150.0" GridPane.columnIndex="1">
+      <GridPane.margin>
+         <Insets left="5.0" />
+      </GridPane.margin></ChoiceBox>
+     <ChoiceBox fx:id="subjectsChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane.margin>
+         <Insets left="5.0" top="5.0" />
+      </GridPane.margin>
+   </ChoiceBox>
+     <Label fx:id="nbHoursLabel" prefHeight="25.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets left="5.0" top="5.0" />
+      </GridPane.margin>
+   </Label>
+</GridPane>

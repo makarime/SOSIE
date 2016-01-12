@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Day {
     private Date date;
+    private List<Course> courses = null;
 
     public Day(Date date) {
         this.date = date;
@@ -18,6 +19,9 @@ public class Day {
     }
 
     public List<Course> getCourses() {
-        return ((UserCoursesResponse) AppUser.sClient.sendRequest(new UserCoursesRequest(this.date))).getCourses();
+        if (this.courses == null)
+            this.courses = ((UserCoursesResponse) AppUser.sClient.sendRequest(new UserCoursesRequest(this.date))).getCourses();
+
+        return this.courses;
     }
 }
