@@ -58,7 +58,7 @@ public class ClassBatchController implements Initializable {
         Async.execute(() -> {
             Professor professor = this.classBatch.getProfessorInCharge();
             Platform.runLater(() -> {
-                this.professorInChargeLabel.setText("Professeur en charge : " + professor.toString());
+                this.professorInChargeLabel.setText(professor.toString());
                 this.professorInChargeInfoButton.setText("Voir détails");
                 this.professorInChargeInfoButton.setDisable(false);
             });

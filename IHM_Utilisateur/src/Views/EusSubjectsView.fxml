@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox>
+            <children>
+                <HBox>
+                    <children>
+                        <Label prefHeight="25.0" text="UE : "/>
+                        <ChoiceBox fx:id="eusChoiceBox" prefWidth="150.0"/>
+                    </children>
+                </HBox>
+                <HBox>
+                    <children>
+                        <Label prefHeight="25.0" text="Matière : "/>
+                        <ChoiceBox fx:id="subjectsChoiceBox" prefWidth="150.0"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets top="5.0"/>
+                    </VBox.margin>
+                    <children>
+                        <Label prefHeight="25.0" text="Nombre d'heures : "/>
+                        <Label fx:id="nbHoursLabel" prefHeight="25.0"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+</GridPane>

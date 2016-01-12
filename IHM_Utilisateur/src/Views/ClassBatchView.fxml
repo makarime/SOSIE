@@ -16,6 +16,7 @@
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
+            <Label prefHeight="25.0" text="Professeur en charge : "/>
             <Label fx:id="professorInChargeLabel" prefHeight="25.0"/>
             <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false"
                     onAction="#viewProfessorInChargeInfoAction" text="Voir détails">
