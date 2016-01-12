@@ -15,7 +15,13 @@ public class UserRepository extends DaoBase<User>{
             "  LEFT JOIN Eleves ON Eleves.EleveId = Utilisateurs.IdUtilisateur " +
             "  LEFT JOIN Enseignants ON Enseignants.EnseignantId = Utilisateurs.IdUtilisateur ";
     public static final String TABLENAME = "Utilisateurs"; //TODO Erreur heritage
-    //TODO A Faire Columns pour USER/STUDENT/PROFESSOR
+    public interface Columns{
+        String ID           = "IdUtilisateur";
+        String FIRSTNAME    = "FirstName";
+        String LASTNAME     = "LastName";
+        String EMAIL        = "Email";
+        String URLIMAGE     = "Photo";
+    }
 
     private static UserRepository instance = null;
     public static UserRepository getInstance() {
@@ -59,9 +65,9 @@ public class UserRepository extends DaoBase<User>{
             return StudentRepository.getInstance().dataToClass(data);
         } else if(data.getObject("EnseignantId") != null)  {
             return new Professor(
-                    data.getInt("IdUtilisateur"),
-                    data.getString("FirstName"),
-                    data.getString("LastName"));
+                    data.getInt(Columns.ID),
+                    data.getString(Columns.FIRSTNAME),
+                    data.getString(Columns.LASTNAME));
         } else {
             System.err.println(String.format("Unknown user (Id: %d, Login: %s)", data.getInt("IdUtilisateur"), data.getString("Login")));
             return null;
