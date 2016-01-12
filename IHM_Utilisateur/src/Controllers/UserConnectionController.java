@@ -28,7 +28,7 @@ public class UserConnectionController {
     }
 
     @FXML
-    public void LoginAction() throws NoSuchAlgorithmException {
+    public void loginAction() throws NoSuchAlgorithmException {
         if (AppUser.loginRequest(loginTextField.getText(), (new HexBinaryAdapter()).marshal(MessageDigest.getInstance("SHA-256").digest(userPasswordTextField.getText().getBytes())))) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/MainView.fxml"));

@@ -34,7 +34,7 @@ public class MainController implements Initializable {
     @FXML
     public ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
-    public Button detailsClassBatchButton;
+    public Button classBatchInfoButton;
     @FXML
     public DatePicker datePicker;
     @FXML
@@ -104,8 +104,8 @@ public class MainController implements Initializable {
     }
 
     private void initClassBatchesChoiceBox() {
-        this.detailsClassBatchButton.setDisable(true);
-        this.detailsClassBatchButton.setText("Chargement...");
+        this.classBatchInfoButton.setDisable(true);
+        this.classBatchInfoButton.setText("Chargement...");
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
@@ -116,8 +116,8 @@ public class MainController implements Initializable {
 
             Platform.runLater(() -> {
                 this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-                this.detailsClassBatchButton.setText("Voir détails");
-                this.detailsClassBatchButton.setDisable(false);
+                this.classBatchInfoButton.setText("Voir détails");
+                this.classBatchInfoButton.setDisable(false);
             });
         });
     }
