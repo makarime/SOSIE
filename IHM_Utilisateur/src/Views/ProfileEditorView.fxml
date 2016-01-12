@@ -54,27 +54,27 @@
                 <Insets top="5.0"/>
             </VBox.margin>
         </Label>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Ancien MdP : "/>
-            <PasswordField fx:id="oldPasswordField"/>
-        </HBox>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Nouveau MdP : "/>
-            <PasswordField fx:id="passwordField1" maxWidth="-Infinity" prefWidth="150.0"/>
-        </HBox>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Repeter le nouveau MdP : "/>
-            <PasswordField fx:id="passwordField2" maxWidth="-Infinity" prefWidth="150.0"/>
-        </HBox>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label prefHeight="25.0" text="Ancien MdP : "/>
+                <Label prefHeight="25.0" text="Nouveau MdP : " GridPane.rowIndex="1"/>
+                <Label prefHeight="25.0" text="Repeter le nouveau MdP : " GridPane.rowIndex="2"/>
+                <PasswordField fx:id="oldPasswordField" GridPane.columnIndex="1"/>
+                <PasswordField fx:id="passwordField1" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
+                <PasswordField fx:id="passwordField2" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1"
+                               GridPane.rowIndex="2"/>
+            </children>
+        </GridPane>
         <GridPane.margin>
             <Insets left="5.0"/>
         </GridPane.margin>

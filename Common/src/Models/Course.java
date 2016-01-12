@@ -10,14 +10,16 @@ public class Course implements Serializable, IEntity {
     private int professorId;
     private int classroomId;
     private Date date;
+    private int duree;
 
-    public Course(int courseId, int subjectId, int classBatchId, int professorId, int classroomId, Date date) {
+    public Course(int courseId, int subjectId, int classBatchId, int professorId, int classroomId, Date date, int duree) {
         this.courseId = courseId;
         this.subjectId = subjectId;
         this.classBatchId = classBatchId;
         this.professorId = professorId;
         this.classroomId = classroomId;
         this.date = date;
+        this.duree = duree;
     }
 
     @Override
@@ -65,4 +67,12 @@ public class Course implements Serializable, IEntity {
         return classroomId;
     }
 
+    public int getDuree() {
+        return this.duree;
+    }
+
+    @Override
+    public String toString() {
+        return this.getSubject().getName() + "\n" + this.date.toString();
+    }
 }

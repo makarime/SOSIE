@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -52,15 +52,7 @@ public class MainController implements Initializable {
     @FXML
     public Label fridayLabel;
     @FXML
-    public HBox mondayHBox;
-    @FXML
-    public HBox tuesdayHBox;
-    @FXML
-    public HBox wednesdayHBox;
-    @FXML
-    public HBox thursdayHBox;
-    @FXML
-    public HBox fridayHBox;
+    public GridPane courseGridPane;
 
     private Stage stage = null;
     private ArrayList<Week> weeks = null;
@@ -68,6 +60,10 @@ public class MainController implements Initializable {
 
     public MainController(Stage stage) {
         this.stage = stage;
+    }
+
+    private Week currentWeek() {
+        return this.weeks.get(this.weekOffset);
     }
 
     @Override
@@ -140,17 +136,27 @@ public class MainController implements Initializable {
     }
 
     private void setDayLabels() {
-        this.mondayLabel.setText("Lundi\n" + this.weeks.get(this.weekOffset).getDay(0).getDateToString());
-        this.tuesdayLabel.setText("Mardi\n" + this.weeks.get(this.weekOffset).getDay(1).getDateToString());
-        this.wednesdayLabel.setText("Mercredi\n" + this.weeks.get(this.weekOffset).getDay(2).getDateToString());
-        this.thursdayLabel.setText("Jeudi\n" + this.weeks.get(this.weekOffset).getDay(3).getDateToString());
-        this.fridayLabel.setText("Vendredi\n" + this.weeks.get(this.weekOffset).getDay(4).getDateToString());
+        this.mondayLabel.setText("Lundi\n" + this.currentWeek().getDay(0).getDateToString());
+        this.tuesdayLabel.setText("Mardi\n" + this.currentWeek().getDay(1).getDateToString());
+        this.wednesdayLabel.setText("Mercredi\n" + this.currentWeek().getDay(2).getDateToString());
+        this.thursdayLabel.setText("Jeudi\n" + this.currentWeek().getDay(3).getDateToString());
+        this.fridayLabel.setText("Vendredi\n" + this.currentWeek().getDay(4).getDateToString());
+    }
+
+    private void setCourses() {
+        for (int i = 0; i < 5; i++) {
+            for (Course course : this.currentWeek().getDay(i).getCourses()) {
+                TextField textField = new TextField(course.toString());
+                this.courseGridPane.add(textField, 0, i);
+            }
+        }
     }
 
     private void setUI() {
-        this.weekSpanLabel.setText(this.weeks.get(this.weekOffset).getSpanWeekString());
+        this.weekSpanLabel.setText(this.currentWeek().getSpanWeekString());
         this.setDisableWeekBeforeButton();
         this.setDayLabels();
+        this.setCourses();
     }
 
 

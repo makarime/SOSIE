@@ -40,68 +40,74 @@
                     </HBox.margin>
                 </Button>
             </HBox>
-            <GridPane>
+            <GridPane fx:id="courseGridPane">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0"/>
-                    <ColumnConstraints hgrow="SOMETIMES"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" prefWidth="146.0"/>
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES"/>
-                    <RowConstraints vgrow="SOMETIMES"/>
-                    <RowConstraints vgrow="SOMETIMES"/>
-                    <RowConstraints vgrow="SOMETIMES"/>
-                    <RowConstraints vgrow="SOMETIMES"/>
-                    <RowConstraints vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="25.0"
+                                    vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="200.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="200.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="200.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="200.0" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="1.7976931348623157E308" prefHeight="200.0" vgrow="SOMETIMES"/>
                     <RowConstraints vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
                 <VBox alignment="CENTER" GridPane.rowIndex="5"/>
-                <HBox GridPane.columnIndex="1">
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="08:00 - 09:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="09:00 - 10:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="10:00 - 11:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="11:00 - 12:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="12:00 - 13:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="13:00 - 14:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="14:00 - 15:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="15:00 - 16:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="16:00 - 17:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="17:00 - 18:00"/>
-                    <Label alignment="CENTER" prefHeight="25.0" prefWidth="148.0" style="-fx-border-color: gray;"
-                           text="18:00 - 19:00"/>
-                </HBox>
-                <Label fx:id="mondayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
-                       style="-fx-border-color: gray;" GridPane.rowIndex="1"/>
-                <Label fx:id="tuesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
-                       style="-fx-border-color: gray;" GridPane.rowIndex="2"/>
-                <Label fx:id="wednesdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
-                       style="-fx-border-color: gray;" GridPane.rowIndex="3"/>
-                <Label fx:id="thursdayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
-                       style="-fx-border-color: gray;" GridPane.rowIndex="4"/>
-                <Label fx:id="fridayLabel" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
-                       style="-fx-border-color: gray;" GridPane.rowIndex="5"/>
-                <HBox fx:id="mondayHBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <HBox fx:id="tuesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <HBox fx:id="wednesdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <HBox fx:id="thursdayHBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                <HBox fx:id="fridayHBox" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                <Label fx:id="mondayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="1"/>
+                <Label fx:id="tuesdayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="2"/>
+                <Label fx:id="wednesdayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="3"/>
+                <Label fx:id="thursdayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="4"/>
+                <Label fx:id="fridayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="5"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="08:00 - 09:00" GridPane.columnIndex="1"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="09:00 - 10:00" GridPane.columnIndex="2"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="10:00 - 11:00" GridPane.columnIndex="3"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="11:00 - 12:00" GridPane.columnIndex="4"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="12:00 - 13:00" GridPane.columnIndex="5"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="13:00 - 14:00" GridPane.columnIndex="6"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="14:00 - 15:00" GridPane.columnIndex="7"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="15:00 - 16:00" GridPane.columnIndex="8"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="16:00 - 17:00" GridPane.columnIndex="9"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="17:00 - 18:00"
+                       GridPane.columnIndex="10"/>
+                <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="25.0" style="-fx-border-color: gray;" text="18:00 - 19:00"
+                       GridPane.columnIndex="11"/>
             </GridPane>
         </VBox>
     </center>
     <left>
-        <VBox BorderPane.alignment="CENTER">
+        <VBox fx:id="courseGrid" BorderPane.alignment="CENTER">
             <TitledPane text="Profile">
                 <VBox>
                     <Label fx:id="appUserNameLabel" prefHeight="25.0">
