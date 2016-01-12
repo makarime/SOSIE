@@ -28,7 +28,7 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
     }
 
     public ClassBatchRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static ClassBatch getById(int id) {
@@ -49,8 +49,8 @@ public class ClassBatchRepository extends DaoBase<ClassBatch> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override

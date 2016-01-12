@@ -22,7 +22,7 @@ public class StudentRepository extends DaoBase<Student> {
     }
 
     public StudentRepository() {
-        super(TABLENAME);
+        super(TABLENAME, "EleveId");
     }
 
     public static Student getById(int id) {
@@ -47,8 +47,8 @@ public class StudentRepository extends DaoBase<Student> {
         return null;
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override

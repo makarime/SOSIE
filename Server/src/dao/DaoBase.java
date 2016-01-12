@@ -9,9 +9,11 @@ public abstract class DaoBase<T> {
         return DaoConnection.getInstance().jdbc;
     }
     private final String tableName;
+    private final String primaryKey;
 
-    public DaoBase(String tableName) {
+    public DaoBase(String tableName, String primaryKey) {
         this.tableName = tableName;
+        this.primaryKey = primaryKey;
     }
 
     public ArrayList<T> selectAll() {
@@ -46,10 +48,12 @@ public abstract class DaoBase<T> {
         }
     }
 
-    public boolean updateRow(String column, String newValue) {
-        final String sql = String.format("UPDATE %s SET %s = ?", tableName, column);
+    public boolean updateRow(String column, String newValue, Integer id) {
+        final String sql = String.format("UPDATE %s SET %s = ?", tableName, column) + (id != null ? " " + primaryKey + " = ?" : null);
         try(PreparedStatement f =  getJdbc().prepareStatement(sql)){
             f.setString(1, newValue);
+            if(id != null)
+                f.setInt(2, id);
             f.executeUpdate();
             return true;
         } catch (SQLException e) {

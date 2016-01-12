@@ -12,6 +12,11 @@ public class SubjectRepository extends DaoBase<Subject> {
 
     private static final String SElECTREQUEST = "SELECT * FROM Matiere ";
     public static final String TABLENAME = "Matiere";
+    public interface Columns{
+        String ID       = "MatiereId";
+        String EUID     = "UeId";
+        String NAME     = "Nom";
+    }
 
     private static SubjectRepository instance = null;
     public static SubjectRepository getInstance() {
@@ -21,7 +26,7 @@ public class SubjectRepository extends DaoBase<Subject> {
     }
 
     public SubjectRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static Subject getById(int id) {
@@ -40,16 +45,16 @@ public class SubjectRepository extends DaoBase<Subject> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override
     public Subject dataToClass(ResultSet rs) throws SQLException {
         return new Subject(
-                rs.getInt("MatiereId"),
-                rs.getInt("UeId"),
-                rs.getString("Nom")
+                rs.getInt(Columns.ID),
+                rs.getInt(Columns.EUID),
+                rs.getString(Columns.NAME)
         );
     }
 }

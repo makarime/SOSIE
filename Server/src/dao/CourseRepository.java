@@ -29,7 +29,7 @@ public class CourseRepository extends DaoBase<Course> {
     }
 
     public CourseRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static Course getById(int id) {
@@ -51,8 +51,8 @@ public class CourseRepository extends DaoBase<Course> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override

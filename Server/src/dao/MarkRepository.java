@@ -28,7 +28,7 @@ public class MarkRepository extends DaoBase<Mark> {
     }
 
     public MarkRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static Mark getById(int id) {
@@ -48,8 +48,8 @@ public class MarkRepository extends DaoBase<Mark> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override
