@@ -16,6 +16,7 @@ public class SubjectRepository extends DaoBase<Subject> {
         String ID       = "MatiereId";
         String EUID     = "UeId";
         String NAME     = "Nom";
+        String NBHOURS  = "NombreHeures";
     }
 
     private static SubjectRepository instance = null;
@@ -45,7 +46,7 @@ public class SubjectRepository extends DaoBase<Subject> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue, Integer id) {
+    public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
     }
 
@@ -54,7 +55,8 @@ public class SubjectRepository extends DaoBase<Subject> {
         return new Subject(
                 rs.getInt(Columns.ID),
                 rs.getInt(Columns.EUID),
-                rs.getString(Columns.NAME)
+                rs.getString(Columns.NAME),
+                rs.getInt(Columns.NBHOURS)
         );
     }
 }

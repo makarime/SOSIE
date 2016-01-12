@@ -55,7 +55,7 @@ public class UserRepository extends DaoBase<User>{
         return getInstance().select(SElECTREQUEST + "WHERE IdUtilisateur IN (" + builder.toString() + ")");
     }
 
-    public static boolean update(String columnName, String newValue, Integer id) {
+    public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
     }
 

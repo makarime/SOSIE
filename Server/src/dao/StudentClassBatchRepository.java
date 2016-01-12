@@ -47,7 +47,7 @@ public class StudentClassBatchRepository extends DaoBase<StudentClassBatch> {
         return getInstance().select(SElECTREQUEST + "WHERE " + column + " = " + id);
     }
 
-    public static boolean update(String columnName, String newValue, Integer id) {
+    public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
     }
 

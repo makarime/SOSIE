@@ -47,7 +47,7 @@ public class StudentRepository extends DaoBase<Student> {
         return null;
     }
 
-    public static boolean update(String columnName, String newValue, Integer id) {
+    public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
     }
 

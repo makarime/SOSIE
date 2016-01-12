@@ -36,7 +36,7 @@ public class ClassroomRepository extends DaoBase<Classroom>{
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
-    public static boolean update(String columnName, String newValue, Integer id) {
+    public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
     }
 
