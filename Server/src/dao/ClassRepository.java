@@ -24,7 +24,7 @@ public class ClassRepository extends DaoBase<Class> {
     }
 
     public ClassRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static Class getById(int id) {
@@ -32,8 +32,8 @@ public class ClassRepository extends DaoBase<Class> {
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override

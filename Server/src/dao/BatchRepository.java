@@ -23,7 +23,7 @@ public class BatchRepository extends DaoBase<Batch> {
     }
 
     public BatchRepository() {
-        super(TABLENAME);
+        super(TABLENAME, Columns.ID);
     }
 
     public static Batch getById(int id) {
@@ -31,8 +31,8 @@ public class BatchRepository extends DaoBase<Batch> {
         return ar.size() > 0 ? ar.get(0) : null;
     }
 
-    public static boolean update(String columnName, String newValue) {
-        return getInstance().updateRow(columnName, newValue);
+    public static boolean update(String columnName, String newValue, Integer id) {
+        return getInstance().updateRow(columnName, newValue, id);
     }
 
     @Override
