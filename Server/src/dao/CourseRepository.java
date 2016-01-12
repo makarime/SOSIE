@@ -5,7 +5,9 @@ import Models.*;
 import java.lang.Class;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CourseRepository extends DaoBase<Course> {
@@ -54,6 +56,17 @@ public class CourseRepository extends DaoBase<Course> {
 
     public static boolean update(Integer id, String columnName, String newValue) {
         return getInstance().updateRow(columnName, newValue, id);
+    }
+
+    public static List<Course> getCoursesOnDateByCP(int ClassPromoId, Date date) {
+        //TODO A Refactoriser et voir si c'est réellement ici qu'on met la requete
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return getInstance().select(SElECTREQUEST + "WHERE PromoClassId = ? AND date(Date) = ?", ClassPromoId, dateFormat.format(date));
+    }
+    public static List<Course> getCoursesOnDateByProfessor(int ProfessorId, Date date) {
+        //TODO A Refactoriser et voir si c'est réellement ici qu'on met la requete
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return getInstance().select(SElECTREQUEST + "WHERE EnseignantId = ? AND date(Date) = ?", ProfessorId, dateFormat.format(date));
     }
 
     @Override
