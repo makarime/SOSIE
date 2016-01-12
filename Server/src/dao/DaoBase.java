@@ -50,11 +50,27 @@ public abstract class DaoBase<T> {
 
     public boolean updateRow(String column, String newValue, Integer id) {
         final String sql = String.format("UPDATE %s SET %s = ?", tableName, column) + (id != null ? " WHERE " + primaryKey + " = ?" : null);
-        System.out.println(sql);
         try(PreparedStatement f =  getJdbc().prepareStatement(sql)){
             f.setString(1, newValue);
             if(id != null)
                 f.setInt(2, id);
+            f.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean execute(String sql, Object... args) {
+        try(PreparedStatement f =  getJdbc().prepareStatement(sql)){
+            for(int i = 0; i < args.length; i++) {
+                if(args[i] instanceof Integer) {
+                    f.setInt(i+1, (int)args[i]);
+                } else {
+                    f.setString(i+1, args[i].toString());
+                }
+            }
             f.executeUpdate();
             return true;
         } catch (SQLException e) {
