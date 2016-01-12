@@ -7,21 +7,21 @@
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
-    <Label fx:id="classNameLabel" prefHeight="25.0"/>
+    <Label fx:id="classBatchNameLabel" prefHeight="25.0"/>
     <HBox>
         <VBox.margin>
             <Insets top="5.0"/>
         </VBox.margin>
         <Label prefHeight="25.0" text="Professeur en charge : "/>
         <Label fx:id="professorInChargeLabel" prefHeight="25.0"/>
-        <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false"
-                onAction="#professorInChargeInfoAction" text="Voir détails">
+        <Button fx:id="professorInChargeInfoButton" mnemonicParsing="false" onAction="#professorInChargeInfoAction"
+                text="Voir profile">
             <HBox.margin>
                 <Insets left="5.0"/>
             </HBox.margin>
         </Button>
     </HBox>
-    <Button fx:id="viewEUButton" mnemonicParsing="false" onAction="#viewEUAction" text="Voir les UE">
+    <Button fx:id="euInfoButton" mnemonicParsing="false" onAction="#euInfoAction" text="Voir les UEs">
         <VBox.margin>
             <Insets top="5.0"/>
         </VBox.margin>
@@ -31,8 +31,7 @@
             <Insets top="5.0"/>
         </VBox.margin>
     </ListView>
-    <Button fx:id="viewInfoStudentButton" mnemonicParsing="false" onAction="#viewInfoStudentAction"
-            text="Voir infos élève">
+    <Button fx:id="studentInfoButton" mnemonicParsing="false" onAction="#studentInfoAction" text="Voir profile élève">
         <VBox.margin>
             <Insets top="5.0"/>
         </VBox.margin>

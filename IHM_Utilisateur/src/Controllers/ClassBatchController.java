@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class ClassBatchController implements Initializable {
     @FXML
-    public Label classNameLabel;
+    public Label classBatchNameLabel;
     @FXML
     public Label professorInChargeLabel;
     @FXML
@@ -30,9 +30,9 @@ public class ClassBatchController implements Initializable {
     @FXML
     public ListView<Student> studentsListView;
     @FXML
-    public Button viewInfoStudentButton;
+    public Button studentInfoButton;
     @FXML
-    public Button viewEUButton;
+    public Button euInfoButton;
 
     private ClassBatch classBatch = null;
 
@@ -48,7 +48,7 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initClassNameLabel() {
-        this.classNameLabel.setText("Nom de la promotion : " + this.classBatch.toString());
+        this.classBatchNameLabel.setText("Nom de la promotion : " + this.classBatch.toString());
     }
 
     private void initProfessorInChargeLabel() {
@@ -66,16 +66,16 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initStudentsListView() {
-        this.viewInfoStudentButton.setDisable(true);
-        this.viewInfoStudentButton.setText("Chargement...");
+        this.studentInfoButton.setDisable(true);
+        this.studentInfoButton.setText("Chargement...");
         this.studentsListView.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
             this.studentsListView.getItems().addAll(this.classBatch.getStudents());
             Platform.runLater(() -> {
                 this.studentsListView.getSelectionModel().select(0);
-                this.viewInfoStudentButton.setText("Voir détails");
-                this.viewInfoStudentButton.setDisable(false);
+                this.studentInfoButton.setText("Voir détails");
+                this.studentInfoButton.setDisable(false);
             });
         });
     }
@@ -102,7 +102,7 @@ public class ClassBatchController implements Initializable {
     }
 
     @FXML
-    public void viewInfoStudentAction() {
+    public void studentInfoAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserProfileView.fxml"));
             Stage mainWindowStage = new Stage();
@@ -123,7 +123,7 @@ public class ClassBatchController implements Initializable {
     }
 
     @FXML
-    public void viewEUAction() {
+    public void euInfoAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/EusSubjectsView.fxml"));
             Stage mainWindowStage = new Stage();

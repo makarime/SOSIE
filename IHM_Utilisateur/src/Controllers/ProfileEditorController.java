@@ -91,7 +91,7 @@ public class ProfileEditorController implements Initializable {
 
     /* Actions */
 
-    public void changeProfileImageAction() {
+    public void changePictureAction() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisissez une image");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Toutes les image", "*.*"), new FileChooser.ExtensionFilter("jpg", "*.jpg"), new FileChooser.ExtensionFilter("png", "*.png"));

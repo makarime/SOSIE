@@ -13,7 +13,7 @@
         <ImageView fx:id="userProfileImageView" fitHeight="220.0" fitWidth="180.0" pickOnBounds="true"
                    preserveRatio="true"/>
     </Pane>
-    <VBox>
+    <VBox GridPane.columnIndex="1">
         <Label fx:id="userNameLabel" prefHeight="25.0"/>
         <Label fx:id="userEmailLabel" prefHeight="25.0">
             <VBox.margin>
@@ -27,8 +27,8 @@
         </Label>
         <HBox prefWidth="280.0">
             <ChoiceBox fx:id="classBatchesChoiceBox"/>
-            <Button fx:id="viewInfosClassBatchButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
-                    text="Voir infos">
+            <Button fx:id="classBatchInfoButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
+                    text="Voir promotion">
                 <HBox.margin>
                     <Insets left="5.0"/>
                 </HBox.margin>

@@ -29,7 +29,7 @@ public class UserProfileController implements Initializable {
     @FXML
     private ChoiceBox<ClassBatch> classBatchesChoiceBox;
     @FXML
-    private Button viewInfosClassBatchButton;
+    private Button classBatchInfoButton;
 
     private User user = null;
 
@@ -61,8 +61,8 @@ public class UserProfileController implements Initializable {
     }
 
     public void initClassBatchesChoiceBox() {
-        this.viewInfosClassBatchButton.setDisable(true);
-        this.viewInfosClassBatchButton.setText("Chargement...");
+        this.classBatchInfoButton.setDisable(true);
+        this.classBatchInfoButton.setText("Chargement...");
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
@@ -73,8 +73,8 @@ public class UserProfileController implements Initializable {
 
             Platform.runLater(() -> {
                 this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-                this.viewInfosClassBatchButton.setDisable(false);
-                this.viewInfosClassBatchButton.setText("Voir details");
+                this.classBatchInfoButton.setDisable(false);
+                this.classBatchInfoButton.setText("Voir details");
             });
         });
     }
