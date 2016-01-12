@@ -3,41 +3,33 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox>
+        <Label prefHeight="25.0" text="UE : "/>
+        <ChoiceBox fx:id="eusChoiceBox" prefWidth="150.0"/>
+    </HBox>
+    <HBox>
+        <VBox.margin>
+            <Insets top="5.0"/>
+        </VBox.margin>
+        <Label prefHeight="25.0" text="Matière : "/>
+        <ChoiceBox fx:id="subjectsChoiceBox" prefWidth="150.0"/>
+    </HBox>
+    <HBox>
+        <VBox.margin>
+            <Insets top="5.0"/>
+        </VBox.margin>
+        <Label prefHeight="25.0" text="Nom : "/>
+        <Label fx:id="nameLabel" prefHeight="25.0"/>
+    </HBox>
+    <HBox>
+        <VBox.margin>
+            <Insets top="5.0"/>
+        </VBox.margin>
+        <Label prefHeight="25.0" text="Nombre d'heures : "/>
+        <Label fx:id="nbHoursLabel" prefHeight="25.0"/>
+    </HBox>
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
-    <columnConstraints>
-        <ColumnConstraints/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints/>
-    </rowConstraints>
-    <VBox>
-        <HBox>
-            <Label prefHeight="25.0" text="UE : "/>
-            <ChoiceBox fx:id="eusChoiceBox" prefWidth="150.0"/>
-        </HBox>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Matière : "/>
-            <ChoiceBox fx:id="subjectsChoiceBox" prefWidth="150.0"/>
-        </HBox>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Nom : "/>
-            <Label fx:id="nameLabel" prefHeight="25.0"/>
-        </HBox>
-        <HBox>
-            <VBox.margin>
-                <Insets top="5.0"/>
-            </VBox.margin>
-            <Label prefHeight="25.0" text="Nombre d'heures : "/>
-            <Label fx:id="nbHoursLabel" prefHeight="25.0"/>
-        </HBox>
-    </VBox>
-</GridPane>
+</VBox>
