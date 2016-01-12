@@ -37,6 +37,8 @@ public class ProfileEditorController implements Initializable {
     @FXML
     public TextField emailThirdPart;
     @FXML
+    public PasswordField oldPasswordField;
+    @FXML
     public PasswordField passwordField1;
     @FXML
     public PasswordField passwordField2;
@@ -143,9 +145,11 @@ public class ProfileEditorController implements Initializable {
     }
 
     private void changePassword() throws NoSuchAlgorithmException {
-        if (!this.passwordField1.getText().isEmpty()) {
+        if (!(this.oldPasswordField.getText().isEmpty()) && (!this.passwordField1.getText().isEmpty())) {
             if (this.passwordField2.getText().equals(this.passwordField1.getText())) {
-                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest((new HexBinaryAdapter()).marshal(MessageDigest.getInstance("SHA-256").digest(this.passwordField1.getText().getBytes())))));
+                HexBinaryAdapter hexBinaryAdapter = new HexBinaryAdapter();
+                MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                ChangeUserPasswordResponse changeUserPasswordResponse = ((ChangeUserPasswordResponse) AppUser.sClient.sendRequest(new ChangeUserPasswordRequest(hexBinaryAdapter.marshal(messageDigest.digest(this.oldPasswordField.getText().getBytes())), hexBinaryAdapter.marshal(messageDigest.digest(this.passwordField1.getText().getBytes())))));
 
                 if (changeUserPasswordResponse.getResult()) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
