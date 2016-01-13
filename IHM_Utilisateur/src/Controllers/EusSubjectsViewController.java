@@ -37,25 +37,16 @@ public class EusSubjectsViewController implements Initializable {
 
     private void initEusChoiceBox() {
         this.eusChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            EusSubjectsViewController.this.subjectsChoiceBox.setDisable(true);
-            EusSubjectsViewController.this.subjectsChoiceBox.getItems().clear();
             Async.execute(() -> {
                 EusSubjectsViewController.this.subjectsChoiceBox.getItems().addAll(newValue.getSubjects());
-                Platform.runLater(() -> {
-                    EusSubjectsViewController.this.subjectsChoiceBox.setDisable(false);
-                    EusSubjectsViewController.this.subjectsChoiceBox.getSelectionModel().select(0);
-                });
+                Platform.runLater(() -> EusSubjectsViewController.this.subjectsChoiceBox.getSelectionModel().select(0));
             });
         });
 
-        this.eusChoiceBox.setDisable(true);
         this.eusChoiceBox.setItems(FXCollections.observableArrayList());
         Async.execute(() -> {
             this.eusChoiceBox.getItems().addAll(this.classBatch.getClasss().getEus());
-            Platform.runLater(() -> {
-                this.eusChoiceBox.setDisable(false);
-                this.eusChoiceBox.getSelectionModel().select(0);
-            });
+            Platform.runLater(() -> this.eusChoiceBox.getSelectionModel().select(0));
         });
 
     }
@@ -65,14 +56,5 @@ public class EusSubjectsViewController implements Initializable {
             EusSubjectsViewController.this.nbHoursLabel.setText(Integer.toString(newValue.getNbHours()));
         }));
         this.subjectsChoiceBox.setItems(FXCollections.observableArrayList());
-
-        /*this.subjectsChoiceBox.setDisable(true);
-        Async.execute(() -> {
-            this.subjectsChoiceBox.getItems().addAll(this.eusChoiceBox.getSelectionModel().getSelectedItem().getSubjects());
-            Platform.runLater(() -> {
-                this.subjectsChoiceBox.setDisable(false);
-                this.subjectsChoiceBox.getSelectionModel().select(0);
-            });
-        });*/
     }
 }

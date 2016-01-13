@@ -68,7 +68,6 @@
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
-                <VBox alignment="CENTER" GridPane.rowIndex="5"/>
                 <Label fx:id="mondayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
                        maxWidth="1.7976931348623157E308" style="-fx-border-color: gray;" GridPane.rowIndex="1"/>
                 <Label fx:id="tuesdayLabel" alignment="CENTER" maxHeight="1.7976931348623157E308"
@@ -107,7 +106,7 @@
         </VBox>
     </center>
     <left>
-        <VBox fx:id="courseGrid" BorderPane.alignment="CENTER">
+        <VBox BorderPane.alignment="CENTER">
             <TitledPane text="Profile">
                 <VBox>
                     <Label fx:id="appUserNameLabel" prefHeight="25.0">

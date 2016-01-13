@@ -52,7 +52,7 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initProfessorInChargeLabel() {
-        this.professorInChargeInfoButton.setDisable(true);
+        this.professorInChargeInfoButton.disableProperty().bind(this.professorInChargeLabel.textProperty().isEmpty());
         this.professorInChargeInfoButton.setText("Chargement...");
 
         Async.execute(() -> {
@@ -60,23 +60,18 @@ public class ClassBatchController implements Initializable {
             Platform.runLater(() -> {
                 this.professorInChargeLabel.setText(professor.toString());
                 this.professorInChargeInfoButton.setText("Voir détails");
-                this.professorInChargeInfoButton.setDisable(false);
             });
         });
     }
 
     private void initStudentsListView() {
-        this.studentInfoButton.setDisable(true);
+        this.studentInfoButton.disableProperty().bind(this.studentsListView.getSelectionModel().selectedItemProperty().isNull());
         this.studentInfoButton.setText("Chargement...");
         this.studentsListView.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
             this.studentsListView.getItems().addAll(this.classBatch.getStudents());
-            Platform.runLater(() -> {
-                this.studentsListView.getSelectionModel().select(0);
-                this.studentInfoButton.setText("Voir détails");
-                this.studentInfoButton.setDisable(false);
-            });
+            Platform.runLater(() -> this.studentInfoButton.setText("Voir détails"));
         });
     }
 

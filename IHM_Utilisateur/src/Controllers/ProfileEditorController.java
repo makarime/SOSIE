@@ -2,8 +2,6 @@ package Controllers;
 
 
 import Models.AppUser;
-import Models.Async;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -61,32 +59,15 @@ public class ProfileEditorController implements Initializable {
     }
 
     private void initProfileImageView() {
-        this.changePictureButton.setDisable(true);
-        this.changePictureButton.setText("Chargement...");
-        Async.execute(() -> {
-            Image image = AppUser.user.getProfileImage();
-            Platform.runLater(() -> {
-                this.profileImageView.setImage(image);
-                this.changePictureButton.setDisable(false);
-                this.changePictureButton.setText("Changer");
-            });
-        });
+        this.profileImageView.setImage(AppUser.user.getProfileImage());
     }
 
     private void initEmailTextFields() {
-        this.validateButton.setDisable(true);
-        this.validateButton.setText("Chargement...");
-        Async.execute(() -> {
-            String[] ss = AppUser.user.getEmail().split("@");
-            String[] ss2 = ss[1].split("\\.");
-            Platform.runLater(() -> {
-                this.emailFirstPart.setText(ss[0]);
-                this.emailSecondPart.setText(ss2[0]);
-                this.emailThirdPart.setText(ss2[1]);
-                this.validateButton.setDisable(false);
-                this.validateButton.setText("Valider");
-            });
-        });
+        String[] ss = AppUser.user.getEmail().split("@");
+        String[] ss2 = ss[1].split("\\.");
+        this.emailFirstPart.setText(ss[0]);
+        this.emailSecondPart.setText(ss2[0]);
+        this.emailThirdPart.setText(ss2[1]);
     }
 
     /* Actions */

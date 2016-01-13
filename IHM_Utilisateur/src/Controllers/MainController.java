@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -20,11 +21,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    /* Fields */
-
+    //region Interface fields
     @FXML
     public Label appUserNameLabel;
     @FXML
@@ -53,19 +54,28 @@ public class MainController implements Initializable {
     public Label fridayLabel;
     @FXML
     public GridPane courseGridPane;
-
+    @FXML
     private Stage stage = null;
+    //endregion
+
+    //region Fields
     private ArrayList<Week> weeks = null;
     private int weekOffset;
+    //endregion
 
+    //region Constructor(s)
     public MainController(Stage stage) {
         this.stage = stage;
     }
+    //endregion
 
+    //region Methods
     private Week currentWeek() {
         return this.weeks.get(this.weekOffset);
     }
+    //endregion
 
+    //region Initialization
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.weeks = new ArrayList<>();
@@ -77,16 +87,11 @@ public class MainController implements Initializable {
     }
 
     private void initProfileTitledPane() {
+        this.editProfileButton.disableProperty().bind(this.profileImageView.imageProperty().isNull());
         this.appUserNameLabel.setText(AppUser.user.toString());
-        this.editProfileButton.setDisable(true);
-        this.editProfileButton.setText("Chargement...");
         Async.execute(() -> {
             Image image = AppUser.user.getProfileImage();
-            Platform.runLater(() -> {
-                this.profileImageView.setImage(image);
-                this.editProfileButton.setDisable(false);
-                this.editProfileButton.setText("Editer");
-            });
+            Platform.runLater(() -> this.profileImageView.setImage(image));
         });
     }
 
@@ -104,8 +109,7 @@ public class MainController implements Initializable {
     }
 
     private void initClassBatchesChoiceBox() {
-        this.classBatchInfoButton.setDisable(true);
-        this.classBatchInfoButton.setText("Chargement...");
+        this.classBatchInfoButton.disableProperty().bind(this.classBatchesChoiceBox.getSelectionModel().selectedItemProperty().isNull());
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
         Async.execute(() -> {
@@ -114,11 +118,7 @@ public class MainController implements Initializable {
             else if (AppUser.user.isProfessor())
                 this.classBatchesChoiceBox.getItems().addAll(((Professor) AppUser.user).getClassBatches());
 
-            Platform.runLater(() -> {
-                this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0));
-                this.classBatchInfoButton.setText("Voir détails");
-                this.classBatchInfoButton.setDisable(false);
-            });
+            Platform.runLater(() -> this.classBatchesChoiceBox.setValue(this.classBatchesChoiceBox.getItems().get(0)));
         });
     }
 
@@ -127,7 +127,9 @@ public class MainController implements Initializable {
         this.initProfileTitledPane();
         this.initClassBatchesChoiceBox();
     }
+    //endregion
 
+    //region Interface setters
     private void setDisableWeekBeforeButton() {
         if (this.weekOffset == 0)
             this.weekBeforeButton.setDisable(true);
@@ -144,11 +146,25 @@ public class MainController implements Initializable {
     }
 
     private void setCourses() {
-        for (int i = 0; i < 5; i++) {
-            for (Course course : this.currentWeek().getDay(i).getCourses()) {
-                TextField textField = new TextField(course.toString());
-                this.courseGridPane.add(textField, 0, i);
+        List<Node> children = this.courseGridPane.getChildren();
+        for (int i = 0; i < children.size(); i++) {
+            Node node = children.get(i);
+            if ((GridPane.getColumnIndex(node) != null) && (GridPane.getRowIndex(node) != null)) {
+                this.courseGridPane.getChildren().remove(node);
+                i--;
             }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            final int finalI = i;
+            Async.execute(() -> {
+                List<Course> l = this.currentWeek().getDay(finalI).getCourses();
+                Platform.runLater(() -> {
+                    for (Course course : l) {
+                        this.courseGridPane.add(new Label(course.toString()), 1, finalI + 1);
+                    }
+                });
+            });
         }
     }
 
@@ -158,9 +174,9 @@ public class MainController implements Initializable {
         this.setDayLabels();
         this.setCourses();
     }
+    //endregion
 
-
-    /* Actions */
+    //region Actions
     @FXML
     public void logOutAction() {
         AppUser.user = null;
@@ -264,4 +280,5 @@ public class MainController implements Initializable {
             alert.showAndWait();
         }
     }
+    //endregion
 }
