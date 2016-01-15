@@ -45,6 +45,8 @@ public class MainController implements Initializable {
     @FXML
     public Button weekBeforeButton;
     @FXML
+    public Label exampleHourLabel;
+    @FXML
     public Label mondayLabel;
     @FXML
     public Label tuesdayLabel;
@@ -180,16 +182,20 @@ public class MainController implements Initializable {
                         int beginMinutes = calendar.get(Calendar.MINUTE);
                         calendar.add(Calendar.MINUTE, course.getDuree());
                         int endMinutes = calendar.get(Calendar.MINUTE);
+
                         int columnIndex = beginHour - 8;
                         double columnSpan = Math.ceil((double) course.getDuree() / 60);
-                        double width = this.courseGridPane.getColumnConstraints().get(columnIndex).getPrefWidth();
+                        if (course.getDuree() > columnSpan * 60 - beginMinutes)
+                            columnSpan++;
+                        int width = (int) (this.courseGridPane.getWidth() - this.mondayLabel.getWidth()) / 11;
+                        int height = (int) (this.courseGridPane.getHeight() - this.exampleHourLabel.getHeight()) / 5;
+                        int rightWidthOffset = (int) ((double) endMinutes * (double) width / 60);
+                        int leftWidthOffset = (int) ((double) beginMinutes * (double) width / 60);
 
                         Label label = new Label(course.getInfos());
                         label.setAlignment(Pos.BASELINE_CENTER);
-                        label.setPrefHeight(200);
-                        label.setPrefWidth(146 * columnSpan);
-                        int rightWidthOffset = (int) ((double) endMinutes * width / 60);
-                        int leftWidthOffset = (int) ((double) beginMinutes * width / 60);
+                        label.setPrefHeight(height);
+                        label.setPrefWidth(width * columnSpan);
                         GridPane.setMargin(label, new Insets(2, rightWidthOffset + 2, 2, leftWidthOffset + 2));
                         label.setStyle("-fx-background-color: #F0F0F0; -fx-border-color: gray;");
                         this.courseGridPane.add(label, columnIndex + 1, finalI + 1);
