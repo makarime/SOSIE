@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,20 +62,13 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initStudentsListView() {
-        this.studentsListView.setCellFactory(new Callback<ListView<Student>, ListCell<Student>>() {
+        this.studentsListView.setCellFactory(param -> new ListCell<Student>() {
             @Override
-            public ListCell<Student> call(ListView<Student> param) {
-                ListCell<Student> cell = new ListCell<Student>() {
-                    @Override
-                    protected void updateItem(Student t, boolean bln) {
-                        super.updateItem(t, bln);
-                        if (t != null) {
-                            setText(t.getName());
-                        }
-                    }
-                };
-
-                return cell;
+            protected void updateItem(Student t, boolean bln) {
+                super.updateItem(t, bln);
+                if (t != null) {
+                    setText(t.getName());
+                }
             }
         });
         this.studentInfoButton.disableProperty().bind(this.studentsListView.getSelectionModel().selectedItemProperty().isNull());
