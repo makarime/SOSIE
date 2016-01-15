@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,9 +22,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable {
     //region Interface fields
@@ -160,8 +160,31 @@ public class MainController implements Initializable {
             Async.execute(() -> {
                 List<Course> l = this.currentWeek().getDay(finalI).getCourses();
                 Platform.runLater(() -> {
+                    Calendar calendar = GregorianCalendar.getInstance();
                     for (Course course : l) {
-                        this.courseGridPane.add(new Label(course.toString()), 1, finalI + 1);
+                        calendar.setTime(course.getDate());
+                        int beginHour = calendar.get(Calendar.HOUR_OF_DAY);
+                        int beginMinutes = calendar.get(Calendar.MINUTE);
+                        calendar.add(Calendar.MINUTE, course.getDuree());
+                        int endMinutes = calendar.get(Calendar.MINUTE);
+                        int columnIndex = beginHour - 8;
+                        double columnSpan = Math.ceil((double) course.getDuree() / 60);
+                        double width = this.courseGridPane.getColumnConstraints().get(columnIndex).getPrefWidth();
+
+                        Label label = new Label(course.toString());
+                        label.setAlignment(Pos.BASELINE_CENTER);
+
+                        label.setPrefHeight(200);
+                        label.setPrefWidth(146 * columnSpan);
+
+                        int rightWidthOffset = (int) ((double) endMinutes * width / 60);
+                        int leftWidthOffset = (int) ((double) beginMinutes * width / 60);
+                        this.courseGridPane.setMargin(label, new Insets(2, rightWidthOffset + 2, 2, leftWidthOffset + 2));
+
+                        label.setStyle("-fx-background-color: #F0F0F0; -fx-border-color: gray;");
+
+                        this.courseGridPane.add(label, columnIndex + 1, finalI + 1);
+                        this.courseGridPane.setColumnSpan(label, (int) columnSpan);
                     }
                 });
             });

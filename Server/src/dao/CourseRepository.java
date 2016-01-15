@@ -77,7 +77,7 @@ public class CourseRepository extends DaoBase<Course> {
                 rs.getInt(Columns.CLASSBATCHID),
                 rs.getInt(Columns.PROFESSORID),
                 rs.getInt(Columns.CLASSROOMID),
-                rs.getDate(Columns.DATE),
+                new Date(rs.getTimestamp(Columns.DATE).getTime()),
                 rs.getInt(Columns.DURATION)
         );
     }

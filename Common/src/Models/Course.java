@@ -1,7 +1,11 @@
 package Models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Course implements Serializable, IEntity {
     private int courseId;
@@ -71,8 +75,19 @@ public class Course implements Serializable, IEntity {
         return this.duree;
     }
 
+    private String getSpanToString() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(this.date);
+        String begin = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.MINUTE, this.duree);
+        String end = dateFormat.format(calendar.getTime());
+
+        return begin + " - " + end;
+    }
+
     @Override
     public String toString() {
-        return this.getSubject().getName() + "\n" + this.date.toString();
+        return this.getSubject().getName() + "\n" + this.getSpanToString();
     }
 }
