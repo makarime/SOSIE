@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import messages.LogoutRequest;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -218,6 +219,7 @@ public class MainController implements Initializable {
     @FXML
     public void logOutAction() {
         AppUser.user = null;
+        AppUser.sClient.sendRequest(new LogoutRequest());
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../Views/UserConnectionView.fxml"));
