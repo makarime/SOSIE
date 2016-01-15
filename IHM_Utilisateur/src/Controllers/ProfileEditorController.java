@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import messages.*;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -59,7 +60,7 @@ public class ProfileEditorController implements Initializable {
     }
 
     private void initProfileImageView() {
-        this.profileImageView.setImage(AppUser.user.getProfileImage());
+        this.profileImageView.setImage(new Image(new ByteArrayInputStream(AppUser.user.getProfileImageByteArray())));
     }
 
     private void initEmailTextFields() {
@@ -158,10 +159,11 @@ public class ProfileEditorController implements Initializable {
     private void changeProfileImage() {
         if (this.profileImageChanged) {
             try {
-                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(Files.readAllBytes(this.newProfileImageFile.toPath()))));
+                byte[] imageBytes = Files.readAllBytes(this.newProfileImageFile.toPath());
+                ChangeUserProfileImageResponse changeUserProfileImageResponse = ((ChangeUserProfileImageResponse) AppUser.sClient.sendRequest(new ChangeUserProfileImageRequest(imageBytes)));
 
                 if (changeUserProfileImageResponse.getResult()) {
-                    AppUser.user.setProfileImage(this.profileImageView.getImage());
+                    AppUser.user.setProfileImageByteArray(imageBytes);
                     this.profileImageChanged = false;
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Erreur");

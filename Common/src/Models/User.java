@@ -1,10 +1,8 @@
 package Models;
 
-import javafx.scene.image.Image;
 import messages.models.UserAdditionalInfoRequest;
 import messages.models.UserAdditionalInfoResponse;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
 public abstract class User implements Serializable, IEntity {
@@ -12,7 +10,7 @@ public abstract class User implements Serializable, IEntity {
     protected String lastName = null;
     protected String firstName = null;
     protected String email = null;
-    protected Image profileImage = null;
+    protected byte[] profileImageByteArray = null;
 
     public User(int userId, String lastName, String firstName, String email) {
         this.userId = userId;
@@ -46,6 +44,10 @@ public abstract class User implements Serializable, IEntity {
         this.firstName = firstName;
     }
 
+    public String getName() {
+        return this.lastName + " " + this.firstName;
+    }
+
     public String getEmail() {
         return this.email;
     }
@@ -54,13 +56,13 @@ public abstract class User implements Serializable, IEntity {
         this.email = email;
     }
 
-    public Image getProfileImage() {
+    public byte[] getProfileImageByteArray() {
         this.loadAdditionalInformation();
-        return this.profileImage;
+        return this.profileImageByteArray;
     }
 
-    public void setProfileImage(Image profileImage) {
-        this.profileImage = profileImage;
+    public void setProfileImageByteArray(byte[] profileImageByteArray) {
+        this.profileImageByteArray = profileImageByteArray;
     }
 
     @Override
@@ -69,9 +71,9 @@ public abstract class User implements Serializable, IEntity {
     }
 
     private void loadAdditionalInformation() {
-        if (this.profileImage == null) {
+        if (this.profileImageByteArray == null) {
             UserAdditionalInfoResponse response = ((UserAdditionalInfoResponse) DataBaseEnv.currentProxy.load(new UserAdditionalInfoRequest(this.userId)));
-            this.profileImage = new Image(new ByteArrayInputStream(response.getProfileImage()));
+            this.profileImageByteArray = response.getProfileImage();
         }
     }
 

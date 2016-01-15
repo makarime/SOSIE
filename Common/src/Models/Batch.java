@@ -29,8 +29,7 @@ public class Batch implements Serializable, IEntity {
         this.year = year;
     }
 
-    @Override
-    public String toString() {
+    public String getSpanToString() {
         return this.year + " - " + (this.year + 5);
     }
 

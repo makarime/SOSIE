@@ -24,9 +24,7 @@ public class Class implements Serializable, IEntity {
     }
 
     public String getName() {
-        {
-            return this.name;
-        }
+        return this.name;
     }
 
     public void setName(String name) {
@@ -35,11 +33,6 @@ public class Class implements Serializable, IEntity {
 
     public int getRank() {
         return rank;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
     }
 
     public List<Eu> getEus() {

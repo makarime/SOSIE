@@ -11,11 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,7 +46,7 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initClassNameLabel() {
-        this.classBatchNameLabel.setText("Nom de la promotion : " + this.classBatch.toString());
+        this.classBatchNameLabel.setText("Nom de la promotion : " + this.classBatch.getName());
     }
 
     private void initProfessorInChargeLabel() {
@@ -65,6 +63,22 @@ public class ClassBatchController implements Initializable {
     }
 
     private void initStudentsListView() {
+        this.studentsListView.setCellFactory(new Callback<ListView<Student>, ListCell<Student>>() {
+            @Override
+            public ListCell<Student> call(ListView<Student> param) {
+                ListCell<Student> cell = new ListCell<Student>() {
+                    @Override
+                    protected void updateItem(Student t, boolean bln) {
+                        super.updateItem(t, bln);
+                        if (t != null) {
+                            setText(t.getName());
+                        }
+                    }
+                };
+
+                return cell;
+            }
+        });
         this.studentInfoButton.disableProperty().bind(this.studentsListView.getSelectionModel().selectedItemProperty().isNull());
         this.studentInfoButton.setText("Chargement...");
         this.studentsListView.setItems(FXCollections.observableArrayList());

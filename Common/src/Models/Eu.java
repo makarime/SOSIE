@@ -54,8 +54,4 @@ public class Eu implements Serializable, IEntity {
         this.name = name;
     }
 
-    public String toString() {
-        return this.getName();
-    }
-
 }

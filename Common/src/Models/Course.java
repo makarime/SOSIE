@@ -86,8 +86,7 @@ public class Course implements Serializable, IEntity {
         return begin + " - " + end;
     }
 
-    @Override
-    public String toString() {
-        return this.getSubject().getName() + "\n" + this.getSpanToString();
+    public String getInfos() {
+        return this.getSubject().getName() + "\n" + this.getSpanToString() + "\n" + DataBaseEnv.currentProxy.loadObjectById(Professor.class, this.professorId).getName();
     }
 }

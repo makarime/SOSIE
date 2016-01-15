@@ -66,8 +66,4 @@ public class Subject implements Serializable, IEntity {
     public void setNbHours(int nbHours) {
         this.nbHours = nbHours;
     }
-
-    public String toString() {
-        return this.name;
-    }
 }

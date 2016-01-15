@@ -16,7 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -90,7 +92,7 @@ public class MainController implements Initializable {
         this.editProfileButton.disableProperty().bind(this.profileImageView.imageProperty().isNull());
         this.appUserNameLabel.setText(AppUser.user.toString());
         Async.execute(() -> {
-            Image image = AppUser.user.getProfileImage();
+            Image image = new Image(new ByteArrayInputStream(AppUser.user.getProfileImageByteArray()));
             Platform.runLater(() -> this.profileImageView.setImage(image));
         });
     }
@@ -109,6 +111,17 @@ public class MainController implements Initializable {
     }
 
     private void initClassBatchesChoiceBox() {
+        this.classBatchesChoiceBox.converterProperty().setValue(new StringConverter<ClassBatch>() {
+            @Override
+            public String toString(ClassBatch object) {
+                return object.getName();
+            }
+
+            @Override
+            public ClassBatch fromString(String string) {
+                return null;
+            }
+        });
         this.classBatchInfoButton.disableProperty().bind(this.classBatchesChoiceBox.getSelectionModel().selectedItemProperty().isNull());
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 
@@ -171,20 +184,16 @@ public class MainController implements Initializable {
                         double columnSpan = Math.ceil((double) course.getDuree() / 60);
                         double width = this.courseGridPane.getColumnConstraints().get(columnIndex).getPrefWidth();
 
-                        Label label = new Label(course.toString());
+                        Label label = new Label(course.getInfos());
                         label.setAlignment(Pos.BASELINE_CENTER);
-
                         label.setPrefHeight(200);
                         label.setPrefWidth(146 * columnSpan);
-
                         int rightWidthOffset = (int) ((double) endMinutes * width / 60);
                         int leftWidthOffset = (int) ((double) beginMinutes * width / 60);
-                        this.courseGridPane.setMargin(label, new Insets(2, rightWidthOffset + 2, 2, leftWidthOffset + 2));
-
+                        GridPane.setMargin(label, new Insets(2, rightWidthOffset + 2, 2, leftWidthOffset + 2));
                         label.setStyle("-fx-background-color: #F0F0F0; -fx-border-color: gray;");
-
                         this.courseGridPane.add(label, columnIndex + 1, finalI + 1);
-                        this.courseGridPane.setColumnSpan(label, (int) columnSpan);
+                        GridPane.setColumnSpan(label, (int) columnSpan);
                     }
                 });
             });
@@ -271,7 +280,7 @@ public class MainController implements Initializable {
             profileEditorWindowStage.setResizable(false);
             profileEditorWindowStage.showAndWait();
 
-            this.profileImageView.setImage(AppUser.user.getProfileImage());
+            this.profileImageView.setImage(new Image(new ByteArrayInputStream(AppUser.user.getProfileImageByteArray())));
         } catch (Exception e) {
             e.printStackTrace();
 

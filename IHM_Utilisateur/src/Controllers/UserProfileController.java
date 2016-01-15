@@ -15,7 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,7 +49,7 @@ public class UserProfileController implements Initializable {
 
     public void initUserProfileImageView() {
         Async.execute(() -> {
-            Image image = this.user.getProfileImage();
+            Image image = new Image(new ByteArrayInputStream(this.user.getProfileImageByteArray()));
             Platform.runLater(() -> this.userProfileImageView.setImage(image));
         });
     }
@@ -61,6 +63,17 @@ public class UserProfileController implements Initializable {
     }
 
     public void initClassBatchesChoiceBox() {
+        this.classBatchesChoiceBox.converterProperty().setValue(new StringConverter<ClassBatch>() {
+            @Override
+            public String toString(ClassBatch object) {
+                return object.getName();
+            }
+
+            @Override
+            public ClassBatch fromString(String string) {
+                return null;
+            }
+        });
         this.classBatchInfoButton.disableProperty().bind(this.classBatchesChoiceBox.getSelectionModel().selectedItemProperty().isNull());
         this.classBatchesChoiceBox.setItems(FXCollections.observableArrayList());
 

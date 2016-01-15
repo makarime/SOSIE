@@ -50,9 +50,8 @@ public class ClassBatch implements Serializable, IEntity {
         this.professorInChargeId = professorInChargeId;
     }
 
-    @Override
-    public String toString() {
-        return this.getClasss().toString() + " / " + this.getBatch().toString();
+    public String getName() {
+        return this.getClasss().getName() + " / " + this.getBatch().getSpanToString();
     }
 
     public List<StudentClassBatch> getStudentClassBatches() {
