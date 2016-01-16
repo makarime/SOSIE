@@ -1,219 +1,412 @@
+--
+-- Création de l'utilisateur
+--
 CREATE USER 'arlo_admin_db'@'localhost' IDENTIFIED BY 'admin';
+
+--
+-- Création de la database arlo
+--
 CREATE DATABASE Arlo CHARACTER SET utf8 COLLATE utf8_general_ci ;
+
+--
+-- Donation des droits à l'utilisateur arlo_admin_db
+--
 GRANT ALL ON arlo.* TO 'arlo_admin_db'@'localhost';
+
+--
+-- Utilisation de la DB nouvellement crée
+--
 USE Arlo;
 
-/* ---------------- Proposition ------------- */
+--
+-- Structure de la table `Absences`
+--
 
-CREATE TABLE Enseignants
-(
-	IdEnseignant int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL UNIQUE,
-	MdP varchar(50) NOT NULL,
-	LastName varchar(20) NOT NULL,
-	FirstName varchar(25) NOT NULL,
-	Email varchar(50),
-	Photo varchar(255),
-	PRIMARY KEY (IdEnseignant)
-);
+CREATE TABLE `Absences` (
+  `idAbsence` int(11) NOT NULL,
+  `EleveId` int(11) NOT NULL,
+  `dateAbsence` date DEFAULT NULL,
+  `matin` tinyint(1) DEFAULT NULL,
+  `apremMidi` tinyint(1) DEFAULT NULL,
+  `justification` varchar(255) DEFAULT NULL,
+  `justifie` tinyint(1) DEFAULT NULL
+)
 
-/* Creation de la table promotion */
-CREATE TABLE Promotions
-(
-	IdPromotion int NOT NULL AUTO_INCREMENT,
-	Annee int NOT NULL,
-	Nom varchar(20) NOT NULL,
-	EnseignantEnCharge int NOT NULL,
-	PRIMARY KEY(IdPromotion)
-	FOREIGN KEY(EnseignantEnCharge) REFERENCES Enseignants(IdEnseignant)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE Eleves
-(
-	IdEleve int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL UNIQUE,
-	MdP varchar(50) NOT NULL,
-	LastName varchar(20) NOT NULL,
-	FirstName varchar(25) NOT NULL,
-	Email varchar(50),
-	Photo varchar(255),
-	IdPromotion int NOT NULL,
-	PRIMARY KEY (IdEleve)
-	FOREIGN KEY (IdPromotion) REFERENCES Promotions(IdPromotion)
-);
+--
+-- Structure de la table `ClassePromo`
+--
 
-CREATE VIEW UserLoginView AS
-SELECT Login, MdP
-FROM Enseignants
-UNION
-SELECT Login, MdP
-FROM Eleves
+CREATE TABLE `ClassePromo` (
+  `PromoClassId` int(11) NOT NULL,
+  `ClasseId` int(11) NOT NULL,
+  `PromotionId` int(11) NOT NULL,
+  `ResponsableId` int(11) NOT NULL
+)
 
-/* ------------------------------------- */
+-- --------------------------------------------------------
 
+--
+-- Structure de la table `Classes`
+--
 
+CREATE TABLE `Classes` (
+  `ClasseId` int(11) NOT NULL,
+  `Nom` varchar(255) DEFAULT NULL,
+  `rank` int(11) NOT NULL
+)
 
-/* --------------- Tables utiles actuellement -------------------- */
+-- --------------------------------------------------------
 
-CREATE TABLE Enseignants
-(
-	IdEnseignant int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL UNIQUE,
-	MdP varchar(50) NOT NULL,
-	LastName varchar(20) NOT NULL,
-	FirstName varchar(25) NOT NULL,
-	Email varchar(50),
-	Photo varchar(255),
-	PRIMARY KEY (IdEnseignant)
-);
+--
+-- Structure de la table `Cours`
+--
 
-CREATE TABLE Eleves
-(
-	IdEleve int NOT NULL AUTO_INCREMENT,
-	Login varchar(50) NOT NULL UNIQUE,
-	MdP varchar(50) NOT NULL,
-	LastName varchar(20) NOT NULL,
-	FirstName varchar(25) NOT NULL,
-	Email varchar(50),
-	Photo varchar(255),
-	IdPromotion int NOT NULL,
-	PRIMARY KEY (IdEleve)
-	FOREIGN KEY (IdPromotion) REFERENCES Promotions(IdPromotion)
-);
+CREATE TABLE `Cours` (
+  `CoursId` int(11) NOT NULL,
+  `MatiereId` int(11) DEFAULT NULL,
+  `PromoClassId` int(11) DEFAULT NULL,
+  `EnseignantId` int(11) DEFAULT NULL,
+  `SalleId` int(11) DEFAULT NULL,
+  `Date` datetime DEFAULT NULL,
+  `Duree` int(11) NOT NULL COMMENT 'en minutes'
+)
 
-/* Creation de la table promotion */
-CREATE TABLE Promotions
-(
-	IdPromotion int NOT NULL AUTO_INCREMENT,
-	Annee int NOT NULL,
-	Nom varchar(20) NOT NULL,
-	EnseignantEnCharge int NOT NULL,
-	PRIMARY KEY(IdPromotion)
-	FOREIGN KEY(EnseignantEnCharge) REFERENCES Enseignants(IdEnseignant)
-);
-    
-CREATE TABLE ElevePromotion
-(
-	IdPromotion int,
-    	IdUtilisateur int,
-    	PRIMARY KEY(IdPromotion, IdUtilisateur),
-    	FOREIGN KEY(IdPromotion) REFERENCES Promotion(IdPromotion),
-    	FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
-);
-    
-/* ------------------------------------------------------------------------*/
+-- --------------------------------------------------------
 
-/* Creation de la table salle */
-CREATE TABLE Salle(
-    IdSalle int NOT NULL AUTO_INCREMENT,
-    Numero int,
-    Capacite int,
-    Pc bool,
-    Videoprojecteur bool,
-    TabNum bool,
-    Handi bool,
-    PRIMARY KEY(IdSalle)
-    );
-	
+--
+-- Structure de la table `EleveCP`
+--
 
+CREATE TABLE `EleveCP` (
+  `EleveCPId` int(11) NOT NULL,
+  `EleveId` int(11) NOT NULL,
+  `ClassPromoId` int(11) NOT NULL
+)
 
-/* Creation de la table enseignants */
-CREATE TABLE Enseignants(
-IdEnseignant int NOT NULL AUTO_INCREMENT,
-MaConf bool,
-CharTd bool,
-IdUtilisateur int,
-PRIMARY KEY(IdEnseignant),
-FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
-);
+-- --------------------------------------------------------
 
-/* Creation de la table modules */
-CREATE TABLE Modules
-(
-    IdModule int NOT NULL AUTO_INCREMENT,
-    Nom varchar(20),
-    PRIMARY KEY(IdModule)
-);
+--
+-- Structure de la table `Eleves`
+--
 
-/* Creation de la table cours */
-CREATE TABLE Cours(
-    IdCours int NOT NULL AUTO_INCREMENT,
-    IdSalle int,
-    DateCours DATETIME,
-    IdModule int,
-    PRIMARY KEY(IdCours),
-    FOREIGN KEY(IdSalle) REFERENCES Salle(IdSalle),
-    FOREIGN KEY(IdModule) REFERENCES Modules(IdModule)
-    );
+CREATE TABLE `Eleves` (
+  `EleveId` int(11) NOT NULL DEFAULT '0'
+)
 
-/* Creation de la table Formation */
-CREATE TABLE Formation
-(
-idFormation int NOT NULL AUTO_INCREMENT,
-nomFormation varchar(50),
-PRIMARY KEY(idFormation)
-);
+-- --------------------------------------------------------
 
-/* Creation de la table Matiere */
-CREATE TABLE Matiere
-(
-idMatiere int NOT NULL AUTO_INCREMENT,
-nomMatiere varchar(255),
-PRIMARY KEY(idMatiere )
-);
+--
+-- Structure de la table `Enseignants`
+--
 
-/* Creation de la table Ue */
-CREATE TABLE Ue
-(
-IdUe int NOT NULL AUTO_INCREMENT,
-nomUe varchar(255),
-idFormation int NOT NULL,
-PRIMARY KEY(IdUe),
-FOREIGN KEY(idFormation) REFERENCES Formation(idFormation)
-);
+CREATE TABLE `Enseignants` (
+  `EnseignantId` int(11) NOT NULL
+)
 
-/* Creation de la table MatiereUe */
-CREATE TABLE MatiereUe
-(
-idMatiere int NOT NULL,
-IdUe int NOT NULL,
-PRIMARY KEY(idMatiere,IdUe),
-FOREIGN KEY(idMatiere) REFERENCES Matiere(idMatiere),
-FOREIGN KEY(IdUe ) REFERENCES Ue(IdUe )
-);
+-- --------------------------------------------------------
 
-/* Creation de la table Notes */
-CREATE TABLE Notes
-(
-idNote int NOT NULL AUTO_INCREMENT,
-IdEnseignant int NOT NULL,
-idEleve int NOT NULL,
-idMatiere int NOT NULL,
-valeur int,
-PRIMARY KEY(idNote),
-FOREIGN KEY(idMatiere ) REFERENCES Matiere(idMatiere),
-FOREIGN KEY(IdEnseignant) REFERENCES Enseignants(IdEnseignant),
-FOREIGN KEY(idEleve) REFERENCES Utilisateurs(IdUtilisateur)
-);
+--
+-- Structure de la table `Matiere`
+--
 
-/* Creation de la table Absences */
-CREATE TABLE Absences
-(
-idAbsence int NOT NULL AUTO_INCREMENT,
-IdUtilisateur int NOT NULL,
-dateAbsence Date,
-matin bool,
-apremMidi bool,
-justification varchar(255),
-justifie bool,
-PRIMARY KEY(idAbsence),
-FOREIGN KEY(IdUtilisateur) REFERENCES Utilisateurs(IdUtilisateur)
-);
+CREATE TABLE `Matiere` (
+  `MatiereId` int(11) NOT NULL,
+  `UeId` int(11) DEFAULT NULL,
+  `Nom` varchar(255) DEFAULT NULL,
+  `NombreHeures` int(11) NOT NULL
+)
 
-/* Vue des utilisateurs connectée (élèves ou étudiants) */
-CREATE VIEW UserLoginView AS
-SELECT Login, MdP
-FROM Enseignants
-UNION
-SELECT Login, MdP
-FROM Eleves
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Notes`
+--
+
+CREATE TABLE `Notes` (
+  `NoteId` int(11) NOT NULL,
+  `EleveCPId` int(11) NOT NULL,
+  `MatiereId` int(11) NOT NULL,
+  `valeur` int(11) DEFAULT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Promotion`
+--
+
+CREATE TABLE `Promotion` (
+  `IdPromotion` int(11) NOT NULL,
+  `Annee` int(11) DEFAULT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Salle`
+--
+
+CREATE TABLE `Salle` (
+  `IdSalle` int(11) NOT NULL,
+  `Numero` int(11) DEFAULT NULL,
+  `Capacite` int(11) DEFAULT NULL,
+  `Pc` tinyint(1) DEFAULT NULL,
+  `Videoprojecteur` tinyint(1) DEFAULT NULL,
+  `TabNum` tinyint(1) DEFAULT NULL,
+  `Handi` tinyint(1) DEFAULT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Ue`
+--
+
+CREATE TABLE `Ue` (
+  `UeId` int(11) NOT NULL,
+  `ClassId` int(11) DEFAULT NULL,
+  `Nom` varchar(255) DEFAULT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Utilisateurs`
+--
+
+CREATE TABLE `Utilisateurs` (
+  `IdUtilisateur` int(11) NOT NULL,
+  `Login` varchar(50) NOT NULL,
+  `MdP` char(64) NOT NULL,
+  `LastName` varchar(20) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `Email` varchar(50) DEFAULT NULL,
+  `Photo` varchar(255) DEFAULT NULL
+)
+
+--
+-- Index pour les tables
+--
+
+--
+-- Index pour la table `Absences`
+--
+ALTER TABLE `Absences`
+  ADD PRIMARY KEY (`idAbsence`),
+  ADD KEY `IdUtilisateur` (`EleveId`);
+
+--
+-- Index pour la table `ClassePromo`
+--
+ALTER TABLE `ClassePromo`
+  ADD PRIMARY KEY (`PromoClassId`),
+  ADD KEY `ClasseId` (`ClasseId`,`PromotionId`),
+  ADD KEY `PromotionId` (`PromotionId`),
+  ADD KEY `ResponsableId` (`ResponsableId`);
+
+--
+-- Index pour la table `Classes`
+--
+ALTER TABLE `Classes`
+  ADD PRIMARY KEY (`ClasseId`);
+
+--
+-- Index pour la table `Cours`
+--
+ALTER TABLE `Cours`
+  ADD PRIMARY KEY (`CoursId`),
+  ADD KEY `PromoClassId` (`PromoClassId`),
+  ADD KEY `MatiereId` (`MatiereId`),
+  ADD KEY `EnseignantId` (`EnseignantId`),
+  ADD KEY `SalleId` (`SalleId`);
+
+--
+-- Index pour la table `EleveCP`
+--
+ALTER TABLE `EleveCP`
+  ADD PRIMARY KEY (`EleveCPId`),
+  ADD KEY `EleveId` (`EleveId`),
+  ADD KEY `ClassPromoId` (`ClassPromoId`);
+
+--
+-- Index pour la table `Eleves`
+--
+ALTER TABLE `Eleves`
+  ADD PRIMARY KEY (`EleveId`);
+
+--
+-- Index pour la table `Enseignants`
+--
+ALTER TABLE `Enseignants`
+  ADD PRIMARY KEY (`EnseignantId`);
+
+--
+-- Index pour la table `Matiere`
+--
+ALTER TABLE `Matiere`
+  ADD PRIMARY KEY (`MatiereId`),
+  ADD KEY `UeId` (`UeId`);
+
+--
+-- Index pour la table `Notes`
+--
+ALTER TABLE `Notes`
+  ADD PRIMARY KEY (`NoteId`),
+  ADD KEY `IdEnseignant` (`MatiereId`),
+  ADD KEY `idEleve` (`EleveCPId`);
+
+--
+-- Index pour la table `Promotion`
+--
+ALTER TABLE `Promotion`
+  ADD PRIMARY KEY (`IdPromotion`);
+
+--
+-- Index pour la table `Salle`
+--
+ALTER TABLE `Salle`
+  ADD PRIMARY KEY (`IdSalle`);
+
+--
+-- Index pour la table `Ue`
+--
+ALTER TABLE `Ue`
+  ADD PRIMARY KEY (`UeId`),
+  ADD KEY `ClassId` (`ClassId`);
+
+--
+-- Index pour la table `Utilisateurs`
+--
+ALTER TABLE `Utilisateurs`
+  ADD PRIMARY KEY (`IdUtilisateur`);
+
+--
+-- AUTO_INCREMENT pour les tables
+--
+
+--
+-- AUTO_INCREMENT pour la table `Absences`
+--
+ALTER TABLE `Absences`
+  MODIFY `idAbsence` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `ClassePromo`
+--
+ALTER TABLE `ClassePromo`
+  MODIFY `PromoClassId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `Classes`
+--
+ALTER TABLE `Classes`
+  MODIFY `ClasseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT pour la table `Cours`
+--
+ALTER TABLE `Cours`
+  MODIFY `CoursId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT pour la table `EleveCP`
+--
+ALTER TABLE `EleveCP`
+  MODIFY `EleveCPId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `Enseignants`
+--
+ALTER TABLE `Enseignants`
+  MODIFY `EnseignantId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `Matiere`
+--
+ALTER TABLE `Matiere`
+  MODIFY `MatiereId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `Notes`
+--
+ALTER TABLE `Notes`
+  MODIFY `NoteId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `Promotion`
+--
+ALTER TABLE `Promotion`
+  MODIFY `IdPromotion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `Salle`
+--
+ALTER TABLE `Salle`
+  MODIFY `IdSalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `Ue`
+--
+ALTER TABLE `Ue`
+  MODIFY `UeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `Utilisateurs`
+--
+ALTER TABLE `Utilisateurs`
+  MODIFY `IdUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Contraintes pour les tables
+--
+
+--
+-- Contraintes pour la table `Absences`
+--
+ALTER TABLE `Absences`
+  ADD CONSTRAINT `Absences_ibfk_1` FOREIGN KEY (`EleveId`) REFERENCES `Eleves` (`EleveId`);
+
+--
+-- Contraintes pour la table `ClassePromo`
+--
+ALTER TABLE `ClassePromo`
+  ADD CONSTRAINT `ClassePromo_ibfk_1` FOREIGN KEY (`ClasseId`) REFERENCES `Classes` (`ClasseId`),
+  ADD CONSTRAINT `ClassePromo_ibfk_2` FOREIGN KEY (`PromotionId`) REFERENCES `Promotion` (`IdPromotion`),
+  ADD CONSTRAINT `ClassePromo_ibfk_3` FOREIGN KEY (`ResponsableId`) REFERENCES `Enseignants` (`EnseignantId`);
+
+--
+-- Contraintes pour la table `Cours`
+--
+ALTER TABLE `Cours`
+  ADD CONSTRAINT `Cours_ibfk_2` FOREIGN KEY (`PromoClassId`) REFERENCES `ClassePromo` (`PromoClassId`),
+  ADD CONSTRAINT `Cours_ibfk_3` FOREIGN KEY (`MatiereId`) REFERENCES `Matiere` (`MatiereId`),
+  ADD CONSTRAINT `Cours_ibfk_4` FOREIGN KEY (`EnseignantId`) REFERENCES `Enseignants` (`EnseignantId`),
+  ADD CONSTRAINT `Cours_ibfk_5` FOREIGN KEY (`SalleId`) REFERENCES `Salle` (`IdSalle`);
+
+--
+-- Contraintes pour la table `EleveCP`
+--
+ALTER TABLE `EleveCP`
+  ADD CONSTRAINT `EleveCP_ibfk_2` FOREIGN KEY (`ClassPromoId`) REFERENCES `ClassePromo` (`PromoClassId`),
+  ADD CONSTRAINT `EleveCP_ibfk_1` FOREIGN KEY (`EleveId`) REFERENCES `Eleves` (`EleveId`);
+
+--
+-- Contraintes pour la table `Eleves`
+--
+ALTER TABLE `Eleves`
+  ADD CONSTRAINT `Eleves_ibfk_1` FOREIGN KEY (`EleveId`) REFERENCES `Utilisateurs` (`IdUtilisateur`);
+
+--
+-- Contraintes pour la table `Enseignants`
+--
+ALTER TABLE `Enseignants`
+  ADD CONSTRAINT `Enseignants_ibfk_1` FOREIGN KEY (`EnseignantId`) REFERENCES `Utilisateurs` (`IdUtilisateur`);
+
+--
+-- Contraintes pour la table `Matiere`
+--
+ALTER TABLE `Matiere`
+  ADD CONSTRAINT `Matiere_ibfk_1` FOREIGN KEY (`UeId`) REFERENCES `Ue` (`UeId`);
+
+--
+-- Contraintes pour la table `Notes`
+--
+ALTER TABLE `Notes`
+  ADD CONSTRAINT `Notes_ibfk_1` FOREIGN KEY (`MatiereId`) REFERENCES `Matiere` (`MatiereId`),
+  ADD CONSTRAINT `Notes_ibfk_2` FOREIGN KEY (`EleveCPId`) REFERENCES `EleveCP` (`EleveCPId`);
+
+--
+-- Contraintes pour la table `Ue`
+--
+ALTER TABLE `Ue`
+  ADD CONSTRAINT `Ue_ibfk_1` FOREIGN KEY (`ClassId`) REFERENCES `Classes` (`ClasseId`);
