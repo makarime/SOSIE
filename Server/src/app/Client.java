@@ -9,7 +9,6 @@ import utils.socket.*;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
@@ -46,6 +45,20 @@ public class Client {
         socket.addMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
         socket.addMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
         socket.addMessageArrival(UserCoursesRequest.class, onUserCoursesRequest);
+        socket.addMessageArrival(LogoutRequest.class, onLogoutRequest);
+    }
+
+    public void logoutRegister() {
+        socket.addMessageArrival(LoginRequest.class, onLoginRequest);
+        socket.removeMessageArrival(ProxyRequest.class, onProxyRequest);
+        socket.removeMessageArrival(ProxyIdRequest.class, onProxyIdRequest);
+        socket.removeMessageArrival(ProxyReverseIdRequest.class, onProxyReverseIdRequest);
+        socket.removeMessageArrival(ChangeUserEmailRequest.class, onChangeUserEmailRequest);
+        socket.removeMessageArrival(ChangeUserPasswordRequest.class, onChangeUserPasswordRequest);
+        socket.removeMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        socket.removeMessageArrival(ChangeUserProfileImageRequest.class, onChangeUserProfileImageRequest);
+        socket.removeMessageArrival(UserCoursesRequest.class, onUserCoursesRequest);
+        socket.removeMessageArrival(LogoutRequest.class, onLogoutRequest);
     }
 
     public IMessageArrival<LoginRequest> onLoginRequest = (sender, event) -> {
@@ -56,6 +69,11 @@ public class Client {
             loginMessageRegister(user);
             this.user = user;
         }
+    };
+
+    public IMessageArrival<LogoutRequest> onLogoutRequest = (sender, event) -> {
+        logoutRegister();
+        user = null;
     };
 
     public IMessageArrival<ProxyRequest> onProxyRequest = (sender, event) -> {
