@@ -175,6 +175,9 @@ public class MainController implements Initializable {
             final int finalI = i;
             Async.execute(() -> {
                 List<Course> l = this.currentWeek().getDay(finalI).getCourses();
+                if (l.size() == 0)
+                    return;
+
                 Platform.runLater(() -> {
                     Calendar calendar = GregorianCalendar.getInstance();
                     for (Course course : l) {

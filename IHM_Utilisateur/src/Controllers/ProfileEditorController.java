@@ -150,7 +150,7 @@ public class ProfileEditorController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
-                alert.setContentText("Les mots de passe rentrés ne corresponde pas.");
+                alert.setContentText("Les mots de passe rentrés ne correspondent pas.");
                 alert.showAndWait();
             }
         }
