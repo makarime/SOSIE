@@ -25,7 +25,7 @@
                 <Insets top="5.0"/>
             </VBox.margin>
         </Label>
-        <HBox prefWidth="280.0">
+        <HBox prefWidth="300.0">
             <ChoiceBox fx:id="classBatchesChoiceBox"/>
             <Button fx:id="classBatchInfoButton" mnemonicParsing="false" onAction="#classBatchInfoAction"
                     text="Voir promotion">
